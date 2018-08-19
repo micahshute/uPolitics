@@ -1,6 +1,6 @@
-ENV['SINATRA-ENV'] ||= "development"
+ENV['SINATRA_ENV'] ||= "development"
 
-require 'bundler/setup'
+Bundler.setup
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
 ActiveRecord::Base.establish_connection(

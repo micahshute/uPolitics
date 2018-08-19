@@ -1,3 +1,5 @@
+require './config/environment'
+
 class ApplicationController < Sinatra::Base
 
     configure do 
@@ -8,6 +10,10 @@ class ApplicationController < Sinatra::Base
             # SecureRandom.hex(64)
             "SAVE_OUTPUT_OF_ABOVE_AS_ENV_VARIABLE"
         }
+    end
+
+    get '/' do
+        "Hello World"
     end
 
 end
