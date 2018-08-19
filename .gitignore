@@ -5,6 +5,9 @@ capybara-*.html
 /tmp
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/*.sqlite
+/db/*.db
+/db/schema.rb
 /public/system
 /coverage/
 /spec/tmp
