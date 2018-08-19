@@ -7,9 +7,8 @@ class Post < ActiveRecord::Base
 
     belongs_to :user
     belongs_to :postable, polymorphic: true
-    #TODO: REMOVE BELOW IF REPLYING DOESNT WORK*********
+
     has_many :posts, as: :postable 
-    #******REMOVE ABOVE IF REPLYING DOESNT WORK*********
     has_many :reactions, as: :reactable
 
 end
