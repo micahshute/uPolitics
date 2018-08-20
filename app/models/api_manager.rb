@@ -93,6 +93,10 @@ class APIManager
         sponsor
     end
 
+    def self.call(uri)
+        get_and_parse(uri)
+    end
+
     def self.recent_personal_explanations
         uri = BASE_URI + "#{CONGRESS}.explanations.json"
         json = get_and_parse(uri)
@@ -103,6 +107,11 @@ class APIManager
         uri = BASE_URI + "#{CONGRESS}/explanations/votes.json"
         json = get_and_parse(uri)
         json["results"]
+    end
+
+    def self.votes(chamber, session, role_call)
+        uri = BASE_URI + "#{CONGRESS}/#{chamber}/sessions/#{session}/votes/#{role_call}.json"
+        get_and_parse(uri)["results"]["votes"]
     end
 
     def self.personal_explanations_by_member(id)
