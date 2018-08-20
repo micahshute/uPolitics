@@ -16,10 +16,15 @@ class ApplicationController < Sinatra::Base
       if not authorized?
         erb :"authenticate/index_newuser"
       else
-        "Welcome, logged in user"
+        erb :"users/index"
       end
     end
 
+
+    get '/logout' do
+        session.clear
+        redirect '/'
+    end
 
     helpers do
 
