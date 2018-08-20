@@ -3,13 +3,13 @@
 
   <form class="signup" action="/signup" method="post">
     <input type="text" name="user[name]" id="name" placeholder="Name">
-    <p><%= @errors[:name].first.capitalize if (!!@errors && @errors[:name])%></p>
+    <p><%= "Name #{@errors[:name].first}" if (!!@errors && @errors[:name] && @errors[:name].first)%></p>
     <input type="text" name="user[username]" id="username" placeholder="Username">
-    <p><%= @errors[:username].first.capitalize if (!!@errors && @errors[:username])%></p>
+    <p><%= "Username #{@errors[:username].first}" if (!!@errors && @errors[:username] && @errors[:username].first)%></p>
     <input type="password" name="user[password]" placeholder="Password">
-    <p><%= @errors[:password].first.capitalize if (!!@errors && @errors[:password])%></p>
+    <p><%= "Password #{@errors[:password].first}" if (!!@errors && @errors[:password] && @errors[:password].first)%></p>
     <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Confirm Password">
-    <p><%= @errors[:password_confirmation].first.capitalize if (!!@errors && @errors[:password_confirmation])%></p>
+    <p><%= "Password confirmation #{@errors[:password_confirmation].first}" if (!!@errors && @errors[:password_confirmation] && @errors[:password_confirmation].first)%></p>
     <input type="submit" name="signup" value="Signup">
   </form>
 </section>
