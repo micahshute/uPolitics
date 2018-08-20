@@ -1,0 +1,8 @@
+<section>
+  <h2>Log in</h2>
+  <p class="error"><%= @error if @error%></p>
+  <form class="login" action="/login" method="post">
+    <input type="text" name="email" id="email" placeholder="Email">
+    <input type="password" name="password" id="password">
+  </form>
+</section>

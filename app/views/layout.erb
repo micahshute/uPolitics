@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>uPolitic</title>
+  </head>
+  <body>
+    <header>
+      <h1>uPolitic</h1>
+
+    <%if not logged_in?%>
+      <div class="auth-links">
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      </div>
+    <%else%>
+      <div class="header-links">
+        <a href="/">Home</a>
+        <a href="#">Following</a>
+        <a href="#">My Activity</a>
+        <a href="#">Logout</a>
+      </div>
+    <%end%>
+    </header>
+
+    <%=yield%>
+
+    <footer>
+      <p>&copy;ShuteApps</p>
+    </footer>
+  </body>
+</html>
