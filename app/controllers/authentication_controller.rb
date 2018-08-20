@@ -12,10 +12,24 @@ class AuthenticationController < ApplicationController
 
     post '/login' do
         redirect '/' if authorized?
+        if ((user = User.find_by(email: params[:email])) && user.authenticate(params[:password]))
+          session[:user_id] = user.id
+          redirect '/'
+        else
+          @error = "Improper credentials entered"
+          erb :"/authenticate/login"
+        end
     end
 
     post '/signup' do
         redirect '/' if authorized?
-        
+        user = User.new(params[:user])
+        if user.save
+          session[:user_id] = user.id
+          redirect '/'
+        else
+          @errors = user.errors.messages
+          erb :"/authenticate/signup"
+        end
     end
 end
