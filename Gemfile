@@ -14,3 +14,7 @@ gem "sysrandom", "~> 1.0"
 group :development do
     gem "pry", "~> 0.11.3"
 end
+
+gem "httparty", "~> 0.16.2"
+
+gem "json", "~> 2.1"

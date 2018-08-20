@@ -9,4 +9,5 @@ ActiveRecord::Base.establish_connection(
 )
 
 require_relative './secrets'
+require_relative '../app/models/concerns/slugify'
 require_all 'app'

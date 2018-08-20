@@ -1,4 +1,6 @@
 class Reaction < ActiveRecord::Base
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
     validates :user_id, presence: true
     validates :reactable_id, presence: true
     validates :reactable_type, presence: true

@@ -1,4 +1,6 @@
 class Member < ActiveRecord::Base
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
     validates :member_identifier, presence: true
 
     has_many :user_members 

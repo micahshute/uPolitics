@@ -1,5 +1,6 @@
 class Committee < ActiveRecord::Base
-
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
     validates :committee_identifier, presence: true
     validates :congress, presence: true
     validates :chamber, presence: true

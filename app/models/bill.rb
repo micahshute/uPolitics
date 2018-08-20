@@ -1,4 +1,6 @@
 class Bill < ActiveRecord::Base
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
     validates :congress, presence: true
     validates :bill_identifier, presence: true
 

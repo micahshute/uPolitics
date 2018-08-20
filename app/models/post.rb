@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
     validates :content, presence: true
     validates :user_id, presence: true
     validates :postable_id, presence: true

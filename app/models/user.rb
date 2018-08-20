@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
+
     has_secure_password
     validates :name, presence: true
     validates :username, presence: true
