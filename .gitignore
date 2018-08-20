@@ -19,6 +19,7 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 config/master.key
 config/application.yml
+config/secrets.rb
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
 
@@ -50,3 +51,6 @@ bower.json
 # Ignore node_modules
 node_modules/
 
+
+# Ignore application configuration
+/config/application.yml

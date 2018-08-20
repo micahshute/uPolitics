@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :name, presence: true
     validates :username, presence: true
-    validates_uniqueness_of :email
+    validates_uniqueness_of :username
 
     belongs_to :state
     has_many :posts

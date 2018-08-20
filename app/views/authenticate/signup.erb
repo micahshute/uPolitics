@@ -1,14 +1,15 @@
 <section class="signup">
   <h2>Signup</h2>
 
-  <form class="signup" action="index.html" method="post">
+  <form class="signup" action="/signup" method="post">
     <input type="text" name="user[name]" id="name" placeholder="Name">
-    <p><%= @errors[:email].first.capitalize if (!!@errors && @errors[:name])%></p>
+    <p><%= @errors[:name].first.capitalize if (!!@errors && @errors[:name])%></p>
     <input type="text" name="user[username]" id="username" placeholder="Username">
     <p><%= @errors[:username].first.capitalize if (!!@errors && @errors[:username])%></p>
     <input type="password" name="user[password]" placeholder="Password">
     <p><%= @errors[:password].first.capitalize if (!!@errors && @errors[:password])%></p>
     <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Confirm Password">
     <p><%= @errors[:password_confirmation].first.capitalize if (!!@errors && @errors[:password_confirmation])%></p>
+    <input type="submit" name="signup" value="Signup">
   </form>
 </section>

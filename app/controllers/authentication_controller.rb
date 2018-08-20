@@ -12,7 +12,7 @@ class AuthenticationController < ApplicationController
 
     post '/login' do
         redirect '/' if authorized?
-        if ((user = User.find_by(email: params[:email])) && user.authenticate(params[:password]))
+        if ((user = User.find_by(username: params[:username])) && user.authenticate(params[:password]))
           session[:user_id] = user.id
           redirect '/'
         else

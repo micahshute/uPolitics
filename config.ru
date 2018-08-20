@@ -5,4 +5,5 @@ require './config/environment'
 #   end
 
 use Rack::MethodOverride
+use AuthenticationController
 run ApplicationController
