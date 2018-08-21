@@ -7,7 +7,7 @@ class MemberAPI
         return exists
       else
         n = self.new_from_id(member_id)
-        n.save
+        n.save_decorator
         return n
       end
     end

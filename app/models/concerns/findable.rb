@@ -5,12 +5,12 @@ module Findable
     end
 
     def all
-      self.class_varaible_get(:@@all)
+      self.class_variable_get(:@@all)
     end
   end
   module InstanceMethods
 
-    def save
+    def save_decorator
       all = self.class.all
       all << self
     end

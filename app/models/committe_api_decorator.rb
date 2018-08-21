@@ -7,7 +7,7 @@ class CommitteeAPI
         return exists
       else
         n = self.new_from_id(id, chamber)
-        n.save
+        n.save_decorator
         return n
       end
     end

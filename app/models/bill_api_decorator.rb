@@ -7,7 +7,7 @@ class BillAPI
       return exists
     else
       n = self.new_from_id(id)
-      n.save
+      n.save_decorator
       return n
     end
   end
@@ -19,7 +19,7 @@ class BillAPI
 
     attr_reader :bill, :api_manager, :data
 
-    def initialize(bill:, api_manager: )
+    def initialize(bill:, api_manager: APIManager )
         @bill = bill
         @api_manager = api_manager
         @data = api_manager.bill(bill.bill_identifier)

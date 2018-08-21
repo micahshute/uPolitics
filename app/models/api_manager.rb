@@ -35,7 +35,7 @@ class APIManager
         json = get_and_parse(uri)
         json["results"]
     end
-    
+
 
     def self.member_votes(id)
         uri = BASE_URI + "members/#{id}/votes.json"
@@ -176,6 +176,8 @@ class APIManager
     def self.bill(id)
         uri = BASE_URI + "#{CONGRESS}/bills/#{id}.json"
         json = get_and_parse(uri)
+        #TODO throw error
+        return nil if !json["results"]
         json["results"][0]
     end
 
@@ -222,7 +224,7 @@ class APIManager
         json["results"][0]
     end
 
-    private 
+    private
 
     def self.get_and_parse(uri)
         res = HTTParty.get(uri, HEADERS)
