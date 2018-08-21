@@ -6,6 +6,10 @@ class UserAPIDecorator
         @api_manager = api_manager
     end
 
+    def state_senators
+        
+    end
+
     def followed_bills
         bills = user.followed_bills
         bills.map { |bill| BillAPI.new(bill, api_manager)}

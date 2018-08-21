@@ -8,6 +8,13 @@ class BillAPI
         @data = api_manager.bill(bill.bill_identifier)
     end
 
+    def save    
+        saved = bill.save
+        @bill = saved if saved.class == BillPlaceholder
+        !!saved
+        #TODO: Throw error if save failed
+    end
+
     def title 
         @data["title"]
     end

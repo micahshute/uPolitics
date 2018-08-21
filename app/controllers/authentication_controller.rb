@@ -53,7 +53,12 @@ class AuthenticationController < ApplicationController
         state = State.new(params[:state])
         current_user.state = state
         current_user.save
-        redirect '/'
+        redirect '/signup/verify'
+    end
+
+    get '/signup/verify' do
+        @user = UserAPIDecorator.new(current_user, APIManager)
+        erb :"authenticate/verify_setup"
     end
     
 end
