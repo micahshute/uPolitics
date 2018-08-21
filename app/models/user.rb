@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     has_many :user_bills
     has_many :followed_bills, :through => :user_bills, :source => :bill
     has_many :user_members
-    has_many :followed_members, :through => :user_members, :source => :members
+    has_many :followed_members, :through => :user_members, :source => :member
 
     has_many :reacted_bills, :through => :reactions, :source => :reactable, source_type: 'Bill'
     has_many :reacted_members, :through => :reactions, :source => :reactable, source_type: 'Member'

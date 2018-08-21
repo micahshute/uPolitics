@@ -8,7 +8,9 @@ class MemberPlaceholder
     end
 
     def save
-        return member if ((member = Member.find_or_create_by(member_identifier: self.member_identifier)) && member.save)
+        if ((member = Member.find_or_create_by(member_identifier: self.member_identifier)) && member.save)
+          return member
+        end
         #TODO: Throw error here
         return nil
     end

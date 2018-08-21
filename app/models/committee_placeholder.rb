@@ -10,7 +10,9 @@ class CommitteePlaceholder
     end
 
     def save
-        return committee if ((committee = Committee.find_or_create_by(committee_identifier: self.committee_identifier, congress: self.congress, chamber: self.chamber)) && committee.save)
+        if ((committee = Committee.find_or_create_by(committee_identifier: self.committee_identifier, congress: self.congress, chamber: self.chamber)) && committee.save)
+          return committee
+        end
         #TODO: Throw error here
         return nil
     end

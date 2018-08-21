@@ -1,7 +1,7 @@
 class UserAPIDecorator
-
+    
     attr_reader :user, :api_manager
-    def initialize(user: , api_manager: )
+    def initialize(user: , api_manager: APIManager)
         @user = user
         @api_manager = api_manager
         @state_senators = []
@@ -10,20 +10,20 @@ class UserAPIDecorator
 
     def state_senators
         return @state_senators if ((@state_senators.length > 0) && (@state_senators[0].state == user.state.abbreviation))
-        data = api_manager.senators_from_state
+        data = api_manager.senators_from_state(user.state.abbreviation)
         @state_senators = data.map{|hash| MemberAPI.new_from_id(hash["id"])}
-        senators
+        @state_senators
     end
 
     def state_reprisentitives
         return @state_house if ((@state_house.length > 0) && (@state_house[0].state == user.state.abbreviation))
-        data = api_manager.reprisentitives_from_state
-        house_reps = data.map{|hash| MemberAPI.new_from_id(hash["id"])}
-        house_reps
+        data = api_manager.reprisentitives_from_state(user.state.abbreviation)
+        @state_house = data.map{|hash| MemberAPI.new_from_id(hash["id"])}
+        @state_house
     end
 
     def save_state_senators
-        if @state_senators.length <= 0 
+        if @state_senators.length <= 0
             return nil
         else
             @state_senators.each do |s|
@@ -34,7 +34,7 @@ class UserAPIDecorator
     end
 
     def save_state_reprisentitives
-        if @state_house.length <= 0 
+        if @state_house.length <= 0
             return nil
         else
             @state_house.each do |s|

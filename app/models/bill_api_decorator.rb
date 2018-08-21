@@ -1,4 +1,16 @@
 class BillAPI
+  extend Findable::ClassMethods
+  include Findable::InstanceMethods
+
+  def self.find_or_create_by(id: )
+    if !!(exists = self.all.find{|b| b.bill.bill_identifier == id})
+      return exists
+    else
+      n = self.new_from_id(id)
+      n.save
+      return n
+    end
+  end
 
     def self.new_from_id(bill_id)
         bill = BillPlaceholder.new(bill_identifier: bill_id)
@@ -13,14 +25,14 @@ class BillAPI
         @data = api_manager.bill(bill.bill_identifier)
     end
 
-    def save    
+    def save
         saved = bill.save
         @bill = saved if saved.class == BillPlaceholder
         !!saved
         #TODO: Throw error if save failed
     end
 
-    def title 
+    def title
         @data["title"]
     end
 
@@ -37,11 +49,11 @@ class BillAPI
         }
     end
 
-    def link 
+    def link
         @data["govtrack_url"]
     end
 
-    def sponsor 
+    def sponsor
         MemberAPI.new_from_id(id: @data)
     end
 

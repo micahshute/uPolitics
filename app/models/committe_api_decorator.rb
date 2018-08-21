@@ -1,4 +1,16 @@
 class CommitteeAPI
+    extend Findable::ClassMethods
+    include Findable::InstanceMethods
+
+    def self.find_or_create_by(id: , chamber:)
+      if !!(exists = self.all.find{|com| (com.committee.chamber == chamber) && (com.committee.committe_id == id)})
+        return exists
+      else
+        n = self.new_from_id(id, chamber)
+        n.save
+        return n
+      end
+    end
 
     def self.new_from_id(committee_id, chamber)
         committee = CommitteePlaceholder.new(committee_identifier: committee_id, chamber: chamber)
