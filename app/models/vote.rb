@@ -36,4 +36,5 @@ class Vote
         end
         self
     end
+    
 end

@@ -35,8 +35,6 @@ class APIManager
         json = get_and_parse(uri)
         json["results"]
     end
-
-
     
 
     def self.member_votes(id)
@@ -197,8 +195,6 @@ class APIManager
         uri = BASE_URI + "bills/subjects/search.json?query=#{query}"
         json = get_and_parse(uri)
         json["results"]
-    end
-
     end
 
     def self.bill_by_member(id,type)

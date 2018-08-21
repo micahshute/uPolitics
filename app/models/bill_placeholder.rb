@@ -8,7 +8,7 @@ class BillPlaceholder
     end
 
     def save
-        return bill if ((bill = Bill.new(congress: self.congress, bill_identifier: self.bill_identifier)) && bill.save)
+        return bill if ((bill = Bill.find_or_create_by(congress: self.congress, bill_identifier: self.bill_identifier)) && bill.save)
         #TODO: Throw error here
         return nil
     end

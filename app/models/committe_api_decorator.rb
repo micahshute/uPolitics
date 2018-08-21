@@ -1,5 +1,10 @@
 class CommitteeAPI
 
+    def self.new_from_id(committee_id, chamber)
+        committee = CommitteePlaceholder.new(committee_identifier: committee_id, chamber: chamber)
+        self.new(committee_identifier: committe_id, chamber: chamber)
+    end
+
     attr_reader :committee, :api_manager, :data
 
 

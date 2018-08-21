@@ -1,5 +1,10 @@
 class BillAPI
 
+    def self.new_from_id(bill_id)
+        bill = BillPlaceholder.new(bill_identifier: bill_id)
+        self.new(bill: bill, api_manager: APIManager)
+    end
+
     attr_reader :bill, :api_manager, :data
 
     def initialize(bill:, api_manager: )
@@ -37,7 +42,7 @@ class BillAPI
     end
 
     def sponsor 
-        MemberAPI.find_or_create(id: @data.)
+        MemberAPI.new_from_id(id: @data)
     end
 
     def introduced
