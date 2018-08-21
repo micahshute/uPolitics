@@ -15,9 +15,9 @@ class UserAPIDecorator
         @state_senators
     end
 
-    def state_reprisentitives
+    def state_representatives
         return @state_house if ((@state_house.length > 0) && (@state_house[0].state == user.state.abbreviation))
-        data = api_manager.reprisentitives_from_state(user.state.abbreviation)
+        data = api_manager.representatives_from_state(user.state.abbreviation)
         @state_house = data.map{|hash| MemberAPI.new_from_id(hash["id"])}
         @state_house
     end
@@ -33,7 +33,7 @@ class UserAPIDecorator
         end
     end
 
-    def save_state_reprisentitives
+    def save_state_representatives
         if @state_house.length <= 0
             return nil
         else
@@ -46,7 +46,7 @@ class UserAPIDecorator
 
     def save_state_data
         save_state_senators
-        save_state_reprisentitives
+        save_state_representatives
     end
 
     def followed_bills

@@ -1,3 +1,29 @@
 <h2><%=@user.user.state.name%></h2>
+
+<form action="/profile/<%="#{@user.user.state.name}_#{@user.user.state.abbreviation}"%>" method="post">
+    <input type="submit" id="verify" value="Save my state">
+</form>
 <h3>Senators</h3>
-<%%>
+<%@user.state_senators.each do |senator|%>
+
+    <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
+    <div class="contact-info-senate">
+        <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
+        <p>Phone: <%=senator.phone%></p>
+        <p>Office: <%=senator.office%></p>
+        <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
+        <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+    </div>
+
+<%end%>
+<h3>House Representatives</h3>
+<%@user.state_representatives.each do |rep|%>
+    <h4><%="#{rep.long_title} #{rep.name} (#{rep.party})"%></h4>
+    <div class="contact-info-house">
+        <p>Contact: <a href="<%=rep.contact_link%>"><%=rep.contact_link%></a></p>
+        <p>Phone: <%=rep.phone%></p>
+        <p>Office: <%=rep.office%></p>
+        <p>Facebook: <a href="<%=rep.facebook%>" target="_"><%=rep.facebook%></a></p>
+        <p>Twitter: <a href="<%=rep.twitter%>" target="_"><%=rep.twitter%></a></p>
+    </div>
+<%end%>

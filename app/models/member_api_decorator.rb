@@ -36,4 +36,42 @@ class MemberAPI
     end
 
 
+    def name
+      "#{@data["first_name"]} #{@data["last_name"]}"
+    end
+
+    def title
+      @data["roles"][0]["short_title"]
+    end
+
+    def long_title
+      @data["roles"][0]["title"]
+    end
+
+    def party
+      @data["current_party"]
+    end
+
+    def phone
+      @data["roles"][0]["phone"]
+    end
+
+    def office
+      @data["roles"][0]["office"]
+    end
+
+    def contact_link
+      @data["roles"][0]["contact_form"]
+    end
+
+    def facebook
+      "https://www.facebook.com/#{@data["facebook_account"]}"
+    end
+
+    def twitter
+      "https://www.twitter.com/#{@data["twitter_account"]}"
+    end
+
+
+
 end

@@ -30,7 +30,7 @@ class APIManager
         json["results"]
     end
 
-    def self.reprisentitives_from_state(state)
+    def self.representatives_from_state(state)
         uri = BASE_URI + "members/#{Chamber.house}/#{state}/current.json"
         json = get_and_parse(uri)
         json["results"]

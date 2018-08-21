@@ -10,19 +10,25 @@ class AuthenticationController < ApplicationController
         erb :"authenticate/signup"
     end
 
-    get '/profile' do
+    get '/signup/info' do
         authorize
         erb :"users/profile"
     end
 
     get '/profile/:state' do
+        authorize
         state_info = params[:state].split('_')
-        @state_hash = {
+        state_hash = {
             name: state_info[0].split('-').join(' '),
             abbreviation: state_info[1]
         }
         
-        "Show state details"
+        state = State.find_or_create_by(state_hash)
+        state.save
+        user = current_user
+        user.state = state
+        @user = UserAPIDecorator.new(user: user)
+        erb :"authenticate/verify_setup"
     end
 
     post '/login' do
@@ -41,7 +47,7 @@ class AuthenticationController < ApplicationController
         user = User.new(params[:user])
         if user.save
           session[:user_id] = user.id
-          redirect '/profile'
+          redirect '/signup/info'
         else
           @errors = user.errors.messages
           erb :"/authenticate/signup"
@@ -50,15 +56,16 @@ class AuthenticationController < ApplicationController
 
     post '/profile/:state' do
         authorize
-        state = State.new(params[:state])
-        current_user.state = state
-        current_user.save
-        redirect '/signup/verify'
-    end
-
-    get '/signup/verify' do
-        @user = UserAPIDecorator.new(current_user, APIManager)
-        erb :"authenticate/verify_setup"
+        state_split = params[:state].split("_")
+        state_hash = {
+            name: state_split[0].split('-').join(' '),
+            abbreviation: state_split[1]
+        }
+        state = State.find_or_create_by(state_hash)
+        user = current_user
+        user.state = state
+        user.save
+        redirect '/'
     end
     
 end
