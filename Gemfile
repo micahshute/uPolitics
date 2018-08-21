@@ -10,11 +10,14 @@ gem "shotgun", "~> 0.9.2"
 gem "bcrypt", "~> 3.1"
 gem "tux", "~> 0.3.0"
 gem "sysrandom", "~> 1.0"
+gem "httparty", "~> 0.16.2"
+gem "json", "~> 2.1"
+gem "nokogiri"
 
 group :development do
     gem "pry", "~> 0.11.3"
 end
 
-gem "httparty", "~> 0.16.2"
 
-gem "json", "~> 2.1"
+
+

@@ -17,12 +17,14 @@ class MemberAPI
         self.new(member: member)
     end
 
-    attr_reader :member, :api_manager, :data
+    attr_reader :member, :api_manager, :data, :scraper, :photo_uri
 
-    def initialize(member: , api_manager: APIManager)
+    def initialize(member: , api_manager: APIManager, photo_scraper: nil)
         @member = member
         @api_manager = api_manager
         @data = api_manager.member(member.member_identifier)
+        @scraper = photo_scraper || TwitterPhotoScraper.new(profile_uri: self.twitter)
+        @photo_uri = @scraper.get_photo_source
     end
 
     def save
@@ -71,7 +73,6 @@ class MemberAPI
     def twitter
       "https://www.twitter.com/#{@data["twitter_account"]}"
     end
-
 
 
 end

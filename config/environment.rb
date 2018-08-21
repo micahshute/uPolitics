@@ -7,7 +7,7 @@ ActiveRecord::Base.establish_connection(
     :adapter => "sqlite3",
     :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
 )
-
+require 'open-uri'
 require_relative './secrets'
 require_relative '../app/models/concerns/findable'
 require_relative '../app/models/concerns/slugify'

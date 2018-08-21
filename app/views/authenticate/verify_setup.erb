@@ -4,8 +4,9 @@
     <input type="submit" id="verify" value="Save my state">
 </form>
 <h3>Senators</h3>
-<%@user.state_senators.each do |senator|%>
 
+<%@user.state_senators.each do |senator|%>
+    <img src="<%=senator.photo_uri%>" alt="Profile Picture">
     <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
     <div class="contact-info-senate">
         <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
