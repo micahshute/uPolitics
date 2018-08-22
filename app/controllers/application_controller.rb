@@ -16,6 +16,7 @@ class ApplicationController < Sinatra::Base
       if not authorized?
         erb :"authenticate/index_newuser"
       else
+        @user = UserAPIDecorator.new(user: current_user)
         erb :"users/index"
       end
     end
@@ -72,6 +73,19 @@ class ApplicationController < Sinatra::Base
             else
                 return "on #{time}"
             end
+        end
+
+        def parse_date(date)
+            data = date.split('-')
+            year = data[0]
+            month = data[1]
+            day = data[2]
+            "#{month}/#{day}/#{year}"
+        end
+
+        def authorize_slug(slug)
+            authorize
+            redirect '/' if current_user.slug != slug
         end
 
     end

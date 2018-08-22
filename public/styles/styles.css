@@ -5,3 +5,8 @@ section.signup p{
 .error{
     color: red;
 }
+
+img{
+    height: 10em;
+    width: 10em
+}

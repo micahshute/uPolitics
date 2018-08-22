@@ -1,1 +1,63 @@
-<h2>Good <%= time_of_day%>, <%=current_user.name.split(' ').first %></h2>
+
+<h2>Good <%= time_of_day%>, <%=@user.name.split(' ').first %></h2>
+
+<section class="browse-links">
+<nav class="homepage">
+    <a href="/bills/recent">Browse Recent Bills</a>
+    <a href=""></a>
+</nav>
+</section>
+
+<section class="state-data">
+    <h2><%=@user.state%></h2>
+    <h3>Senators</h3>
+
+    <%@user.state_senators.each do |senator|%>
+        <div class="senator-profile-homepage">
+            <img src="<%=senator.photo_uri%>" alt="Profile Picture">
+            <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
+            <details>
+                <div class="contact-info-senate-homepage">
+                    <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
+                    <p>Phone: <%=senator.phone%></p>
+                    <p>Office: <%=senator.office%></p>
+                    <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
+                    <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+                </div>
+            </details>
+            <div class="senator-stats">
+                <p>Last voted: <%=senator.last_voted%></p>
+                <p>Recent sponsored bills: </p>
+                    <ul>
+                        <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
+                        <li>
+                            <a href="/bills/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
+                            <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
+                            <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
+                            <details>
+                                <p><%=bill.summary || bill.short_summary%></p>
+                            </details>
+                            <%end%>
+                        </li>
+
+                        <%end%>
+                    </ul>
+            </div>
+        </div>
+    <%end%>
+    <h3>House Representatives</h3>
+    <%@user.state_representatives.each do |rep|%>
+        <div class="rep-profile-homepage">
+            <h4><%="#{rep.long_title} #{rep.name} (#{rep.party})"%></h4>
+            <details>
+                <div class="contact-info-house-homepage">
+                    <p>Contact: <a href="<%=rep.contact_link%>"><%=rep.contact_link%></a></p>
+                    <p>Phone: <%=rep.phone%></p>
+                    <p>Office: <%=rep.office%></p>
+                    <p>Facebook: <a href="<%=rep.facebook%>" target="_"><%=rep.facebook%></a></p>
+                    <p>Twitter: <a href="<%=rep.twitter%>" target="_"><%=rep.twitter%></a></p>
+                </div>
+            </details>
+        </div>
+    <%end%>
+</section>

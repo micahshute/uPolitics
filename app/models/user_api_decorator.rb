@@ -8,7 +8,21 @@ class UserAPIDecorator
         @state_house = []
     end
 
+    def name
+        self.user.name
+    end
+
+    def state 
+        return nil if user.state.nil?
+        self.user.state.abbreviation
+    end
+
+    def username
+        self.user.username
+    end
+
     def state_senators
+        return [] if user.state.nil?
         return @state_senators if ((@state_senators.length > 0) && (@state_senators[0].state == user.state.abbreviation))
         data = api_manager.senators_from_state(user.state.abbreviation)
         @state_senators = data.map{|hash| MemberAPI.new_from_id(hash["id"])}
@@ -16,6 +30,7 @@ class UserAPIDecorator
     end
 
     def state_representatives
+        return [] if user.state.nil?
         return @state_house if ((@state_house.length > 0) && (@state_house[0].state == user.state.abbreviation))
         data = api_manager.representatives_from_state(user.state.abbreviation)
         @state_house = data.map{|hash| MemberAPI.new_from_id(hash["id"])}

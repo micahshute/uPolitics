@@ -201,7 +201,7 @@ class APIManager
 
     def self.bill_by_member(id,type)
         #TODO: throw/catch error here
-        return nil if (type != "introduced" || type != "updated")
+        return nil if (type != "introduced" && type != "updated")
         uri = BASE_URI + "members/#{id}/bills/#{type}.json"
         json = get_and_parse(uri)
         json["results"]

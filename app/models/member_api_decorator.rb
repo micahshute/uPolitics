@@ -1,6 +1,8 @@
 class MemberAPI
     extend Findable::ClassMethods
     include Findable::InstanceMethods
+    extend Slugify::ClassMethods
+    include Slugify::InstanceMethods
 
     def self.find_or_create_by(member_id: )
       if !!(exists = self.all.find{|mem| mem.member.member_identifier == member_id})
@@ -25,6 +27,10 @@ class MemberAPI
         @data = api_manager.member(member.member_identifier)
         @scraper = photo_scraper || TwitterPhotoScraper.new(profile_uri: self.twitter)
         @photo_uri = @scraper.get_photo_source
+    end
+
+    def member_identifier
+      self.member.member_identifier
     end
 
     def save
@@ -74,5 +80,12 @@ class MemberAPI
       "https://www.twitter.com/#{@data["twitter_account"]}"
     end
 
+    def last_voted
+      @data["most_recent_vote"]
+    end
+
+    def bill_sponsorships
+      MemberBillDecorator.new(member: self)
+    end
 
 end

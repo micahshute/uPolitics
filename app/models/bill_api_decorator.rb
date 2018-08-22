@@ -1,4 +1,6 @@
 class BillAPI
+  extend Slugify::ClassMethods
+  include Slugify::InstanceMethods
   extend Findable::ClassMethods
   include Findable::InstanceMethods
 
@@ -17,12 +19,26 @@ class BillAPI
         self.new(bill: bill, api_manager: APIManager)
     end
 
+
+    def self.new_from_data(data)
+        bill = BillPlaceholder.new(bill_identifier: data["bill_id"])
+        self.new(bill: bill, api_manager: nil, data: data)
+    end
+
     attr_reader :bill, :api_manager, :data
 
-    def initialize(bill:, api_manager: APIManager )
+    def initialize(bill:, api_manager: APIManager, data: nil)
         @bill = bill
         @api_manager = api_manager
-        @data = api_manager.bill(bill.bill_identifier)
+        if !!api_manager
+            @data = api_manager.bill(bill.bill_identifier)
+        else
+            @data = data
+        end
+    end
+
+    def bill_identifier
+        self.bill.bill_identifier
     end
 
     def save
@@ -50,6 +66,14 @@ class BillAPI
     end
 
     def link
+        congress_gov_url || govtrack_url
+    end
+
+    def congress_gov_url
+        @data["congressdotgov_url"]
+    end
+
+    def govtrack_url
         @data["govtrack_url"]
     end
 
@@ -65,9 +89,16 @@ class BillAPI
         @data["last_vote"]
     end
 
+    def active
+        @data["active"]
+    end
 
     def actions
         @data["actions"].map{|a| Action.new(a)}
+    end
+
+    def enacted
+        @data["enacted"]
     end
 
     def cosponsors_by_party
@@ -93,6 +124,16 @@ class BillAPI
     def votes
         @data["votes"].map{|vote| Vote.new_from_bill(vote)}
     end
+
+    def update_from_source
+        @api_manager = APIManager
+        @data = api_manager.bill(bill.bill_identifier)
+    end
+
+    def introduced_date
+        @data["introduced_date"]
+    end
+
 
     class Action
         attr_reader :id, :chamber, :category, :time, :description
