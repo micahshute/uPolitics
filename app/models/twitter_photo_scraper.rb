@@ -8,7 +8,8 @@ class TwitterPhotoScraper
 
     def get_photo_source
         doc = Nokogiri::HTML(open(self.profile_uri))
-        doc.css('div.ProfileCanopy div.ProfileCardMini a.profile-picture')[0]["href"]
+        link = doc.css('div.ProfileCanopy div.ProfileCardMini a.profile-picture')[0]
+        return !!link ? link["href"] : nil
     end
 
     def save_photo_to_file(filepath)
