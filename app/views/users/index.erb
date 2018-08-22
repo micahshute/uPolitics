@@ -17,6 +17,7 @@
             <img src="<%=senator.photo_uri%>" alt="Profile Picture">
             <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
             <details>
+                <summary>Contact Info</summary>
                 <div class="contact-info-senate-homepage">
                     <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
                     <p>Phone: <%=senator.phone%></p>
@@ -35,6 +36,7 @@
                             <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
                             <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
                             <details>
+                                <summary>Summary</summary>
                                 <p><%=bill.summary || bill.short_summary%></p>
                             </details>
                             <%end%>
