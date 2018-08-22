@@ -4,7 +4,6 @@
 <section class="browse-links">
 <nav class="homepage">
     <a href="#">Browse Senators</a>
-    <a href="#">Browse Representatives</a>
     <a href="#">Browse Committees</a>
     <a href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
     <a href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
@@ -34,7 +33,8 @@
             </details>
             <div class="senator-stats">
                 <p>Last voted: <%=senator.last_voted%></p>
-                <p>Recent sponsored bills: </p>
+                <details>
+                <summary>Recent sponsored bills: </summary>
                     <ul>
                         <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
                         <li>
@@ -50,6 +50,7 @@
 
                         <%end%>
                     </ul>
+                </details>
             </div>
         </div>
     <%end%>

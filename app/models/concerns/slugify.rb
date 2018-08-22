@@ -21,6 +21,9 @@ module ClassMethods
   end
 
   def find_by_slug_from(slug: ,param: , salt: "")
+    if param.include?("identifier")
+      param = param.split("-").first
+    end
     self.all.find{|obj| obj.slug_from(param) == slug} || self.all.find{|obj| obj.slug_and_salt_from(param, salt) == slug}
   end
 

@@ -20,4 +20,16 @@ class User < ActiveRecord::Base
     has_many :reacted_members, :through => :reactions, :source => :reactable, source_type: 'Member'
     has_many :reacted_posts, :through => :reactions, :source => :reactable, source_type: 'Post'
 
+    #TODO : ADD custom validation
+
+#     def password_validation
+
+#     end
+
+#     def username_validation
+#       ensure username.slug == username
+#     end
+
+
+
 end

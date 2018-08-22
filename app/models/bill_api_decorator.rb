@@ -31,7 +31,7 @@ class BillAPI
         @bill = bill
         @api_manager = api_manager
         if !!api_manager
-            @data = api_manager.bill(bill.bill_identifier)
+            @data = api_manager.bill(bill.bill_identifier.split("-").first)
         else
             @data = data
         end
@@ -50,6 +50,10 @@ class BillAPI
 
     def title
         @data["title"]
+    end
+
+    def bill_number
+        @data["bill"]
     end
 
     def short_title
@@ -113,8 +117,20 @@ class BillAPI
         @data["enacted"]
     end
 
+    def republican_cosponsors_number
+        cosponsors_by_party["R"]
+    end
+
+    def democrat_cosponsors_number
+        cosponsors_by_party["D"]
+    end
+
     def cosponsors_by_party
         @data["cosponsors_by_party"]
+    end
+
+    def latest_action
+        @data["latest_major_action"]
     end
 
     def subject
