@@ -43,6 +43,9 @@ class MemberAPI
       @data["roles"][0]["state"]
     end
 
+    def introduction
+      "#{long_title} #{first_name} #{last_name}, (#{party})"
+    end
 
     def name
       "#{@data["first_name"]} #{@data["last_name"]}"

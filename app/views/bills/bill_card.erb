@@ -1,0 +1,15 @@
+<div class="bill-model">
+  <h2><%=@bill.title%></h2>
+  <%if summary = (@bill.summary || @bill.short_summary)%>
+  <h4>Summary</h4>
+    <p class="summary"><%= summary%></p>
+  <%end%>
+  <p>Subject: <%= @bill.subject%></p>
+  <p>Introduced: <%= parse_date(@bill.introduced)%></p>
+  <p>Sponsor <%=@bill.sponsor.introduction%></p>
+  <p>Active: <%= @bill.active?%></p>
+  <h4>Votes</h4>
+  <p>For: <%=@bill.votes.ayes%></p>
+  <p>Against: <%=@bill.votes.nays%></p>
+  <p>Abstains: <%=@bill.votes.abstains%></p>
+</div>

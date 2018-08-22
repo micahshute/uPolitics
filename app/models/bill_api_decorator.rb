@@ -89,7 +89,7 @@ class BillAPI
         @data["last_vote"]
     end
 
-    def active
+    def active?
         @data["active"]
     end
 
