@@ -1,15 +1,27 @@
+<%@bills.each do |bill|%>
 <div class="bill-model">
-  <h2><%=@bill.title%></h2>
-  <%if summary = (@bill.summary || @bill.short_summary)%>
+  <h2><a href="<%=bill.link%>" target="_"><%=bill.title%></a></h2>
+  <%if bill.has_summary?%>
   <h4>Summary</h4>
-    <p class="summary"><%= summary%></p>
+    <p class="summary"><%= bill.available_summary%></p>
   <%end%>
-  <p>Subject: <%= @bill.subject%></p>
-  <p>Introduced: <%= parse_date(@bill.introduced)%></p>
-  <p>Sponsor <%=@bill.sponsor.introduction%></p>
-  <p>Active: <%= @bill.active?%></p>
-  <h4>Votes</h4>
-  <p>For: <%=@bill.votes.ayes%></p>
-  <p>Against: <%=@bill.votes.nays%></p>
-  <p>Abstains: <%=@bill.votes.abstains%></p>
+  <p>Subject: <%= bill.subject%></p>
+  <p>Introduced: <%= parse_date(bill.introduced)%></p>
+  <p>Sponsor: <%=bill.sponsor_name%></p>
+  <p>Active: <%= bill.active?%></p>
+  <%if bill.has_actions?%>
+    <p>Most Recent Action:</p>
+    <%action = bill.actions.first%>
+    <p>Type: <%=action.category%></p>
+    <p><%=action.description%></p>
+  <%end%>
+  <%if bill.has_votes_no_load?%>
+    <h4>Votes</h4>
+    <p>For: <%=bill.votes.first.ayes%></p>
+    <p>Against: <%=bill.votes.first.nays%></p>
+    <p>Abstains: <%=bill.votes.first.abstains%></p>
+  <%end%>
 </div>
+<%end%>
+
+

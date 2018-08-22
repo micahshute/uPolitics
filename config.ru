@@ -7,4 +7,5 @@ require './config/environment'
 use Rack::MethodOverride
 use AuthenticationController
 use UserController
+use BillController
 run ApplicationController

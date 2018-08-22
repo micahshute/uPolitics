@@ -8,6 +8,31 @@ class APIManager
         }
     }
 
+    def self.transform_recent_bills_data(type: , chamber:)
+        data = nil
+        case type
+        when "introduced"
+            data = recent_introduced_bills(chamber)
+        when "upcoming"
+            data = upcoming_senate_bills(chamber)
+        when "updated"
+            data = recent_updated_bills(chamber)
+        when "active"
+            data = recent_active_bills(chamber)
+        when "passed"
+            data = recent_passed_bills(chamber)
+        when "enacted"
+            data = recent_enacted_bills(chamber)
+        when "vetoed"
+            data = recent_vetoed_bills(chamber)
+        else
+            return nil
+        end
+        bills_data = data[0]["bills"]
+        models = bills_data.map{|data| yield(data)}
+        return models
+    end
+
     def self.all_senators
         uri = BASE_URI + "#{CONGRESS}/#{Chamber.senate}/members.json"
         json = get_and_parse(uri)
@@ -174,9 +199,11 @@ class APIManager
     end
 
     def self.bill(id)
+        if ((split = id.split("-")) && split.length > 1)
+            id = split.first
+        end
         uri = BASE_URI + "#{CONGRESS}/bills/#{id}.json"
         json = get_and_parse(uri)
-        #TODO throw error
         return nil if !json["results"]
         json["results"][0]
     end

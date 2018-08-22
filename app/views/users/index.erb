@@ -3,15 +3,14 @@
 
 <section class="browse-links">
 <nav class="homepage">
-    <a href="/bills/recent">Browse Recent Bills</a>
     <a href="#">Browse Senators</a>
     <a href="#">Browse Representatives</a>
     <a href="#">Browse Committees</a>
-    <a href="#">Recent Active Bills</a>
-    <a href="#">Recent Introduced Bills</a>
-    <a href="#">Recent Passed Bills</a>
-    <a href="#">Recent Vetoed Bills</a>
-    <a href="#">Recent Personal Explanation Votes</a>
+    <a href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
+    <a href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
+    <a href="/bills/senate/recent/passed">Recent Passed Bills in Senate</a>
+    <a href="/bills/senate/recent/vetoed">Recent Vetoed Bills in Senate</a>
+    <a href="/">Recent Personal Explanation Votes</a>
 </nav>
 </section>
 
@@ -54,6 +53,8 @@
             </div>
         </div>
     <%end%>
+    <!--
+    <%if false%>
     <h3>House Representatives</h3>
     <%@user.state_representatives.each do |rep|%>
         <div class="rep-profile-homepage">
@@ -69,4 +70,6 @@
             </details>
         </div>
     <%end%>
+    <%end%>
+    !-->
 </section>

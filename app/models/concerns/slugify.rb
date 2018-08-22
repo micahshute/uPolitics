@@ -16,7 +16,12 @@ end
 
 module ClassMethods
   def find_by_slug(slug)
+    # TODO allow decorator to access base class all
     self.all.find{|obj| obj.slug == slug}
+  end
+
+  def find_by_slug_from(slug: ,param: , salt: "")
+    self.all.find{|obj| obj.slug_from(param) == slug} || self.all.find{|obj| obj.slug_and_salt_from(param, salt) == slug}
   end
 
   def slugify(name)

@@ -78,7 +78,11 @@ class BillAPI
     end
 
     def sponsor
-        MemberAPI.new_from_id(id: @data)
+        MemberAPI.new_from_id(@data["sponsor_id"])
+    end
+
+    def sponsor_name
+        "#{@data['sponsor_title']} #{@data['sponsor_name']}, (#{@data['sponsor_party']})"
     end
 
     def introduced
@@ -93,8 +97,16 @@ class BillAPI
         @data["active"]
     end
 
+    def has_actions?
+        !@data["actions"].nil? && @data["actions"].length > 0
+    end
+
     def actions
-        @data["actions"].map{|a| Action.new(a)}
+        if has_actions?
+            @data["actions"].map{|a| Action.new(id: a["id"], chamber: a[:chamber], datetime: a["datetime"], action_type: a["action_type"], description: a["description"])}
+        else
+            []
+        end
     end
 
     def enacted
@@ -113,6 +125,15 @@ class BillAPI
         @data["committees"]
     end
 
+    def has_summary?
+        (!summary.nil? && summary != "") || (short_summary.nil? && short_summary != "")
+    end
+
+    def available_summary
+        return summary if !summary.nil? && summary != ""
+        return short_summary
+    end
+
     def summary
         @data["summary"]
     end
@@ -121,8 +142,22 @@ class BillAPI
         @data["summary_short"]
     end
 
+    def has_votes_no_load?
+        !(@data["votes"].nil? || @data["votes"].length == 0)
+    end
+
+    def has_votes?
+        update_from_source if @data["votes"].nil?
+        @data["votes"] != []
+    end
+
     def votes
-        @data["votes"].map{|vote| Vote.new_from_bill(vote)}
+        update_from_source if @data["votes"].nil?
+        if has_votes?
+            @data["votes"].map{|vote| Vote.new_from_bill(vote)}
+        else
+            return []
+        end
     end
 
     def update_from_source

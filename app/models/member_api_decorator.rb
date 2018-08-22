@@ -44,7 +44,7 @@ class MemberAPI
     end
 
     def introduction
-      "#{long_title} #{first_name} #{last_name}, (#{party})"
+      "#{long_title} #{name}, (#{party})"
     end
 
     def name
