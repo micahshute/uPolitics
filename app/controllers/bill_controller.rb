@@ -130,7 +130,7 @@ class BillController < ApplicationController
     get '/posts/:id/edit' do
         authorize
         if @post = Post.find_by(id: params[:id])
-            redirect '/logout' if !current_user.posts.include?(post)
+            redirect '/logout' if !current_user.posts.include?(@post)
             erb :"posts/edit"
         else
             erb :"errors/not_found"

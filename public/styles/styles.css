@@ -26,3 +26,29 @@ input.chosen{
     background: darkgray;
 }
 
+*{
+    background: whitesmoke;
+}
+
+.wrapper{
+    margin: 0 auto;
+    width: 960px;
+    
+}
+
+.senator-profile-homepage{
+    float: left;
+    width: 450px;
+}
+
+.senator-profile-homepage:last-child{
+    float: right;
+    width: 450px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
