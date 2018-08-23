@@ -3,7 +3,7 @@
 
 <section class="browse-links">
 <nav class="homepage">
-    <a href="#">Browse Senators</a>
+    <a href="/members/senate">Browse Senators</a>
     <a href="#">Browse Committees</a>
     <a href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
     <a href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
@@ -34,6 +34,7 @@
                 <p>Votes With Party: <%=senator.votes_with_party%>%</p>
                 <p>Missed Votes: <%=senator.missed_votes%>%</p>
                 <p>Last voted: <%=senator.last_voted%></p>
+                <p><%="Next Election: #{senator.next_election}" if senator.next_election%></p>
                 <details>
                 <summary>Recent sponsored bills: </summary>
                     <ul>

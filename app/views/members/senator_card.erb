@@ -1,0 +1,54 @@
+<%@members.each do |member|%>
+    <div class="member-card">
+        
+        <h2><a href="#"><%=member.introduction%></a> of <%=member.state%></h2>
+        <summary>Contact Info</summary>
+        <div class="contact-info">
+            <p>Contact: <a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
+            <p>Phone: <%=member.phone%></p>
+            <p>Office: <%=member.office%></p>
+            <p>Facebook: <a href="<%=member.facebook%>" target="_"><%=member.facebook%></a></p>
+            <p>Twitter: <a href="<%=member.twitter%>" target="_"><%=member.twitter%></a></p>
+            <p>Official Site: <%=member.official_site%></p>
+        </div>
+        <div class="senator-stats">
+            <p>Birthday: <%=member.birthday%></p>
+            <p>Next Election: <%=member.next_election%></p>
+            <p>Total Votes: <%=member.total_votes%></p>
+            <p>Votes With Party: <%=member.votes_with_party%>%</p>
+            <p>Missed Votes: <%=member.missed_votes_num%>, <%=member.missed_votes%>%</p>
+            <p>Last voted: <%=member.last_voted%></p>
+        </div> 
+        <div class="actions">
+            <%if member_followed?(id: member.member_identifier)%>
+                <form action="/members/senate/<%=member.slug_from("member_identifier")%>/unfollow" method="post">
+                <input type="submit" id="unfollow" value="Unfollow" class="chosen">
+                </form>
+            <%else%>
+            <form action="/members/senate/<%=member.slug_from("member_identifier")%>/follow" method="post">
+                <input type="submit" id="follow" value="Follow">
+            </form>
+            <%end%>
+            <%if reaction = reaction_to_bill(id: member.member_identifier)%>
+                <%case reaction
+                when "dislike" %>
+                    <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
+                    <input type="submit" name="like" id="like" value="Like">
+                    <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
+                    </form>
+                <%when "like" %>
+                    <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
+                    <input type="submit" name="like" id="like" value="Like" class="chosen">
+                    <input type="submit" name="dislike" id="dislike" value="Dislike">
+                    </form>
+                
+                <%end%>
+            <%else%>
+            <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
+                <input type="submit" name="like" id="like" value="Like">
+                <input type="submit" name="dislike" id="dislike" value="Dislike">
+            </form>
+            <%end%>
+        </div>
+    </div>
+<%end%>

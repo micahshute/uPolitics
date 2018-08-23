@@ -8,4 +8,5 @@ use Rack::MethodOverride
 use AuthenticationController
 use UserController
 use BillController
+use MemberController
 run ApplicationController

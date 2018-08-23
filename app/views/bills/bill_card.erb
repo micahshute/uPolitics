@@ -1,5 +1,5 @@
 <%@bills.each do |bill|%>
-<div class="bill-model">
+<div class="bill-card">
   <h2><a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a></h2>
   <p><a href="<%=bill.link%>" target="_">View Source</a></p>
   <%if bill.has_summary?%>

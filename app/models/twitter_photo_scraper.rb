@@ -8,6 +8,7 @@ class TwitterPhotoScraper
 
     def get_photo_source
         if uri_valid?
+            @profile_uri = @profile_uri.gsub("Rep", "Sen")
             doc = Nokogiri::HTML(open(self.profile_uri))
             link = doc.css('div.ProfileCanopy div.ProfileCardMini a.profile-picture')[0]
             return !!link ? link["href"] : nil
