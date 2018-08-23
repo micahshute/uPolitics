@@ -14,6 +14,7 @@
   </section>
   <section id="current-events">
   <p>Active: <%= @bill.active?%></p>
+  <p><%= "Enacted: #{@bill.enacted}" if @bill.enacted?%></p>
   <p>Last Vote: <%=@bill.last_vote%></p>
   <p>Latest action: <%=@bill.latest_action%></p>
   <%if @bill.has_actions?%>

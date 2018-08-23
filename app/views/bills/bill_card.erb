@@ -10,6 +10,7 @@
   <p>Introduced: <%= parse_date(bill.introduced)%></p>
   <p>Sponsor: <%=bill.sponsor_name%></p>
   <p>Active: <%= bill.active?%></p>
+  <p><%= "Enacted: #{@bill.enacted}" if @bill.enacted?%></p>
   <%if bill.has_actions?%>
     <p>Most Recent Action:</p>
     <%action = bill.actions.first%>

@@ -86,8 +86,13 @@ class BillAPI
         MemberAPI.new_from_id(@data["sponsor_id"])
     end
 
+    def sponsor_flex_name
+        return @data["sponsor"] if (!@data["sponsor"].nil? && @data["sponsor"] != "")
+        return @data["sponsor_name"]
+    end
+
     def sponsor_name
-        "#{@data['sponsor_title']} #{@data['sponsor_name']}, (#{@data['sponsor_party']})"
+        "#{@data['sponsor_title']} #{sponsor_flex_name}, (#{@data['sponsor_party']})"
     end
 
     def introduced
@@ -116,6 +121,10 @@ class BillAPI
 
     def enacted
         @data["enacted"]
+    end
+
+    def enacted?
+        !enacted.nil? && enacted != ""
     end
 
     def republican_cosponsors_number
