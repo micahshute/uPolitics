@@ -44,6 +44,31 @@ class Vote
         @ayes = ayes
     end
 
+    def democrat
+      self.vote["democratic"]
+    end
+
+    #keys: yes, no, not_voting, majority_position
+    def republican
+      self.vote["republican"]
+    end
+
+    def positions
+      self.vote["positions"]
+    end
+
+    def yes_votes
+      positions.select{|pos| pos["vote_position"] == "Yes"}
+    end
+
+    def no_votes
+      positions.select{|pos| pos["vote_position"] == "No"}
+    end
+
+    def abstain_votes
+      positions.select{|pos| pos["vote_position"] == "Not Voting"}
+    end
+
     def total_no=(nays)
         @nays = nays
     end

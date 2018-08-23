@@ -29,6 +29,10 @@ class MemberAPI
         @photo_uri = @scraper.get_photo_source
     end
 
+    def votes_with_party
+      @data["roles"][0]["votes_with_party_pct"]
+    end
+
     def member_identifier
       self.member.member_identifier
     end
@@ -89,6 +93,10 @@ class MemberAPI
 
     def bill_sponsorships
       MemberBillDecorator.new(member: self)
+    end
+
+    def missed_votes
+      @data["roles"][0]["missed_votes_pct"]
     end
 
 end

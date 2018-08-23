@@ -30,6 +30,7 @@ class BillAPI
     def initialize(bill:, api_manager: APIManager, data: nil)
         @bill = bill
         @api_manager = api_manager
+        @votes = nil
         if !!api_manager
             @data = api_manager.bill(bill.bill_identifier.split("-").first)
         else
@@ -168,9 +169,10 @@ class BillAPI
     end
 
     def votes
+        return @votes if !!@votes
         update_from_source if @data["votes"].nil?
         if has_votes?
-            @data["votes"].map{|vote| Vote.new_from_bill(vote)}
+            @votes = @data["votes"].map{|vote| Vote.new_from_bill(vote)}
         else
             return []
         end
