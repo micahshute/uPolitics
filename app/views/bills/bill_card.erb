@@ -10,7 +10,7 @@
   <p>Introduced: <%= parse_date(bill.introduced)%></p>
   <p>Sponsor: <%=bill.sponsor_name%></p>
   <p>Active: <%= bill.active?%></p>
-  <p><%= "Enacted: #{@bill.enacted}" if @bill.enacted?%></p>
+  <p><%= "Enacted: #{parse_date(bill.enacted)}" if bill.enacted?%></p>
   <%if bill.has_actions?%>
     <p>Most Recent Action:</p>
     <%action = bill.actions.first%>
@@ -23,6 +23,35 @@
     <p>Against: <%=bill.votes.first.nays%></p>
     <p>Abstains: <%=bill.votes.first.abstains%></p>
   <%end%>
+  <div class="actions">
+    <%if bill_followed?(id: bill.bill_identifier)%>
+      <p>Following</p>
+    <%else%>
+      <form action="/bills/senate/<%=bill.slug_from("bill_identifier")%>/follow" method="post">
+        <input type="submit" id="follow" value="Follow">
+      </form>
+    <%end%>
+    <%if reaction = reaction_to_bill(id: bill.bill_identifier)%>
+        <%case reaction
+           when 0 %>
+            <form action="/bill/senate<%bill.bill_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
+            </form>
+          <%when 1 %>
+            <form action="/bill/senate<%bill.bill_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like" class="chosen">
+              <input type="submit" name="dislike" id="dislike" value="Dislike">
+            </form>
+          
+        <%end%>
+    <%else%>
+      <form action="/bill/senate<%bill.bill_identifier%>/react" method="post">
+          <input type="submit" name="like" id="like" value="Like">
+          <input type="submit" name="dislike" id="dislike" value="Dislike">
+      </form>
+    <%end%>
+  </div>
 </div>
 <%end%>
 

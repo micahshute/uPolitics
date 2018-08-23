@@ -1,6 +1,35 @@
 <h1 id="bill-number"><%=@bill.bill_number%></h1>
 <section id="traits">
     <h2 id="title"><%=@bill.title%></h2>
+    <div class="actions">
+    <%if bill_followed?(id: @bill.bill_identifier)%>
+      <p>Following</p>
+    <%else%>
+      <form action="/bills/senate/<%=@bill.slug_from("bill_identifier")%>/follow" method="post">
+        <input type="submit" id="follow" value="Follow">
+      </form>
+    <%end%>
+    <%if reaction = reaction_to_bill(id: @bill.bill_identifier)%>
+        <%case reaction
+           when 0 %>
+            <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
+            </form>
+          <%when 1 %>
+            <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like" class="chosen">
+              <input type="submit" name="dislike" id="dislike" value="Dislike">
+            </form>
+          
+        <%end%>
+    <%else%>
+      <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+          <input type="submit" name="like" id="like" value="Like">
+          <input type="submit" name="dislike" id="dislike" value="Dislike">
+      </form>
+    <%end%>
+  </div>
     <p><a href="<%=@bill.link%>" target="_">View Source</a></p>
   <%if @bill.has_summary?%>
   <h4>Summary</h4>
@@ -59,5 +88,8 @@
 <%else%>
 </div>
   <h4>No Vote Data</h4>
+</section>
+<section class="posts">
+  <%=yield%>
 </section>
 <%end%>

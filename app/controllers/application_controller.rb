@@ -63,6 +63,11 @@ class ApplicationController < Sinatra::Base
             !!logged_in? && !current_user.nil?
         end
 
+        def authorize_slug(slug)
+            authorize
+            redirect '/' if current_user.slug != slug
+        end
+
         def site_down
             redirect '/sitedown'
         end
@@ -92,10 +97,48 @@ class ApplicationController < Sinatra::Base
             "#{month}/#{day}/#{year}"
         end
 
-        def authorize_slug(slug)
-            authorize
-            redirect '/' if current_user.slug != slug
+        def reaction_to_member(id:)
+            if reaction = current_user.reacted_members.find{|mem| mem.member_identifier == id} && !reaction.nil?
+                return reaciton.react_category_id
+            else
+                return nil
+            end
+
         end
+
+        def reaction_to_committee(id:)
+            if reaction = current_user.reacted_committees.find{|c| c.committee_identifier == id} && !reaction.nil?
+                return reaciton.react_category_id
+            else
+                return nil
+            end
+        end
+
+        def reaction_to_bill(id:)
+            if reaction = current_user.reacted_bills.find{|bill| bill.bill_identifier == id} && !reaction.nil?
+                case reaction.react_category_id
+                when 0
+                    "dislike"
+                when 1
+                    "like"
+                end
+            else
+                return nil
+            end
+        end
+
+        def member_followed?(id:)
+            !!current_user.followed_members.find{|mem| mem.member_identifier == id}
+        end
+
+        def committee_followed?(id:)
+            !!current_user.followed_committees.find{|c| c.committee_identifier == id}
+        end
+
+        def bill_followed?(id:)
+            !!current_user.followed_bills.find{|bill| bill.bill_identifier == id}
+        end
+        
 
     end
 

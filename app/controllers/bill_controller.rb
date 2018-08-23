@@ -60,6 +60,24 @@ class BillController < ApplicationController
         erb:"bills/show"
     end
 
+    post '/bills/senate/:bill_slug/follow' do
+        authorize
+        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+        user = current_user
+        user.followed_bills << bill
+        user.save
+        redirect "bills/senate/#{bill.bill_identifier}"
+    end
+
+    post '/bills/senate/:bill_slug/follow' do
+        authorize
+        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+        user = current_user
+        binding.pry
+        category = 1
+        reaction = Reaction.new(react_category_id: category)
+        
+    end
 
 
 end
