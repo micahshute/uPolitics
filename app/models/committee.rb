@@ -10,4 +10,8 @@ class Committee < ActiveRecord::Base
 
     has_many :posts, as: :postable
     has_many :reactions, as: :reactable
+
+    def klass
+        "committee"
+    end
 end

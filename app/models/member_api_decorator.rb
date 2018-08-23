@@ -37,6 +37,10 @@ class MemberAPI
       self.member.member_identifier
     end
 
+    def klass
+      "member"
+    end
+
     def save
         saved = member.save
         @member = saved if saved.class == MemberPlaceholder

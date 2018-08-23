@@ -2,33 +2,41 @@
 <section id="traits">
     <h2 id="title"><%=@bill.title%></h2>
     <div class="actions">
-    <%if bill_followed?(id: @bill.bill_identifier)%>
-      <p>Following</p>
-    <%else%>
+      <%if bill_followed?(id: @bill.bill_identifier)%>
+        <form action="/bills/senate/<%=@bill.slug_from("bill_identifier")%>/unfollow" method="post">
+          <input type="submit" id="unfollow" value="Unfollow" class="chosen">
+        </form>
+      <%else%>
       <form action="/bills/senate/<%=@bill.slug_from("bill_identifier")%>/follow" method="post">
         <input type="submit" id="follow" value="Follow">
       </form>
-    <%end%>
-    <%if reaction = reaction_to_bill(id: @bill.bill_identifier)%>
+      <%end%>
+      <%if reaction = reaction_to_bill(id: @bill.bill_identifier)%>
         <%case reaction
-           when 0 %>
-            <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+           when "dislike" %>
+            <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
               <input type="submit" name="like" id="like" value="Like">
               <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
             </form>
-          <%when 1 %>
-            <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+          <%when "like" %>
+            <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
               <input type="submit" name="like" id="like" value="Like" class="chosen">
               <input type="submit" name="dislike" id="dislike" value="Dislike">
             </form>
           
         <%end%>
     <%else%>
-      <form action="/bill/senate<%@bill.bill_identifier%>/react" method="post">
+      <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
           <input type="submit" name="like" id="like" value="Like">
           <input type="submit" name="dislike" id="dislike" value="Dislike">
       </form>
     <%end%>
+  </div>
+  <div class="reaction-stats">
+    <%likes = num_likes(@bill.reactions)%>
+    <p>Likes: <%=likes%></p>
+    <p>Dislikes: <%= @bill.reactions.length - likes%></p>
+
   </div>
     <p><a href="<%=@bill.link%>" target="_">View Source</a></p>
   <%if @bill.has_summary?%>

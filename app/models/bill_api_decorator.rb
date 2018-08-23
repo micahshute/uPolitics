@@ -42,11 +42,23 @@ class BillAPI
         self.bill.bill_identifier
     end
 
+    def reactions
+        self.bill.reactions
+    end
+
+    def posts
+        self.bill.posts
+    end
+
     def save
         saved = bill.save
         @bill = saved if saved.class == BillPlaceholder
         !!saved
         #TODO: Throw error if save failed
+    end
+
+    def klass
+        "bill"
     end
 
     def title

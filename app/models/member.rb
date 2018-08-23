@@ -8,4 +8,9 @@ class Member < ActiveRecord::Base
 
     has_many :reactions, :as => :reactable
     has_many :posts, as: :postable
+
+
+    def klass
+        "member"
+    end
 end

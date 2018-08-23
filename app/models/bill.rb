@@ -10,4 +10,9 @@ class Bill < ActiveRecord::Base
 
     has_many :reactions, :as => :reactable
     has_many :posts, :as => :postable
+
+
+    def klass
+        "bill"
+    end
 end

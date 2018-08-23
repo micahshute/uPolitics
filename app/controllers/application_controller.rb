@@ -98,24 +98,35 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_member(id:)
-            if reaction = current_user.reacted_members.find{|mem| mem.member_identifier == id} && !reaction.nil?
-                return reaciton.react_category_id
+           
+
+        end
+
+        def reaction(params:)
+            if params.keys.include?("like")
+                return 1
+            elsif
+                params.keys.include?("dislike")
+                return 0
             else
                 return nil
             end
-
         end
 
         def reaction_to_committee(id:)
-            if reaction = current_user.reacted_committees.find{|c| c.committee_identifier == id} && !reaction.nil?
-                return reaciton.react_category_id
-            else
-                return nil
-            end
+            
+        end
+
+        def num_likes(react_arr)
+            react_arr.select{|r| r.react_category_id == 1}.length
+        end
+
+        def num_dislikes(react_arr)
+            react_arr.select{|r| r.react_category_id == 0}.length
         end
 
         def reaction_to_bill(id:)
-            if reaction = current_user.reacted_bills.find{|bill| bill.bill_identifier == id} && !reaction.nil?
+            if (reaction = current_user.reactions.find{|r| r.reactable.klass == "bill" && r.reactable.bill_identifier == id }) && !reaction.nil?
                 case reaction.react_category_id
                 when 0
                     "dislike"
@@ -126,6 +137,21 @@ class ApplicationController < Sinatra::Base
                 return nil
             end
         end
+
+        def reaction_to_post(id:)
+            if (reaction = current_user.reactions.find{|r| r.reactable.klass == "post" && r.reactable.id == id }) && !reaction.nil?
+                case reaction.react_category_id
+                when 0
+                    "dislike"
+                when 1
+                    "like"
+                end
+            else
+                return nil
+            end
+        end
+
+       
 
         def member_followed?(id:)
             !!current_user.followed_members.find{|mem| mem.member_identifier == id}

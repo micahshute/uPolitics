@@ -26,6 +26,10 @@ class CommitteeAPI
         @data = api_manager.committee(committee.committee_identifier)
     end
 
+    def klass
+        "committee"
+    end
+
     def save
         saved = committee.save
         @committee = saved if saved.class == CommitteePlaceholder
