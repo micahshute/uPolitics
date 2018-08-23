@@ -17,8 +17,13 @@ class ApplicationController < Sinatra::Base
         erb :"authenticate/index_newuser"
       else
         @user = UserAPIDecorator.new(user: current_user)
+        site_down if @user.nil?
         erb :"users/index"
       end
+    end
+
+    get '/sitedown' do
+        erb :"errors/site_down"
     end
 
 
@@ -56,6 +61,10 @@ class ApplicationController < Sinatra::Base
 
         def authorized?
             !!logged_in? && !current_user.nil?
+        end
+
+        def site_down
+            redirect '/sitedown'
         end
 
         def time_from_now(time)

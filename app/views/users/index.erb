@@ -16,7 +16,6 @@
 <section class="state-data">
     <h2><%=@user.state%></h2>
     <h3>Senators</h3>
-
     <%@user.state_senators.each do |senator|%>
         <div class="senator-profile-homepage">
             <img src="<%=senator.photo_uri%>" alt="Profile Picture">
@@ -40,7 +39,7 @@
                     <ul>
                         <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
                         <li>
-                            <a href="/bills/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
+                            <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
                             <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
                             <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
                             <details>
