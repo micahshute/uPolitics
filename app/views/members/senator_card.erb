@@ -1,6 +1,6 @@
 <%@members.each do |member|%>
     <div class="member-card">
-        
+        <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
         <h2><a href="#"><%=member.introduction%></a> of <%=member.state%></h2>
         <summary>Contact Info</summary>
         <div class="contact-info">
@@ -9,14 +9,14 @@
             <p>Office: <%=member.office%></p>
             <p>Facebook: <a href="<%=member.facebook%>" target="_"><%=member.facebook%></a></p>
             <p>Twitter: <a href="<%=member.twitter%>" target="_"><%=member.twitter%></a></p>
-            <p>Official Site: <%=member.official_site%></p>
+            <p>Official Site: <a href="<%=member.official_site%>" target="_"><%=member.official_site%></a></p>
         </div>
         <div class="senator-stats">
             <p>Birthday: <%=member.birthday%></p>
             <p>Next Election: <%=member.next_election%></p>
             <p>Total Votes: <%=member.total_votes%></p>
             <p>Votes With Party: <%=member.votes_with_party%>%</p>
-            <p>Missed Votes: <%=member.missed_votes_num%>, <%=member.missed_votes%>%</p>
+            <p>Missed Votes: <%=member.missed_votes_num%> => <%=member.missed_votes%>%</p>
             <p>Last voted: <%=member.last_voted%></p>
         </div> 
         <div class="actions">
