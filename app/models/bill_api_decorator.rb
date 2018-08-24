@@ -43,7 +43,8 @@ class BillAPI
     end
 
     def reactions
-        self.bill.reactions
+      return [] if self.bill.class == BillPlaceholder
+      self.bill.reactions
     end
 
     def posts
