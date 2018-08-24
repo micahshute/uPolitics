@@ -1,0 +1,33 @@
+<section class="senator-info">
+  <img src="<%=senator.photo_uri%>" alt="Profile Picture">
+  <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
+  <div class="contact-info">
+      <p>Contact: <a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
+      <p>Phone: <%=member.phone%></p>
+      <p>Office: <%=member.office%></p>
+      <p>Facebook: <a href="<%=member.facebook%>" target="_"><%=member.facebook%></a></p>
+      <p>Twitter: <a href="<%=member.twitter%>" target="_"><%=member.twitter%></a></p>
+      <p>Official Site: <a href="<%=member.official_site%>" target="_"><%=member.official_site%></a></p>
+  </div>
+  <div class="senator-stats">
+      <p>Votes With Party: <%=senator.votes_with_party%>%</p>
+      <p>Missed Votes: <%=senator.missed_votes%>%</p>
+      <p>Last voted: <%=senator.last_voted%></p>
+      <p>Seniority: <%=senator.seniority%></p>
+      <p>Has sponsored <%=senator.num_bills_sponsored%> bills</p>
+      <p>Has cosponsored <%= senator.num_bills_cosponsored%> bills</p>
+      <p>Leadship Roles: <%= !!senator.leadership_role ? senator.leadership_role : "None"%></p>
+      <p><%="Next Election: #{senator.next_election}" if senator.next_election%></p>
+</section>
+<section class="senator-committees">
+
+</section>
+<section class="senator-votes">
+
+</section>
+<section class="senator-bills">
+
+</section>
+<section class="senator-explanations">
+
+</section>

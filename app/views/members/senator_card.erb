@@ -2,7 +2,7 @@
     <div class="member-card">
         <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
         <h2><a href="#"><%=member.introduction%></a> of <%=member.state%></h2>
-        <summary>Contact Info</summary>
+        <p>Contact Info</p>
         <div class="contact-info">
             <p>Contact: <a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
             <p>Phone: <%=member.phone%></p>
@@ -18,7 +18,7 @@
             <p>Votes With Party: <%=member.votes_with_party%>%</p>
             <p>Missed Votes: <%=member.missed_votes_num%> => <%=member.missed_votes%>%</p>
             <p>Last voted: <%=member.last_voted%></p>
-        </div> 
+        </div>
         <div class="actions">
             <%if member_followed?(id: member.member_identifier)%>
                 <form action="/members/senate/<%=member.slug_from("member_identifier")%>/unfollow" method="post">
@@ -41,7 +41,7 @@
                     <input type="submit" name="like" id="like" value="Like" class="chosen">
                     <input type="submit" name="dislike" id="dislike" value="Dislike">
                     </form>
-                
+
                 <%end%>
             <%else%>
             <form action="/members/senate/<%=member.member_identifier%>/react" method="post">

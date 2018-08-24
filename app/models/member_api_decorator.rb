@@ -41,7 +41,7 @@ class MemberAPI
           @data = api_manager.member(member.member_identifier)
         end
         @scraper = photo_scraper || TwitterPhotoScraper.new(profile_uri: self.twitter)
-        
+
     end
 
     def votes_with_party
@@ -68,7 +68,7 @@ class MemberAPI
 
     def state
       if @data["roles"]
-        @data["roles"][0]["state"]  
+        @data["roles"][0]["state"]
       else
         @data["state"]
       end
@@ -100,6 +100,16 @@ class MemberAPI
 
     def party
       @data["current_party"] || @data["party"]
+    end
+
+    def seniority
+      if @data["roles"]
+        @data["roles"][0]["seniority"]
+      end
+    end
+
+    def leadship_role
+      @data["roles"][0]["leadership_role"] if @data["roles"]
     end
 
     def phone
@@ -140,6 +150,14 @@ class MemberAPI
 
     def bill_sponsorships
       MemberBillDecorator.new(member: self)
+    end
+
+    def num_bills_sponsored
+      @data["roles"][0]["bills_sponsored"] if @data["roles"]
+    end
+
+    def num_bills_cosponsored
+      @data["roles"][0]["bills_cosponsored"] if @data["roles"]
     end
 
     def missed_votes
