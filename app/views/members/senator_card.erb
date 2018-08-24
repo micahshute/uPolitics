@@ -1,7 +1,7 @@
 <%@members.each do |member|%>
     <div class="member-card">
         <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
-        <h2><a href="#"><%=member.introduction%></a> of <%=member.state%></h2>
+        <h2><a href="/members/senate/<%=member.slug_from("member_identifier")%>"><%=member.introduction%></a> of <%=member.state%></h2>
         <p>Contact Info</p>
         <div class="contact-info">
             <p>Contact: <a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>

@@ -15,9 +15,11 @@ class MemberController < ApplicationController
 
 
     get '/members/senate/:member_slug' do
-      if (mem = Member.find_by_slug_from(param: "member_identifier", slug: params[:member_slug]))
-        @member = MemberAPI.new(member: mem)
-        erb :"member/show"
+      if (mem = Member.find_by_slug_from(param: "member_identifier", slug: params[:member_slug]) || mem = MemberPlaceholder.new(member_identifier: params[:member_slug]))
+        @member = MemberAPI.new_with_all_data(member: mem)
+        erb :"members/show" do
+          erb :"posts"
+        end
       else
         erb :"errors/not_found"
       end
