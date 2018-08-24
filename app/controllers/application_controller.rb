@@ -126,7 +126,7 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_bill(id:)
-            if (reaction = current_user.reactions.find{|r| r.reactable.klass == "bill" && r.reactable.bill_identifier == id }) && !reaction.nil?
+            if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "bill" && r.reactable.bill_identifier == id }) && !reaction.nil?
                 case reaction.react_category_id
                 when 0
                     "dislike"
@@ -139,7 +139,7 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_post(id:)
-            if (reaction = current_user.reactions.find{|r| r.reactable.klass == "post" && r.reactable.id == id }) && !reaction.nil?
+            if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "post" && r.reactable.id == id }) && !reaction.nil?
                 case reaction.react_category_id
                 when 0
                     "dislike"

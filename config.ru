@@ -9,4 +9,5 @@ use AuthenticationController
 use UserController
 use BillController
 use MemberController
+use PostController
 run ApplicationController
