@@ -3,7 +3,7 @@ h1, h2, h3, h4{
 }
 
 a{
-    color: rgb(92, 62, 5);
+    color: #222;
 }
 section.signup p{
     color: red;
@@ -19,7 +19,7 @@ img{
 }
 
 input{
-    color:blue;
+    background: #eee;
 }
 
 input.chosen{
@@ -33,7 +33,7 @@ input.chosen{
 .wrapper{
     margin: 0 auto;
     width: 960px;
-    
+
 }
 
 .senator-profile-homepage{
@@ -50,6 +50,59 @@ input.chosen{
     content: "";
     clear: both;
     display: table;
+}
+
+
+.bill-card{
+  width: 50%;
+  background: white;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 3px;
+  border-color: #333;
+  margin-bottom: 2em;
+  padding: 1em;
+}
+
+
+.bill-card * {
+  background: white;
+  color: black;
+}
+
+.bill-card input{
+  background: #eee;
+  color: #222;
+}
+
+.bill-card input.chosen{
+  background: #aaa;
+  color: #222;
+}
+
+.bill-card .actions form{
+  display: inline;
+}
+
+.reaction-stats{
+  padding: 1em;
+}
+
+.reaction-stats p{
+  display: inline;
+}
+
+.member-card{
+  background: gray;
+  width: 50%;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 3px;
+  border-color: white;
+}
+
+.member-card *{
+  background: gray;
 }
 
 
