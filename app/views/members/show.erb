@@ -1,6 +1,7 @@
 <section class="senator-info">
   <img src="<%=@member.photo_uri%>" alt="Profile Picture" id="senator-pic-main">
   <h4><%="#{@member.long_title} #{@member.name} (#{@member.party})"%></h4>
+  <p><%=@member.state%></p>
   <div class="actions">
     <%if member_followed?(id: @member.member_identifier)%>
       <form action="/members/senate/<%=@member.slug_from("member_identifier")%>/unfollow" method="post">
@@ -31,6 +32,11 @@
         <input type="submit" name="dislike" id="dislike" value="Dislike">
     </form>
   <%end%>
+  <div class="reaction-stats">
+      <%likes = num_likes(@member.reactions)%>
+      <p>Likes: <%=likes%></p>
+      <p>Dislikes: <%=@member.reactions.length - likes%></p>
+  </div>
 </div>
   <div class="contact-info">
       <p>Contact: <a href="<%=@member.contact_link%>"><%=@member.contact_link%></a></p>
@@ -101,6 +107,23 @@
   </div>
 </section>
 <section class="senator-bills">
+
+<h5>Recent sponsored bills: </h5>
+    <ul>
+        <%@member.bill_sponsorships.introduced_bills.each do |bill|%>
+        <li>
+            <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
+            <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
+            <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
+            <details>
+                <summary>Summary</summary>
+                <p><%=bill.summary || bill.short_summary%></p>
+            </details>
+            <%end%>
+        </li>
+
+        <%end%>
+    </ul>
 
 </section>
 <section class="senator-explanations">

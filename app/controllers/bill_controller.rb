@@ -8,7 +8,7 @@ class BillController < ApplicationController
             topic: "Recent Active Bills in the Senate",
             content: "Browse bills being discussed now!"
         }
-        erb :browse do 
+        erb :browse do
             erb :"bills/bill_card"
         end
     end
@@ -21,7 +21,7 @@ class BillController < ApplicationController
             topic: "Recent Introduced Bills in the Senate",
             content: "Browse bills being introduced now!"
         }
-        erb :browse do 
+        erb :browse do
             erb :"bills/bill_card"
         end
     end
@@ -34,7 +34,7 @@ class BillController < ApplicationController
             topic: "Recently Passed Bills in the Senate",
             content: "Browse bills have just become law!"
         }
-        erb :browse do 
+        erb :browse do
             erb :"bills/bill_card"
         end
     end
@@ -47,16 +47,16 @@ class BillController < ApplicationController
             topic: "Recently Vetoed Bills",
             content: "Browse bills have just been vetoed!"
         }
-        erb :browse do 
+        erb :browse do
             erb :"bills/bill_card"
         end
     end
 
 
-    get '/bills/senate/:bill_slug' do 
+    get '/bills/senate/:bill_slug' do
         bill_base = Bill.find_by_slug_from(param: "bill_identifier", slug: params[:bill_slug]) || BillPlaceholder.new(bill_identifier: params[:bill_slug])
         @bill = BillAPI.new(bill: bill_base)
-        
+
         erb :"bills/show" do erb :"posts" end
     end
 
@@ -79,20 +79,28 @@ class BillController < ApplicationController
     end
 
     post '/bills/senate/:bill_slug/react' do
-        authorize
-        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
-        user = current_user
-        category = reaction(params: params)
-        Reaction.all.each do |reaction|
-            if reaction.user == user && reaction.reactable == bill
-                reaction.delete
-            end
-        end
-        reaction = Reaction.new(react_category_id: category)
-        reaction.user = user
-        reaction.reactable = bill
-        reaction.save
-        redirect "bills/senate/#{bill.bill_identifier}"
+      authorize
+      if bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+          undo = false
+          user = current_user
+          category = reaction(params: params)
+          Reaction.all.each do |reaction|
+              if reaction.user == user && reaction.reactable == bill
+                  undo = true if category == reaction.react_category_id
+                  reaction.delete
+              end
+          end
+          if not undo
+              reaction = Reaction.new(react_category_id: category)
+              reaction.user = user
+              reaction.reactable = bill
+              reaction.save
+          end
+          redirect "bills/senate/#{bill.bill_identifier}"
+      else
+          erb :"errors/not_found"
+      end
+
     end
 
     post '/bills/senate/:bill_slug/posts/new' do
@@ -106,7 +114,7 @@ class BillController < ApplicationController
         redirect "/bills/senate/#{bill.bill_identifier}"
     end
 
-    
+
 
 
 

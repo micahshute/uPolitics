@@ -48,12 +48,14 @@ class BillAPI
     end
 
     def posts
-        self.bill.posts
+      return @posts if @posts
+      self.save if self.bill.is_a?(BillPlaceholder)
+      @posts = self.bill.posts
     end
 
     def save
         saved = bill.save
-        @bill = saved if saved.class == BillPlaceholder
+        @bill = saved if @bill.class == BillPlaceholder
         !!saved
         #TODO: Throw error if save failed
     end

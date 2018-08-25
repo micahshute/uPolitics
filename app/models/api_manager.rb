@@ -264,6 +264,8 @@ class APIManager
         json["results"]
     end
 
+    
+
     class Chamber
         def self.senate
             "senate"

@@ -84,12 +84,12 @@ class MemberAPI
 
     def save
         saved = member.save
-        @member = saved if saved.class == MemberPlaceholder
+        @member = saved if @member.class == MemberPlaceholder
         !!saved
     end
 
     def posts
-      @member.save if @member.is_a?(MemberPlaceholder)
+      self.save if @member.is_a?(MemberPlaceholder)
       @member.posts
     end
 
@@ -104,6 +104,11 @@ class MemberAPI
 
     def introduction
       "#{long_title} #{name}, (#{party})"
+    end
+
+    def reactions
+      self.save if @memeber.is_a?(MemberPlaceholder)
+      @member.reactions
     end
 
     def name
@@ -256,6 +261,10 @@ class MemberAPI
       if @data["roles"]
         @data["roles"][0]["subcommittees"].map{|data| SenateSubcommittee.new_from_data(data)}
       end
+    end
+
+    def explanations
+      data = APIManager.personal_explanations_by_member(member_identifier)
     end
 
     class SenateCommittee

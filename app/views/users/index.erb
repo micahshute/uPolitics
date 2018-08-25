@@ -19,7 +19,7 @@
     <%@user.state_senators.each do |senator|%>
         <div class="senator-profile-homepage">
             <img src="<%=senator.photo_uri%>" alt="Profile Picture">
-            <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
+            <h4><a href="/members/senate/<%=senator.slug_from("member_identifier")%>"><%="#{senator.long_title} #{senator.name} (#{senator.party})"%><a></h4>
             <details>
                 <summary>Contact Info</summary>
                 <div class="contact-info-senate-homepage">
