@@ -45,7 +45,7 @@
               <input type="submit" name="like" id="like" value="Like" class="chosen">
               <input type="submit" name="dislike" id="dislike" value="Dislike">
             </form>
-          
+
         <%end%>
     <%else%>
       <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
@@ -53,8 +53,12 @@
           <input type="submit" name="dislike" id="dislike" value="Dislike">
       </form>
     <%end%>
+    <div class="reaction-stats">
+      <%likes = num_likes(bill.reactions)%>
+      <p>Likes: <%=likes%></p>
+      <p>Dislikes: <%= bill.reactions.length - likes%></p>
+      <p>Following: <%= bill.following_users.length%></p>
+    </div>
   </div>
 </div>
 <%end%>
-
-

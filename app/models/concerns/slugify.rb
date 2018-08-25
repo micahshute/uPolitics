@@ -28,7 +28,7 @@ module ClassMethods
   end
 
   def slugify(name)
-    name.gsub(/[^_\.\$\+\*'\(\)\,\-!A-Za-z0-9]/, "-")
+    name.gsub(/[^_\.\$\+\*'\(\)\,\-!A-Za-z0-9]/, "-").downcase
   end
 end
 end

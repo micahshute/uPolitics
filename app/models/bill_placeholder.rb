@@ -4,7 +4,7 @@ class BillPlaceholder
 
     def initialize(congress: 115, bill_identifier:)
         @congress = congress
-        @bill_identifier = bill_identifier
+        @bill_identifier = bill_identifier.downcase
     end
 
     def save

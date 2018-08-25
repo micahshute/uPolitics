@@ -2,7 +2,7 @@
 <%(cat = "bill") && (obj = @bill) if !@bill.nil?%>
 <%(cat = "committee") && (obj = @committee) if !@committee.nil?%>
 <%(cat = "member") && (obj = @member) if !@member.nil?%>
-<%# TODO: make post-replies work <%cat = "post" if !post.nil?%> 
+<%# TODO: make post-replies work <%cat = "post" if !post.nil?%>
 <section class="new-post">
     <form action="/<%="#{cat}s"%>/senate/<%=obj.slug_from("#{cat}_identifier")%>/posts/new" method="post">
         <textarea name="post[content]" id="new-post" cols="30" rows="10" placeholder="Your thoughts..."></textarea>

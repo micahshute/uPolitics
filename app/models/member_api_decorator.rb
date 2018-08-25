@@ -5,17 +5,17 @@ class MemberAPI
     include Slugify::InstanceMethods
 
     def self.find_or_create_by(member_id: )
-      if !!(exists = self.all.find{|mem| mem.member.member_identifier == member_id})
+      if !!(exists = self.all.find{|mem| mem.member.member_identifier == member_id.downcase})
         return exists
       else
-        n = self.new_from_id(member_id)
+        n = self.new_from_id(member_id.downcase)
         n.save_decorator
         return n
       end
     end
 
     def self.new_from_id(member_id)
-        member = MemberPlaceholder.new(member_identifier: member_id)
+        member = MemberPlaceholder.new(member_identifier: member_id.downcase)
         self.new(member: member)
     end
 
@@ -28,10 +28,14 @@ class MemberAPI
     def self.new_with_all_data(member: )
       m = self.new(member: member)
 
-      additional_data = APIManager.all_senators.find{|data| data["id"].downcase == m.member_identifier.downcase}
+      additional_data = APIManager.all_senators.find{|data| data["id"].downcase == m.member_identifier}
       additional_data.each do |k,v|
         begin
-          m.send("#{k}=",v)
+          if (k == "id" || k == "member_id")
+            m.send("#{k}=",v.downcase)
+          else
+            m.send("#{k}=",v)
+          end
         rescue
         end
       end
@@ -43,7 +47,7 @@ class MemberAPI
     end
 
     def self.new_from_data(data)
-      member = Member.find_by(member_identifier: data["id"]) || MemberPlaceholder.new(member_identifier: data["id"])
+      member = Member.find_by(member_identifier: data["id"].downcase) || MemberPlaceholder.new(member_identifier: data["id"].downcase)
       self.new(member: member, api_manager: nil, data: data)
     end
 
@@ -55,6 +59,10 @@ class MemberAPI
 
     def initialize(member: , api_manager: APIManager, photo_scraper: nil, data: nil)
         @member = member
+        if @member.member_identifier != member.member_identifier.downcase
+          @member.member_identifier = @member.member_identifier.downcase
+          @member.save
+        end
         @api_manager = api_manager
         if api_manager.nil?
           @data = data
@@ -109,6 +117,11 @@ class MemberAPI
     def reactions
       self.save if @member.is_a?(MemberPlaceholder)
       @member.reactions
+    end
+
+    def following_users
+      [] if self.member.is_a?(MemberPlaceholder)
+      self.member.following_users
     end
 
     def name

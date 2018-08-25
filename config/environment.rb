@@ -1,5 +1,5 @@
 ENV['SINATRA_ENV'] ||= "development"
-
+APP_ROOT = File.dirname(__FILE__)
 Bundler.setup
 Bundler.require(:default, ENV['SINATRA_ENV'])
 

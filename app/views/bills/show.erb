@@ -23,7 +23,7 @@
               <input type="submit" name="like" id="like" value="Like" class="chosen">
               <input type="submit" name="dislike" id="dislike" value="Dislike">
             </form>
-          
+
         <%end%>
     <%else%>
       <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
@@ -36,7 +36,7 @@
     <%likes = num_likes(@bill.reactions)%>
     <p>Likes: <%=likes%></p>
     <p>Dislikes: <%= @bill.reactions.length - likes%></p>
-
+    <p>Following: <%= @bill.following_users.length%></p>
   </div>
     <p><a href="<%=@bill.link%>" target="_">View Source</a></p>
   <%if @bill.has_summary?%>

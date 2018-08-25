@@ -1,6 +1,7 @@
 class BillController < ApplicationController
 
     get '/bills/senate/recent/active' do
+        authorize
         @bills = APIManager.transform_recent_bills_data(type: "active", chamber: "senate") do |data|
             BillAPI.new_from_data(data)
         end
@@ -14,6 +15,7 @@ class BillController < ApplicationController
     end
 
     get '/bills/senate/recent/introduced' do
+        authorize
         @bills = APIManager.transform_recent_bills_data(type: "introduced", chamber: "senate") do |data|
             BillAPI.new_from_data(data)
         end
@@ -27,6 +29,7 @@ class BillController < ApplicationController
     end
 
     get '/bills/senate/recent/passed' do
+        authorize
         @bills = APIManager.transform_recent_bills_data(type: "passed", chamber: "senate") do |data|
             BillAPI.new_from_data(data)
         end
@@ -40,6 +43,7 @@ class BillController < ApplicationController
     end
 
     get '/bills/senate/recent/vetoed' do
+        authorize
         @bills = APIManager.transform_recent_bills_data(type: "vetoed", chamber: "senate") do |data|
             BillAPI.new_from_data(data)
         end
@@ -54,6 +58,7 @@ class BillController < ApplicationController
 
 
     get '/bills/senate/:bill_slug' do
+        authorize
         bill_base = Bill.find_by_slug_from(param: "bill_identifier", slug: params[:bill_slug]) || BillPlaceholder.new(bill_identifier: params[:bill_slug])
         @bill = BillAPI.new(bill: bill_base)
 

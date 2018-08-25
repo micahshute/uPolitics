@@ -4,7 +4,7 @@ class MemberPlaceholder
     attr_reader :member_identifier
 
     def initialize(member_identifier: )
-        @member_identifier = member_identifier
+        @member_identifier = member_identifier.downcase
     end
 
     def save

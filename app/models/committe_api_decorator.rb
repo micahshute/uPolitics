@@ -3,7 +3,7 @@ class CommitteeAPI
     include Findable::InstanceMethods
 
     def self.find_or_create_by(id: , chamber:)
-      if !!(exists = self.all.find{|com| (com.committee.chamber == chamber) && (com.committee.committe_id == id)})
+      if !!(exists = self.all.find{|com| (com.committee.chamber == chamber) && (com.committee.committe_id == id.downcase)})
         return exists
       else
         n = self.new_from_id(id, chamber)

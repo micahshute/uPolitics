@@ -98,7 +98,7 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_member(id:)
-          if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "member" && r.reactable.member_identifier == id }) && !reaction.nil?
+          if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "member" && r.reactable.member_identifier.downcase == id.downcase }) && !reaction.nil?
               case reaction.react_category_id
               when 0
                   "dislike"
@@ -135,7 +135,7 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_bill(id:)
-            if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "bill" && r.reactable.bill_identifier == id }) && !reaction.nil?
+            if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "bill" && r.reactable.bill_identifier.downcase == id.downcase }) && !reaction.nil?
                 case reaction.react_category_id
                 when 0
                     "dislike"
@@ -163,15 +163,15 @@ class ApplicationController < Sinatra::Base
 
 
         def member_followed?(id:)
-            !!current_user.followed_members.find{|mem| mem.member_identifier == id}
+            !!current_user.followed_members.find{|mem| mem.member_identifier.downcase == id.downcase}
         end
 
         def committee_followed?(id:)
-            !!current_user.followed_committees.find{|c| c.committee_identifier == id}
+            !!current_user.followed_committees.find{|c| c.committee_identifier.downcase == id.downcase}
         end
 
         def bill_followed?(id:)
-            !!current_user.followed_bills.find{|bill| bill.bill_identifier == id}
+            !!current_user.followed_bills.find{|bill| bill.bill_identifier.downcase == id.downcase}
         end
 
 

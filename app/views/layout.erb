@@ -17,7 +17,7 @@
     <%else%>
       <div class="header-links">
         <a href="/">Home</a>
-        <a href="#">Following</a>
+        <a href="/<%=current_user.slug%>/following">Following</a>
         <a href="/<%=current_user.slug%>/profile/edit">Edit Profile</a>
         <a href="/logout">Logout</a>
       </div>
@@ -29,6 +29,6 @@
       <footer class="clearfix">
         <p>&copy;ShuteApps</p>
       </footer>
-    
+
   </body>
 </html>

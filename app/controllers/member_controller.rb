@@ -1,6 +1,7 @@
 class MemberController < ApplicationController
 
     get '/members/senate' do
+        authorize
         @pageinfo = {
             topic: "Current Senators",
             content: "Organized by state (more organization styles coming soon)"
@@ -15,6 +16,7 @@ class MemberController < ApplicationController
 
 
     get '/members/senate/:member_slug' do
+      authorize
       if (mem = Member.find_by_slug_from(param: "member_identifier", slug: params[:member_slug]) || mem = MemberPlaceholder.new(member_identifier: params[:member_slug]))
         @member = MemberAPI.new_with_all_data(member: mem)
         erb :"members/show" do

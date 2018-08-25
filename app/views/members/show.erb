@@ -36,6 +36,7 @@
       <%likes = num_likes(@member.reactions)%>
       <p>Likes: <%=likes%></p>
       <p>Dislikes: <%=@member.reactions.length - likes%></p>
+      <p>Following: <%= @member.following_users.length%></p>
   </div>
 </div>
   <div class="contact-info">

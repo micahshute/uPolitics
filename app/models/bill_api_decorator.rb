@@ -5,6 +5,7 @@ class BillAPI
   include Findable::InstanceMethods
 
   def self.find_or_create_by(id: )
+    id = id.downcase
     if !!(exists = self.all.find{|b| b.bill.bill_identifier == id})
       return exists
     else
@@ -15,13 +16,13 @@ class BillAPI
   end
 
     def self.new_from_id(bill_id)
-        bill = BillPlaceholder.new(bill_identifier: bill_id)
+        bill = BillPlaceholder.new(bill_identifier: bill_id.downcase)
         self.new(bill: bill, api_manager: APIManager)
     end
 
 
     def self.new_from_data(data)
-        bill = BillPlaceholder.new(bill_identifier: data["bill_id"])
+        bill = BillPlaceholder.new(bill_identifier: data["bill_id"].downcase)
         self.new(bill: bill, api_manager: nil, data: data)
     end
 
@@ -29,6 +30,10 @@ class BillAPI
 
     def initialize(bill:, api_manager: APIManager, data: nil)
         @bill = bill
+        if @bill.bill_identifier != @bill.bill_identifier.downcase
+          @bill.bill_identifier = @bill.bill_identifier.downcase
+          @bill.save
+        end
         @api_manager = api_manager
         @votes = nil
         if !!api_manager
@@ -58,6 +63,11 @@ class BillAPI
         @bill = saved if @bill.class == BillPlaceholder
         !!saved
         #TODO: Throw error if save failed
+    end
+
+    def following_users
+      return [] if self.bill.class == BillPlaceholder
+      self.bill.following_users
     end
 
     def klass
