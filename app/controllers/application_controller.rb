@@ -98,7 +98,16 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_member(id:)
-           
+          if (reaction = current_user.reactions.find{|r| r.reactable && r.reactable.klass == "member" && r.reactable.member_identifier == id }) && !reaction.nil?
+              case reaction.react_category_id
+              when 0
+                  "dislike"
+              when 1
+                  "like"
+              end
+          else
+              return nil
+          end
 
         end
 
@@ -114,7 +123,7 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction_to_committee(id:)
-            
+
         end
 
         def num_likes(react_arr)
@@ -151,7 +160,7 @@ class ApplicationController < Sinatra::Base
             end
         end
 
-       
+
 
         def member_followed?(id:)
             !!current_user.followed_members.find{|mem| mem.member_identifier == id}
@@ -164,7 +173,7 @@ class ApplicationController < Sinatra::Base
         def bill_followed?(id:)
             !!current_user.followed_bills.find{|bill| bill.bill_identifier == id}
         end
-        
+
 
     end
 
