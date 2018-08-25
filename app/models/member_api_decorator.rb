@@ -84,7 +84,7 @@ class MemberAPI
 
     def save
         saved = member.save
-        @member = saved if @member.class == MemberPlaceholder
+        @member = saved if @member.is_a?(MemberPlaceholder)
         !!saved
     end
 
@@ -107,7 +107,7 @@ class MemberAPI
     end
 
     def reactions
-      self.save if @memeber.is_a?(MemberPlaceholder)
+      self.save if @member.is_a?(MemberPlaceholder)
       @member.reactions
     end
 
