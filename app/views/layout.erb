@@ -6,27 +6,24 @@
     <link rel="stylesheet" href="/styles/styles.css">
   </head>
   <body>
-    <header>
+    <header id="navbar" class="light-fade shadow">
       <h1>uPolitic</h1>
 
     <%if not logged_in?%>
-      <div class="auth-links">
+      <nav class="auth-links">
         <a href="/login">Login</a>
         <a href="/signup">Signup</a>
-      </div>
+      </nav>
     <%else%>
-      <div class="header-links">
-        <a href="/">Home</a>
-        <a href="/<%=current_user.slug%>/following">Following</a>
-        <a href="/<%=current_user.slug%>/profile/edit">Edit Profile</a>
-        <a href="/logout">Logout</a>
-      </div>
+      <nav class="header-links">
+        <a href="/">Home</a><a href="/<%=current_user.slug%>/following">Following</a><a href="/<%=current_user.slug%>/profile/edit">Edit Profile</a><a href="/logout">Logout</a>
+      </nav>
     <%end%>
     </header>
-    <div class="wrapper">
+    <div class="all-wrapper clearfix">
       <%=yield%>
     </div>
-      <footer class="clearfix">
+      <footer class="clearfix light-fade">
         <p>&copy;ShuteApps</p>
       </footer>
 

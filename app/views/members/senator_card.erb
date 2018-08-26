@@ -1,5 +1,5 @@
 <%@members.each do |member|%>
-    <div class="member-card">
+    <div class="member-card shadow">
         <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
         <h2><a href="/members/senate/<%=member.slug_from("member_identifier")%>"><%=member.introduction%></a> of <%=member.state%></h2>
         <p>Contact Info</p>
@@ -29,7 +29,7 @@
                 <input type="submit" id="follow" value="Follow">
             </form>
             <%end%>
-            <%if reaction = reaction_to_bill(id: member.member_identifier)%>
+            <%if reaction = reaction_to_member(id: member.member_identifier)%>
                 <%case reaction
                 when "dislike" %>
                     <form action="/members/senate/<%=member.member_identifier%>/react" method="post">

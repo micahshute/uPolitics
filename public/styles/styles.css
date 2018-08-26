@@ -1,10 +1,4 @@
-h1, h2, h3, h4{
-    color: #222;
-}
 
-a{
-    color: #222;
-}
 section.signup p{
     color: red;
 }
@@ -26,7 +20,7 @@ input.chosen{
     background: darkgray;
 }
 
-*{
+body{
     background: whitesmoke;
 }
 
@@ -36,15 +30,12 @@ input.chosen{
 
 }
 
-.senator-profile-homepage{
-    float: left;
-    width: 450px;
+a:hover{
+  text-decoration: underline;
+  text-color: purple;
 }
 
-.senator-profile-homepage:last-child{
-    float: right;
-    width: 450px;
-}
+
 
 .clearfix::after {
     content: "";
@@ -54,14 +45,22 @@ input.chosen{
 
 
 .bill-card{
-  width: 50%;
+  width: 45%;
   background: white;
   border-style: solid;
   border-radius: 10px;
-  border-width: 3px;
+  border-width: 0px;
   border-color: #333;
   margin-bottom: 2em;
+  margin-left: 1.25%;
+  margin-right: 1.25%;
+  box-sizing: border-box;
   padding: 1em;
+  float: left
+}
+
+.shadow{
+  box-shadow: 0 3px 10px #333;
 }
 
 
@@ -93,19 +92,113 @@ input.chosen{
 }
 
 .member-card{
-  background: gray;
-  width: 50%;
+  background: #ddd;
+  width: 45%;
   border-style: solid;
   border-radius: 10px;
-  border-width: 3px;
+  border-width: 0px;
   border-color: white;
+  float: left;
+  box-sizing: border-box;
+  margin-left: 1.25%;
+  margin-right: 1.25%;
+  margin-bottom: 2em;
 }
 
-.member-card *{
-  background: gray;
+
+a{
+  text-decoration: none;
 }
 
+#navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+#navbar nav{
+  border-left: 1px solid #ccc;
+
+}
+
+div.all-wrapper{
+  margin-top: 200px;
+}
+
+#navbar nav a{
+  display: inline-block;
+  width: 16.66667%;
+  margin: 0;
+  padding: 22px 0;
+  text-transform: uppercase;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  text-decoration: none;
+  font: 1em "Trebuchet MS", Arial, sans-serif;
+}
+
+#navbar nav a:hover{
+  color: white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cacaca+0,e0e0e0+99 */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background: rgb(69,72,77); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+.light-fade{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ebe9f9+0,d8d0ef+46,c1bfea+100 */
+  background: #ebe9f9; /* Old browsers */
+  background: -moz-linear-gradient(top, #ebe9f9 0%, #d8d0ef 46%, #c1bfea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebe9f9', endColorstr='#c1bfea',GradientType=0 ); /* IE6-9 */
+}
+
+section.browse-links nav{
+  padding: 4em;
+}
+
+
+
+section.browse-links nav a{
+  padding: 1em;
+  margin: 20px;
+  height: 2em;
+  width: 30em;
+  display: inline-block;
+  border: 2px solid #ccc;
+  text-align: center;
+  text-size: 2em;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ebe9f9+0,d8d0ef+46,c1bfea+100 */
+  background: #ebe9f9; /* Old browsers */
+  background: -moz-linear-gradient(top, #ebe9f9 0%, #d8d0ef 46%, #c1bfea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebe9f9', endColorstr='#c1bfea',GradientType=0 ); /* IE6-9 */
+}
+
+section.state-data{
+  margin: 10em;
+}
+section.state-data h2{
+  text-align: center;
+}
+
+.senator-profile-homepage{
+  float: left;
+  width: 50%;
+}
 
 footer{
+    text-size: 0.75em;
+    text-align: center;
+    border-top: 2px solid #ccc;
     width: 100%;
 }
