@@ -1,15 +1,15 @@
 <section class="signup">
-  <h2>Signup</h2>
+  <h2 class="mb-3 font-weight-normal">Signup</h2>
 
-  <form class="signup" action="/signup" method="post">
-    <input type="text" name="user[name]" id="name" placeholder="Name">
+  <form class="form-signin" action="/signup" method="post">
+    <input type="text" name="user[name]" id="name" placeholder="Name" class="form-control" required autofocus>
     <p><%= "Name #{@errors[:name].first}" if (!!@errors && @errors[:name] && @errors[:name].first)%></p>
-    <input type="text" name="user[username]" id="username" placeholder="Username">
+    <input type="text" name="user[username]" id="username" placeholder="Username" class="form-control" required>
     <p><%= "Username #{@errors[:username].first}" if (!!@errors && @errors[:username] && @errors[:username].first)%></p>
-    <input type="password" name="user[password]" placeholder="Password">
+    <input type="password" name="user[password]" placeholder="Password" class="form-control" required>
     <p><%= "Password #{@errors[:password].first}" if (!!@errors && @errors[:password] && @errors[:password].first)%></p>
-    <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Confirm Password">
+    <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Confirm Password" class="form-control" required>
     <p><%= "Password confirmation #{@errors[:password_confirmation].first}" if (!!@errors && @errors[:password_confirmation] && @errors[:password_confirmation].first)%></p>
-    <input type="submit" name="signup" value="Signup">
+    <input class="btn btn-lg btn-outline-primary btn-block" type="submit" name="signup" value="Signup">
   </form>
 </section>

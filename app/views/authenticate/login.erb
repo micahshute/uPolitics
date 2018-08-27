@@ -1,9 +1,10 @@
-<section>
-  <h2>Log in</h2>
+<div class="container sign-in">
+  <h2 class="h3 mb-3 font-weight-normal">Log in</h2>
   <p class="error"><%= @error if @error%></p>
-  <form class="login" action="/login" method="post">
-    <input type="text" name="username" id="username" placeholder="Username">
-    <input type="password" name="password" id="password" placeholder="Password">
-    <input type="submit" name="login" value="Login">
+  <form class="form-signin" action="/login" method="post">
+
+    <input type="text" name="username" id="username" placeholder="Username" class="form-control" required autofocus>
+    <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+    <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Sign in</button>
   </form>
-</section>
+</div>
