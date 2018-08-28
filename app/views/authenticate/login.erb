@@ -1,8 +1,11 @@
-<div class="container sign-in">
-  <h2 class="h3 mb-3 font-weight-normal">Log in</h2>
-  <p class="error"><%= @error if @error%></p>
-  <form class="form-signin" action="/login" method="post">
 
+<div class="container sign-in">
+
+
+  <form class="form-signin" action="/login" method="post">
+    <img src="/assets/images/logo.png" alt="Logo" class="logo mb-4" width="119" height="70">
+    <h2 class="h3 mb-3 font-weight-normal">Log in</h2>
+    <p class="error"><%= @error if @error%></p>
     <input type="text" name="username" id="username" placeholder="Username" class="form-control" required autofocus>
     <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
     <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Sign in</button>

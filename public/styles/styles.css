@@ -7,11 +7,6 @@ section.signup p{
     color: red;
 }
 
-img{
-    height: 15em;
-    width: 15em;
-}
-
 body{
     background: whitesmoke;
     min-height: 100%;
@@ -107,21 +102,12 @@ input.chosen{
 
 a{
   text-decoration: none;
+  color: #0B3C5D;
 }
 
 
 div.all-wrapper{
   margin-top: 200px;
-}
-
-
-.light-fade{
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ebe9f9+0,d8d0ef+46,c1bfea+100 */
-  background: #ebe9f9; /* Old browsers */
-  background: -moz-linear-gradient(top, #ebe9f9 0%, #d8d0ef 46%, #c1bfea 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebe9f9', endColorstr='#c1bfea',GradientType=0 ); /* IE6-9 */
 }
 
 section.browse-links nav{
@@ -203,6 +189,36 @@ footer{
 }
 
 
+/*************************CUSTOMIZE NAVBAR*********************************************/
+
+.navbar-default {
+  background-color: #1D2731;
+}
+
+.navbar-default li a{
+  color: #CCC;
+}
+
+.navbar-default .navbar-brand{
+  color: #D9B310;
+}
+
+.navbar-default .active  a, .navbar-default .active a:hover, .navbar-default  .active  a:focus {
+    background-color: #1D2731;
+    color: #CCC;
+}
+
+.navbar-default a:hover{
+  color: #FFF;
+  background-color: #0C1620;
+}
+
+.navbar-default a{
+  transition: color 0.5s ease;
+  transition: background-color 1.0s ease;
+  color: #CCC;
+  background-color: #1D2731;
+}
 
 /************************COLOR SCHEME************************************/
 
@@ -222,6 +238,10 @@ footer{
   background: #328CC1;
 }
 
+.bkg-offwhite{
+  background: #E8EAF6
+}
+
 .bkg-gold{
   background: #D9B310;
 }
@@ -231,6 +251,10 @@ footer{
 }
 
 .bkg-dark{
+  background: #1D2731;
+}
+
+html body nav.bkg-dark{
   background: #1D2731;
 }
 
@@ -259,4 +283,11 @@ footer{
 html{
   min-height: 100%;
   height: 100%;
+}
+
+
+/************************IMAGES*************************************/
+.senator-profile-homepage img{;
+  width: 20%;
+  height: auto;
 }

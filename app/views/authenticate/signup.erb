@@ -1,7 +1,9 @@
-<section class="signup">
-  <h2 class="mb-3 font-weight-normal">Signup</h2>
+
+
 
   <form class="form-signin" action="/signup" method="post">
+    <img src="/assets/images/logo.png" alt="Logo" class="logo mb-4" width="119" height="70">
+    <h2 class="mb-3 font-weight-normal">Signup</h2>
     <input type="text" name="user[name]" id="name" placeholder="Name" class="form-control" required autofocus>
     <p><%= "Name #{@errors[:name].first}" if (!!@errors && @errors[:name] && @errors[:name].first)%></p>
     <input type="text" name="user[username]" id="username" placeholder="Username" class="form-control" required>
@@ -12,4 +14,3 @@
     <p><%= "Password confirmation #{@errors[:password_confirmation].first}" if (!!@errors && @errors[:password_confirmation] && @errors[:password_confirmation].first)%></p>
     <input class="btn btn-lg btn-outline-primary btn-block" type="submit" name="signup" value="Signup">
   </form>
-</section>
