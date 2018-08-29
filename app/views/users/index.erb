@@ -1,96 +1,93 @@
 
-<h2>Good <%= time_of_day%>, <%=@user.name.split(' ').first %></h2>
+<h2 class="greeting">Good <%= time_of_day%>, <%=@user.name.split(' ').first %></h2>
 
 
 <nav class="homepage">
     <div class="row">
       <div class="col-sm-6">
-        <a class="shadow" href="/members/senate">Browse Senators</a>
+        <div class="home-link bkg-pri">
+          <a class="offwhite centered" href="/members/senate">Browse Senators</a>
+        </div>
       </div>
       <div class="col-sm-6">
-        <a class="shadow" href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <a class="shadow" href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
-      </div>
-      <div class="col-sm6">
-        <a class="shadow" href="/bills/senate/recent/passed">Recent Passed Bills in Senate</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <a class="shadow" href="/bills/senate/recent/vetoed">Recent Vetoed Bills in Senate</a>
+        <div class="home-link bkg-pri shadow">
+          <a class="offwhite centered" href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
+        </div>
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="home-link bkg-pri shadow">
+          <a class="offwhite centered" href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="home-link bkg-pri shadow">
+          <a class="offwhite centered" href="/bills/senate/recent/passed">Recent Passed Bills in Senate</a>
+        </div>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="home-link bkg-pri shadow">
+          <a class="offwhite centered" href="/bills/senate/recent/vetoed">Recent Vetoed Bills in Senate</a>
+        </div>
+      </div>
+    </div>
 </nav>
 
+<h2><%=@user.state%></h2>
+<h3>Senators</h3>
+
+
+<div class="row">
+  <%@user.state_senators.each do |senator|%>
+    <div class="col-md-6">
+          <div class="senator-profile-homepage centered clearfix shadow fill">
+              <img src="<%=senator.photo_uri%>" alt="Profile Picture">
+              <h4><a href="/members/senate/<%=senator.slug_from("member_identifier")%>"><%="#{senator.long_title} #{senator.name} (#{senator.party})"%><a></h4>
+              <details>
+                  <summary>Contact Info</summary>
+                  <div class="contact-info-senate-homepage">
+                      <p>Contact: <a href="<%=senator.contact_link%>" target="_"><%=senator.contact_link%></a></p>
+                      <p>Phone: <%=senator.phone%></p>
+                      <p>Office: <%=senator.office%></p>
+                      <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
+                      <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+                  </div>
+              </details>
+              <div class="senator-stats">
+                  <p>Votes With Party: <%=senator.votes_with_party%>%</p>
+                  <p>Missed Votes: <%=senator.missed_votes%>%</p>
+                  <p>Last voted: <%=senator.last_voted%></p>
+                  <p><%="Next Election: #{senator.next_election}" if senator.next_election%></p>
+                  <details>
+                  <summary>Recent sponsored bills: </summary>
+                      <ul>
+                          <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
+                          <li>
+                              <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
+                              <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
+                              <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
+                              <details>
+                                  <summary>Summary</summary>
+                                  <p><%=bill.summary || bill.short_summary%></p>
+                              </details>
+                              <%end%>
+                          </li>
+
+                          <%end%>
+                      </ul>
+                  </details>
+              </div>
+          </div>
+    </div>
+  <%end%>
+</div>
 
 
 
-<section class="state-data">
-    <h2><%=@user.state%></h2>
-    <h3>Senators</h3>
-    <%@user.state_senators.each do |senator|%>
-        <div class="senator-profile-homepage">
-            <img src="<%=senator.photo_uri%>" alt="Profile Picture">
-            <h4><a href="/members/senate/<%=senator.slug_from("member_identifier")%>"><%="#{senator.long_title} #{senator.name} (#{senator.party})"%><a></h4>
-            <details>
-                <summary>Contact Info</summary>
-                <div class="contact-info-senate-homepage">
-                    <p>Contact: <a href="<%=senator.contact_link%>" target="_"><%=senator.contact_link%></a></p>
-                    <p>Phone: <%=senator.phone%></p>
-                    <p>Office: <%=senator.office%></p>
-                    <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
-                    <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
-                </div>
-            </details>
-            <div class="senator-stats">
-                <p>Votes With Party: <%=senator.votes_with_party%>%</p>
-                <p>Missed Votes: <%=senator.missed_votes%>%</p>
-                <p>Last voted: <%=senator.last_voted%></p>
-                <p><%="Next Election: #{senator.next_election}" if senator.next_election%></p>
-                <details>
-                <summary>Recent sponsored bills: </summary>
-                    <ul>
-                        <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
-                        <li>
-                            <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
-                            <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
-                            <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
-                            <details>
-                                <summary>Summary</summary>
-                                <p><%=bill.summary || bill.short_summary%></p>
-                            </details>
-                            <%end%>
-                        </li>
 
-                        <%end%>
-                    </ul>
-                </details>
-            </div>
-        </div>
-    <%end%>
-    <!--
-    <%if false%>
-    <h3>House Representatives</h3>
-    <%@user.state_representatives.each do |rep|%>
-        <div class="rep-profile-homepage">
-            <h4><%="#{rep.long_title} #{rep.name} (#{rep.party})"%></h4>
-            <details>
-                <div class="contact-info-house-homepage">
-                    <p>Contact: <a href="<%=rep.contact_link%>"><%=rep.contact_link%></a></p>
-                    <p>Phone: <%=rep.phone%></p>
-                    <p>Office: <%=rep.office%></p>
-                    <p>Facebook: <a href="<%=rep.facebook%>" target="_"><%=rep.facebook%></a></p>
-                    <p>Twitter: <a href="<%=rep.twitter%>" target="_"><%=rep.twitter%></a></p>
-                </div>
-            </details>
-        </div>
-    <%end%>
-    <%end%>
-    !-->
 </section>

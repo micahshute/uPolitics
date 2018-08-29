@@ -12,5 +12,5 @@
     <p><%= "Password #{@errors[:password].first}" if (!!@errors && @errors[:password] && @errors[:password].first)%></p>
     <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Confirm Password" class="form-control" required>
     <p><%= "Password confirmation #{@errors[:password_confirmation].first}" if (!!@errors && @errors[:password_confirmation] && @errors[:password_confirmation].first)%></p>
-    <input class="btn btn-lg btn-outline-primary btn-block" type="submit" name="signup" value="Signup">
+    <input class="btn btn-lg btn-primary btn-block" type="submit" name="signup" value="Signup">
   </form>
