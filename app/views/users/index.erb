@@ -5,12 +5,12 @@
 <nav class="homepage">
     <div class="row">
       <div class="col-sm-6">
-        <div class="home-link bkg-pri">
+        <div class="home-link bkg-pri light-shadow">
           <a class="offwhite centered" href="/members/senate">Browse Senators</a>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="home-link bkg-pri shadow">
+        <div class="home-link bkg-pri light-shadow">
           <a class="offwhite centered" href="/bills/senate/recent/active">Recent Active Bills in Senate</a>
         </div>
       </div>
@@ -18,12 +18,12 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <div class="home-link bkg-pri shadow">
+        <div class="home-link bkg-pri light-shadow">
           <a class="offwhite centered" href="/bills/senate/recent/introduced">Recent Introduced Bills in Senate</a>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="home-link bkg-pri shadow">
+        <div class="home-link bkg-pri light-shadow">
           <a class="offwhite centered" href="/bills/senate/recent/passed">Recent Passed Bills in Senate</a>
         </div>
       </div>
@@ -31,7 +31,7 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <div class="home-link bkg-pri shadow">
+        <div class="home-link bkg-pri light-shadow">
           <a class="offwhite centered" href="/bills/senate/recent/vetoed">Recent Vetoed Bills in Senate</a>
         </div>
       </div>
@@ -45,8 +45,8 @@
 <div class="row">
   <%@user.state_senators.each do |senator|%>
     <div class="col-md-6">
-          <div class="senator-profile-homepage centered clearfix shadow fill">
-              <img src="<%=senator.photo_uri%>" alt="Profile Picture">
+          <div class="senator-profile-homepage centered clearfix light-shadow fill">
+              <img src="<%=senator.photo_uri%>" alt="Profile Picture" class="border-dark-round">
               <h4><a href="/members/senate/<%=senator.slug_from("member_identifier")%>"><%="#{senator.long_title} #{senator.name} (#{senator.party})"%><a></h4>
               <details>
                   <summary>Contact Info</summary>

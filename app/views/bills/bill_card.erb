@@ -1,64 +1,68 @@
-<%@bills.each do |bill|%>
-<div class="bill-card shadow">
-  <h2 class="bill-title"><a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a></h2>
-  <p><a href="<%=bill.link%>" target="_">View Source</a></p>
-  <%if bill.has_summary?%>
-  <h4>Summary</h4>
-    <p class="summary"><%= bill.available_summary%></p>
-  <%end%>
-  <p>Subject: <%= bill.subject%></p>
-  <p>Introduced: <%= parse_date(bill.introduced)%></p>
-  <p>Sponsor: <%=bill.sponsor_name%></p>
-  <p>Active: <%= bill.active?%></p>
-  <p><%= "Enacted: #{parse_date(bill.enacted)}" if bill.enacted?%></p>
-  <%if bill.has_actions?%>
-    <p>Most Recent Action:</p>
-    <%action = bill.actions.first%>
-    <p>Type: <%=action.category%></p>
-    <p><%=action.description%></p>
-  <%end%>
-  <%if bill.has_votes_no_load?%>
-    <h4>Votes</h4>
-    <p>For: <%=bill.votes.first.ayes%></p>
-    <p>Against: <%=bill.votes.first.nays%></p>
-    <p>Abstains: <%=bill.votes.first.abstains%></p>
-  <%end%>
-  <div class="actions">
-      <%if bill_followed?(id: bill.bill_identifier)%>
-        <form action="/bills/senate/<%=bill.slug_from("bill_identifier")%>/unfollow" method="post">
-          <input type="submit" id="unfollow" value="Unfollow" class="chosen">
-        </form>
-      <%else%>
-      <form action="/bills/senate/<%=bill.slug_from("bill_identifier")%>/follow" method="post">
-        <input type="submit" id="follow" value="Follow">
-      </form>
-      <%end%>
-      <%if reaction = reaction_to_bill(id: bill.bill_identifier)%>
-        <%case reaction
-           when "dislike" %>
-            <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
-              <input type="submit" name="like" id="like" value="Like">
-              <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
-            </form>
-          <%when "like" %>
-            <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
-              <input type="submit" name="like" id="like" value="Like" class="chosen">
-              <input type="submit" name="dislike" id="dislike" value="Dislike">
-            </form>
+<%@bills.each.with_index do |bill, index|%>
+<%= "<div class='row' >" if index % 2 == 0 %>
+  <div class="col-lg-6">
 
+    <div class="bill-card shadow">
+      <h2 class="bill-title"><a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a></h2>
+      <p><a href="<%=bill.link%>" target="_">View Source</a></p>
+      <%if bill.has_summary?%>
+      <h4>Summary</h4>
+        <p class="summary"><%= bill.available_summary%></p>
+      <%end%>
+      <p><span class="label">Subject: </span><%= bill.subject%></p>
+      <p><span class="label">Introduced: </span><%= parse_date(bill.introduced)%></p>
+      <p><span class="label">Sponsor: </span><%=bill.sponsor_name%></p>
+      <p><span class="label">Active: </span><%= bill.active?%></p>
+      <p><%= "Enacted: #{parse_date(bill.enacted)}" if bill.enacted?%></p>
+      <%if bill.has_actions?%>
+        <p><span class="label">Most Recent Action:</label></p>
+        <%action = bill.actions.first%>
+        <p><span class="label">Type: </span><%=action.category%></p>
+        <p><%=action.description%></p>
+      <%end%>
+      <%if bill.has_votes_no_load?%>
+        <h4>Votes</h4>
+        <p><span class="label">For: </span><%=bill.votes.first.ayes%></p>
+        <p><span class="label">Against: </span><%=bill.votes.first.nays%></p>
+        <p><span class="label">Abstains: </span><%=bill.votes.first.abstains%></p>
+      <%end%>
+      <div class="actions">
+          <%if bill_followed?(id: bill.bill_identifier)%>
+            <form action="/bills/senate/<%=bill.slug_from("bill_identifier")%>/unfollow" method="post">
+              <input type="submit" id="unfollow" value="Unfollow" class="chosen custom-button">
+            </form>
+          <%else%>
+          <form action="/bills/senate/<%=bill.slug_from("bill_identifier")%>/follow" method="post">
+            <input type="submit" id="follow" value="Follow" class="custom-button">
+          </form>
+          <%end%>
+          <%if reaction = reaction_to_bill(id: bill.bill_identifier)%>
+            <%case reaction
+               when "dislike" %>
+                <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
+                  <input type="submit" name="like" id="like" value="Like" class="custom-button">
+                  <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen custom-button">
+                </form>
+              <%when "like" %>
+                <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
+                  <input type="submit" name="like" id="like" value="Like" class="chosen custom-button">
+                  <input type="submit" name="dislike" id="dislike" value="Dislike">
+                </form>
+            <%end%>
+        <%else%>
+          <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like" class="custom-button">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
+          </form>
         <%end%>
-    <%else%>
-      <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
-          <input type="submit" name="like" id="like" value="Like">
-          <input type="submit" name="dislike" id="dislike" value="Dislike">
-      </form>
-    <%end%>
-    <div class="reaction-stats">
-      <%likes = num_likes(bill.reactions)%>
-      <p>Likes: <%=likes%></p>
-      <p>Dislikes: <%= bill.reactions.length - likes%></p>
-      <p>Following: <%= bill.following_users.length%></p>
+        <div class="reaction-stats">
+          <%likes = num_likes(bill.reactions)%>
+          <p><span class="label">Likes: </span><%=likes%></p>
+          <p><span class="label">Dislikes: </span><%= bill.reactions.length - likes%></p>
+          <p><span class="label">Following: </span><%= bill.following_users.length%></p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+<%= "</div>" if index % 2 == 1 %>
 <%end%>

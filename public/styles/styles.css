@@ -38,22 +38,18 @@ footer{
 
 
 .bill-card{
-  width: 45%;
+  width: 100%;
   background: white;
   border-style: solid;
   border-radius: 10px;
   border-width: 0px;
   border-color: #333;
-  margin-bottom: 2em;
+  margin-bottom: 10%;
   margin-left: 1.25%;
   margin-right: 1.25%;
   box-sizing: border-box;
   padding: 1em;
-  float: left
-}
-
-.shadow{
-  box-shadow: 2px 3px 10px #328CC1;
+  height: 90%;
 }
 
 
@@ -67,11 +63,6 @@ footer{
   color: #222;
 }
 
-input.chosen{
-  border: 2px solid purple;
-  background: #1D2731;
-  color: #D9B310;
-}
 
 .bill-card .actions form{
   display: inline;
@@ -189,6 +180,16 @@ footer{
   font-size: 3em;
 }
 
+/*****************************HOMEPAGE************************************************/
+
+.senator-profile-homepage{
+  padding: 15px;
+}
+
+.greeting{
+  color: #1D2731;
+  margin-bottom: 40px;
+}
 
 /*************************CUSTOMIZE NAVBAR*********************************************/
 
@@ -240,7 +241,7 @@ footer{
 }
 
 .bkg-offwhite{
-  background: #E8EAF6
+  background: #E8EAF6;
 }
 
 .offwhite{
@@ -267,12 +268,41 @@ html body nav.bkg-dark{
   color: #1D2731;
 }
 
-.border-gold{
-  border: 1px solid #1D2731;
+.border-pri{
+  border: 2px solid #0B3C5D;
 }
 
-.border-dark{
+.border-blight{
+  border: 1px solid #328CC1;
+}
+
+.border-gold{
+  border: 2px solid #D9B310;
+}
+
+.border-dark-round{
   border: 2px solid #1D2731;
+  border-radius: 50%;
+}
+
+.shadow{
+  box-shadow: 0 3px 10px #333;
+}
+
+.light-shadow{
+  box-shadow: 0px 3px 15px #888;
+}
+
+.blue-shadow{
+  box-shadow: 5px 2px 25px #0B3C5D;
+}
+
+.thin-shadow{
+  box-shadow: 5px 2px 25px #444;
+}
+
+.dark-shadow{
+  box-shadow: 5px 3px 25px #1D2731;
 }
 
 /********************HEIGHT************************************/
@@ -295,6 +325,7 @@ html{
 .senator-profile-homepage img{;
   width: 75%;
   height: auto;
+  margin: 10px;
 }
 
 /*************************BUTTONS***********************************/
@@ -323,6 +354,42 @@ html{
 
 .home-link:hover{
   background-color: #0B3C5D;
+}
+
+input.custom-button{
+  border: 1px solid #D9B310;
+  border-type: solid;
+  /*border-radius: 10px;*/
+  border-width: 1px;
+  border-color: #328CC1;
+  background-color: #FFF;
+  shadow-box: 0px 3px 15px #888;
+  border-color: #328CC1;
+  color:  #328CC1;
+  width: 25%;
+  margin: 2px;
+  font-weight: bold;
+}
+
+input.chosen{
+  border: 1px solid #D9B310;
+  background: #1D2731;
+  color: #D9B310;
+  font-weight: normal;
+}
+
+
+.custom-button:hover{
+  background-color: #0B3C5D;
+  color: #FFF;
+  border-color: #0B3C5D;
+}
+
+/****************************************************************************/
+
+.label{
+  font-weight: bold;
+  font-style: oblique;
 }
 
 /************************BOOTSTRAP ROW***************************************/
