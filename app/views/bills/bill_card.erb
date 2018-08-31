@@ -4,7 +4,7 @@
 
     <div class="bill-card shadow">
       <h2 class="bill-title"><a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a></h2>
-      <p><a href="<%=bill.link%>" target="_">View Source</a></p>
+      <p><a href="<%=bill.link%>" target="_">--View Source--</a></p>
       <%if bill.has_summary?%>
       <h4>Summary</h4>
         <p class="summary"><%= bill.available_summary%></p>
@@ -46,7 +46,7 @@
               <%when "like" %>
                 <form action="/bills/senate/<%=bill.bill_identifier%>/react" method="post">
                   <input type="submit" name="like" id="like" value="Like" class="chosen custom-button">
-                  <input type="submit" name="dislike" id="dislike" value="Dislike">
+                  <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
                 </form>
             <%end%>
         <%else%>

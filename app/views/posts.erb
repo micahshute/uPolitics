@@ -3,53 +3,64 @@
 <%(cat = "committee") && (obj = @committee) if !@committee.nil?%>
 <%(cat = "member") && (obj = @member) if !@member.nil?%>
 <%# TODO: make post-replies work <%cat = "post" if !post.nil?%>
-<section class="new-post">
-    <form action="/<%="#{cat}s"%>/senate/<%=obj.slug_from("#{cat}_identifier")%>/posts/new" method="post">
-        <textarea name="post[content]" id="new-post" cols="30" rows="10" placeholder="Your thoughts..."></textarea>
-        <input type="submit" id="submit-post" name="submit" value="Post">
-    </form>
-</section>
+<div class="row">
+  <div class="col-md-12">
+    <div class="new-post">
+      <form action="/<%="#{cat}s"%>/senate/<%=obj.slug_from("#{cat}_identifier")%>/posts/new" method="post">
+          <textarea name="post[content]" id="new-post" cols="30" rows="10" placeholder="Your thoughts..."></textarea>
+          <input type="submit" id="submit-post" name="submit" value="Post" class="custom-button">
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <section class="all-posts">
     <%obj.posts.reverse.each do |p|%>
-        <div class="post">
-            <a href="#"><p class="username"><%=p.user.username%></p></a>
-            <p class="content"><%=p.content%></p>
-            <div class="reaction-stats">
-                <%likes = num_likes(p.reactions)%>
-                <p>Likes: <%=likes%></p>
-                <p>Dislikes: <%=p.reactions.length - likes%></p>
-            </div>
-            <%case reaction_to_post(id: p.id)
-                when "like"%>
-                    <form action="/posts/<%=p.id%>/react" method="post">
-                        <input type="submit" name="like" value="like" class="chosen">
-                        <input type="submit" name="dislike" value="dislike">
-                    </form>
-                <%when "dislike"%>
-                    <form action="/posts/<%=p.id%>/react" method="post">
-                        <input type="submit" name="like" value="like" >
-                        <input type="submit" name="dislike" value="dislike" class="chosen">
-                    </form>
-                <%else%>
-                    <form action="/posts/<%=p.id%>/react" method="post">
-                        <input type="submit" name="like" value="like" >
-                        <input type="submit" name="dislike" value="dislike">
-                    </form>
-                <%end%>
+      <div class="row">
+        <div class="col-sm-12">
 
-            <%if p.user == current_user%>
-                <div class="user-post">
-                    <form action="/posts/<%=p.id%>/edit" method="get">
-                        <input type="submit" name="edit" value="Edit">
-                    </form>
-                    <form action="/posts/<%=p.id%>/delete" method="post">
-                        <input type="hidden" id= "hidden" name="_method" value="delete">
-                        <input type="submit" name="delete" value="Delete">
-                    </form>
-                </div>
-            <%end%>
-            <p id="create-timestamp">Posted: <%=time_from_now(p.created_at)%></p>
-            <p id="edit-timestamp"><%= "Edited: #{time_from_now(p.updated_at)}" if (p.updated_at != p.created_at)%></p>
+          <div class="post">
+              <a href="#"><p class="username"><%=p.user.username%></p></a>
+              <p class="content"><%=p.content%></p>
+              <div class="reaction-stats">
+                  <%likes = num_likes(p.reactions)%>
+                  <p>Likes: <%=likes%></p>
+                  <p>Dislikes: <%=p.reactions.length - likes%></p>
+              </div>
+              <%case reaction_to_post(id: p.id)
+                  when "like"%>
+                      <form action="/posts/<%=p.id%>/react" method="post">
+                          <input type="submit" name="like" value="like" class="chosen custom-button">
+                          <input type="submit" name="dislike" value="dislike" class="custom-button">
+                      </form>
+                  <%when "dislike"%>
+                      <form action="/posts/<%=p.id%>/react" method="post">
+                          <input type="submit" name="like" value="like" class="custom-button">
+                          <input type="submit" name="dislike" value="dislike" class="chosen cutsom-button">
+                      </form>
+                  <%else%>
+                      <form action="/posts/<%=p.id%>/react" method="post">
+                          <input type="submit" name="like" value="like" class="custom-button">
+                          <input type="submit" name="dislike" value="dislike" class="custom-button">
+                      </form>
+                  <%end%>
+
+              <%if p.user == current_user%>
+                  <div class="user-post">
+                      <form action="/posts/<%=p.id%>/edit" method="get">
+                          <input type="submit" name="edit" value="Edit" class="custom-button">
+                      </form>
+                      <form action="/posts/<%=p.id%>/delete" method="post">
+                          <input type="hidden" id= "hidden" name="_method" value="delete" >
+                          <input type="submit" name="delete" value="Delete" class="custom-button">
+                      </form>
+                  </div>
+              <%end%>
+              <p id="create-timestamp"><span class="label">Posted: </span><%=time_from_now(p.created_at)%></p>
+              <p id="edit-timestamp"><%= "Edited: #{time_from_now(p.updated_at)}" if (p.updated_at != p.created_at)%></p>
+          </div>
         </div>
+      </div>
     <%end%>
 </section>

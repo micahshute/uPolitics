@@ -20,8 +20,9 @@ body{
 
 
 a:hover{
-  text-decoration: underline;
-  color: #D9B310;
+  color: #328CC1;
+  text-decoration: none;
+  /*text-shadow: 2px 2px #D9B310;*/
 }
 
 footer{
@@ -36,6 +37,26 @@ footer{
     display: table;
 }
 
+.member-card{
+  width: 100%;
+  background: #0B3C5D;
+  color: #CCC;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0px;
+  border-color: #333;
+  margin-bottom: 2%;
+  margin-left: 1.25%;
+  margin-right: 1.25%;
+  box-sizing: border-box;
+  padding: 1em;
+  height: 98%;
+}
+
+.member-card a{
+  color: #D9B310;
+}
+
 
 .bill-card{
   width: 100%;
@@ -44,12 +65,12 @@ footer{
   border-radius: 10px;
   border-width: 0px;
   border-color: #333;
-  margin-bottom: 10%;
+  margin-bottom: 2%;
   margin-left: 1.25%;
   margin-right: 1.25%;
   box-sizing: border-box;
   padding: 1em;
-  height: 90%;
+  height: 98%;
 }
 
 
@@ -76,20 +97,6 @@ footer{
   display: inline;
 }
 
-.member-card{
-  background: #ddd;
-  width: 45%;
-  border-style: solid;
-  border-radius: 10px;
-  border-width: 0px;
-  border-color: white;
-  float: left;
-  box-sizing: border-box;
-  margin-left: 1.25%;
-  margin-right: 1.25%;
-  margin-bottom: 2em;
-}
-
 
 a{
   text-decoration: none;
@@ -105,22 +112,6 @@ section.browse-links nav{
   padding: 4em;
 }
 
-section.browse-links nav a{
-  padding: 1em;
-  margin: 20px;
-  height: 2em;
-  width: 30em;
-  display: inline-block;
-  border: 2px solid #ccc;
-  text-align: center;
-  text-size: 2em;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ebe9f9+0,d8d0ef+46,c1bfea+100 */
-  background: #ebe9f9; /* Old browsers */
-  background: -moz-linear-gradient(top, #ebe9f9 0%, #d8d0ef 46%, #c1bfea 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 46%,#c1bfea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebe9f9', endColorstr='#c1bfea',GradientType=0 ); /* IE6-9 */
-}
 
 section.state-data{
   margin: 10em;
@@ -134,6 +125,11 @@ section.state-data h2{
   width: 50%;
 }
 
+.senator-banner{
+  margin-top: 3em;
+  margin-bottom: 2em
+}
+
 footer{
     text-size: 0.75em;
     text-align: center;
@@ -141,6 +137,10 @@ footer{
     width: 100%;
 }
 
+h2.bills-header{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 
 
 /*******************SIGN IN / SIGN UP************************************/
@@ -175,10 +175,11 @@ footer{
   border-top-right-radius: 0;
 }
 
-
-.greeting{
-  font-size: 3em;
+p, a{
+  font-family: 'Didact Gothic', 'Roboto', 'Open Sans Condensed', sans-serif;
 }
+
+
 
 /*****************************HOMEPAGE************************************************/
 
@@ -189,6 +190,9 @@ footer{
 .greeting{
   color: #1D2731;
   margin-bottom: 40px;
+  font-family: 'Didact Gothic', 'Roboto', 'Open Sans Condensed' sans-serif;
+  font-size: 1.5em;
+
 }
 
 /*************************CUSTOMIZE NAVBAR*********************************************/
@@ -336,9 +340,9 @@ html{
 }
 
 .home-link{
-  height: 80px;
+  height: 60px;
   border-radius: 30px;
-  padding: 30px;
+  padding: 15px;
   margin: 10px auto;
   width: 75%;
 }
@@ -350,6 +354,10 @@ html{
 .home-link {
   transition: background-color 1.0s ease;
   background-color: #328CC1;
+}
+
+.home-link a:hover{
+  color: #D9B310;
 }
 
 .home-link:hover{
@@ -364,18 +372,67 @@ input.custom-button{
   border-color: #328CC1;
   background-color: #FFF;
   shadow-box: 0px 3px 15px #888;
-  border-color: #328CC1;
-  color:  #328CC1;
+  border-color: #0B3C5D;
+  color:  #0B3C5D;
   width: 25%;
   margin: 2px;
   font-weight: bold;
 }
 
-input.chosen{
+input.custom-button-light{
+  border: 1px solid #D9B310;
+  border-type: solid;
+  /*border-radius: 10px;*/
+  border-width: 1px;
+  border-color: #D9B310;
+  shadow-box: 0px 3px 15px #888;
+  background-color: #0B3C5D;
+  color:  #CCC;
+  width: 25%;
+  margin: 2px;
+  font-weight: normal;
+}
+
+input.chosen-light{
   border: 1px solid #D9B310;
   background: #1D2731;
-  color: #D9B310;
+}
+
+input.chosen{
+  border: 1px solid #328CC1;
+  background: #1D2731;
+  color: #ccc;/*#D9B310;*/
   font-weight: normal;
+}
+
+.custom-button-light:hover{
+  background-color: #aaa;
+  color: #1D2731;
+  border-color: #0B3C5D;
+}
+
+/*************************POSTS************************************/
+
+.new-post textarea{
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.post{
+  border: 3px solid #0B3C5D;
+}
+
+.post .content{
+  font-size: 1.5em;
+  text-align: left;
+  margin-left: 3em;
+}
+
+.post p.username{
+  background-color: #1D2731;
+  color: #DDD;
 }
 
 

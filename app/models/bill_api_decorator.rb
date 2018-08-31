@@ -48,7 +48,8 @@ class BillAPI
     end
 
     def reactions
-      return [] if self.bill.class == BillPlaceholder
+      #return [] if self.bill.class == BillPlaceholder
+      self.save if self.bill.class == BillPlaceholder
       self.bill.reactions
     end
 
@@ -66,7 +67,8 @@ class BillAPI
     end
 
     def following_users
-      return [] if self.bill.class == BillPlaceholder
+      #return [] if self.bill.class == BillPlaceholder
+      self.save if self.bill.class == BillPlaceholder
       self.bill.following_users
     end
 

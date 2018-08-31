@@ -1,60 +1,64 @@
-<%@members.each do |member|%>
+<%@members.each.with_index do |member, index|%>
+<%= "<div class='row' >" if index % 2 == 0 %>
+  <div class="col-lg-6">
     <div class="member-card shadow">
         <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
         <h2><a href="/members/senate/<%=member.slug_from("member_identifier")%>"><%=member.introduction%></a> of <%=member.state%></h2>
         <p>Contact Info</p>
         <div class="contact-info">
-            <p>Contact: <a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
-            <p>Phone: <%=member.phone%></p>
-            <p>Office: <%=member.office%></p>
-            <p>Facebook: <a href="<%=member.facebook%>" target="_"><%=member.facebook%></a></p>
-            <p>Twitter: <a href="<%=member.twitter%>" target="_"><%=member.twitter%></a></p>
-            <p>Official Site: <a href="<%=member.official_site%>" target="_"><%=member.official_site%></a></p>
+            <p><span class="label-light">Contact: </span><a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
+            <p><span class="label-light">Phone: </span><%=member.phone%></p>
+            <p><span class="label-light">Office: </span><%=member.office%></p>
+            <p><span class="label-light">Facebook: </span><a href="<%=member.facebook%>" target="_"><%=member.facebook%></a></p>
+            <p><span class="label-light">Twitter: </span><a href="<%=member.twitter%>" target="_"><%=member.twitter%></a></p>
+            <p><span class="label-light">Official Site: </span><a href="<%=member.official_site%>" target="_"><%=member.official_site%></a></p>
         </div>
         <div class="senator-stats">
-            <p>Birthday: <%=member.birthday%></p>
-            <p>Next Election: <%=member.next_election%></p>
-            <p>Total Votes: <%=member.total_votes%></p>
-            <p>Votes With Party: <%=member.votes_with_party%>%</p>
-            <p>Missed Votes: <%=member.missed_votes_num%> => <%=member.missed_votes%>%</p>
-            <p>Last voted: <%=member.last_voted%></p>
+            <p><span class="label-light">Birthday: </span><%=member.birthday%></p>
+            <p><span class="label-light">Next Election: </span><%=member.next_election%></p>
+            <p><span class="label-light">Total Votes: </span><%=member.total_votes%></p>
+            <p><span class="label-light">Votes With Party: </span><%=member.votes_with_party%>%</p>
+            <p><span class="label-light">Missed Votes: </span><%=member.missed_votes_num%> => <%=member.missed_votes%>%</p>
+            <p><span class="label-light">Last voted: </span><%=member.last_voted%></p>
         </div>
         <div class="actions">
             <%if member_followed?(id: member.member_identifier)%>
                 <form action="/members/senate/<%=member.slug_from("member_identifier")%>/unfollow" method="post">
-                <input type="submit" id="unfollow" value="Unfollow" class="chosen">
+                  <input type="submit" id="unfollow" value="Unfollow" class="chosen-light custom-button-light">
                 </form>
             <%else%>
             <form action="/members/senate/<%=member.slug_from("member_identifier")%>/follow" method="post">
-                <input type="submit" id="follow" value="Follow">
+                <input type="submit" id="follow" value="Follow" class="custom-button-light">
             </form>
             <%end%>
             <%if reaction = reaction_to_member(id: member.member_identifier)%>
                 <%case reaction
                 when "dislike" %>
                     <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
-                    <input type="submit" name="like" id="like" value="Like">
-                    <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
+                    <input type="submit" name="like" id="like" value="Like" class="custom-button-light">
+                    <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen-light custom-button-light">
                     </form>
                 <%when "like" %>
                     <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
-                    <input type="submit" name="like" id="like" value="Like" class="chosen">
-                    <input type="submit" name="dislike" id="dislike" value="Dislike">
+                      <input type="submit" name="like" id="like" value="Like" class="chosen-light custom-button-light">
+                      <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button-light">
                     </form>
 
                 <%end%>
             <%else%>
             <form action="/members/senate/<%=member.member_identifier%>/react" method="post">
-                <input type="submit" name="like" id="like" value="Like">
-                <input type="submit" name="dislike" id="dislike" value="Dislike">
+                <input type="submit" name="like" id="like" value="Like" class="custom-button-light">
+                <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button-light">
             </form>
             <%end%>
             <div class="reaction-stats">
               <%likes = num_likes(member.reactions)%>
-              <p>Likes: <%=likes%></p>
-              <p>Dislikes: <%= member.reactions.length - likes%></p>
-              <p>Following: <%= member.following_users.length%></p>
+              <p><span class="label-light">Likes: </span><%=likes%></p>
+              <p><span class="label-light">Dislikes: </span><%= member.reactions.length - likes%></p>
+              <p><span class="label-light">Following: </span><%= member.following_users.length%></p>
             </div>
         </div>
     </div>
+  </div>
+<%= "</div>" if index % 2 == 1 %>
 <%end%>
