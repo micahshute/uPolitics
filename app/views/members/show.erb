@@ -1,57 +1,105 @@
-<section class="senator-info">
-  <img src="<%=@member.photo_uri%>" alt="Profile Picture" id="senator-pic-main">
-  <h4><%="#{@member.long_title} #{@member.name} (#{@member.party})"%></h4>
-  <p><%=@member.state%></p>
-  <div class="actions">
-    <%if member_followed?(id: @member.member_identifier)%>
-      <form action="/members/senate/<%=@member.slug_from("member_identifier")%>/unfollow" method="post">
-        <input type="submit" id="unfollow" value="Unfollow" class="chosen">
-      </form>
-    <%else%>
-    <form action="/members/senate/<%=@member.slug_from("member_identifier")%>/follow" method="post">
-      <input type="submit" id="follow" value="Follow">
-    </form>
-    <%end%>
-    <%if reaction = reaction_to_member(id: @member.member_identifier)%>
-      <%case reaction
-         when "dislike" %>
-          <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
-            <input type="submit" name="like" id="like" value="Like">
-            <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
-          </form>
-        <%when "like" %>
-          <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
-            <input type="submit" name="like" id="like" value="Like" class="chosen">
-            <input type="submit" name="dislike" id="dislike" value="Dislike">
-          </form>
 
-      <%end%>
-  <%else%>
-    <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
-        <input type="submit" name="like" id="like" value="Like">
-        <input type="submit" name="dislike" id="dislike" value="Dislike">
-    </form>
-  <%end%>
-  <div class="reaction-stats">
-      <%likes = num_likes(@member.reactions)%>
-      <p>Likes: <%=likes%></p>
-      <p>Dislikes: <%=@member.reactions.length - likes%></p>
-      <p>Following: <%= @member.following_users.length%></p>
+
+<div class="senator-info">
+  <div class="row">
+    <div class="col-sm-12 bkg-pri">
+      <div class="senator-img">
+        <img src="<%=@member.photo_uri%>" alt="Profile Picture" id="senator-pic-main" class="border-dark-round">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 bkg-pri bkg-pri">
+      <h4 class="title"><%="#{@member.long_title} #{@member.name} (#{@member.party})"%></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 bkg-pri bottom-dark-border">
+      <h5 class="title"><%=@member.state%></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="actions">
+        <%if member_followed?(id: @member.member_identifier)%>
+            <form action="/members/senate/<%=@member.slug_from("member_identifier")%>/unfollow" method="post">
+              <input type="submit" id="unfollow" value="Unfollow" class="chosen custom-button">
+            </form>
+        <%else%>
+            <form action="/members/senate/<%=@member.slug_from("member_identifier")%>/follow" method="post">
+              <input type="submit" id="follow" value="Follow" class="custom-button">
+            </form>
+        <%end%>
+        <%if reaction = reaction_to_member(id: @member.member_identifier)%>
+          <%case reaction
+             when "dislike" %>
+              <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
+                <input type="submit" name="like" id="like" value="Like" class="custom-button">
+                <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen custom-button">
+              </form>
+            <%when "like" %>
+              <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
+                <input type="submit" name="like" id="like" value="Like" class="chosen custom-button">
+                <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
+              </form>
+
+          <%end%>
+        <%else%>
+          <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
+              <input type="submit" name="like" id="like" value="Like" class="custom-button">
+              <input type="submit" name="dislike" id="dislike" value="Dislike">
+          </form>
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="reaction-stats">
+          <%likes = num_likes(@member.reactions)%>
+          <p><span class="label">Likes: </span><%=likes%></p>
+          <p><span class="label">Dislikes: </span><%=@member.reactions.length - likes%></p>
+          <p><span class="label">Following: </span><%= @member.following_users.length%></p>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-sm-12">
+
   </div>
 </div>
+
   <div class="contact-info">
-      <p>Contact: <a href="<%=@member.contact_link%>"><%=@member.contact_link%></a></p>
+      <h5>Contact Information</h5>
+      <%if @member.contact_link && @member.contact_link.length > 0%>
+        <p>Contact: <a href="<%=@member.contact_link%>"><%=@member.contact_link%></a></p>
+      <%end%>
       <p>Phone: <%=@member.phone%></p>
       <p>Office: <%=@member.office%></p>
-      <p>Facebook: <a href="<%=@member.facebook%>" target="_"><%=@member.facebook%></a></p>
-      <p>Twitter: <a href="<%=@member.twitter%>" target="_"><%=@member.twitter%></a></p>
+      <a href="<%=@member.facebook%>" class="fa fa-facebook" target="_"></a>
+      <a href="<%=@member.twitter%>" class="fa fa-twitter" target="_"></a>
       <p>Official Site: <a href="<%=@member.official_site%>" target="_"><%=@member.official_site%></a></p>
   </div>
   <div class="senator-stats">
-      <p>Votes With Party: <%=@member.votes_with_party%>%</p>
-      <p>Total Votes: <%=@member.total_votes%></p>
-      <p>Missed Votes: <%="#{@member.missed_votes_num}, #{@member.missed_votes}"%>%</p>
-      <p>Last voted: <%=@member.last_voted%></p>
+
+    <table class="centered">
+      <tr>
+        <th>Votes With Party</th>
+        <th>Total Votes</th>
+        <th>Missed Votes</th>
+        <th>Last Voted</th>
+      </tr>
+      <tr>
+        <td><%=@member.votes_with_party%>%</td>
+        <td><%=@member.total_votes%></td>
+        <td><%="#{@member.missed_votes_num} => #{@member.missed_votes}"%>%</td>
+        <td><%=@member.last_voted%></td>
+      </tr>
+    </table>
+
       <p>Seniority: <%=@member.seniority%></p>
       <p>Has sponsored <%=@member.num_bills_sponsored%> bills</p>
       <p>Has cosponsored <%= @member.num_bills_cosponsored%> bills</p>
