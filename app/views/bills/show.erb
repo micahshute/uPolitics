@@ -1,103 +1,230 @@
-<h1 id="bill-number"><%=@bill.bill_number%></h1>
-<section id="traits">
+<div class="row">
+  <div class="col-sm-12 bkg-pri offwhite">
+    <h1 id="bill-number"><%=@bill.bill_number%></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
     <h2 id="title"><%=@bill.title%></h2>
-    <div class="actions">
+  </div>
+</div>
+
+
+<div class="actions">
+  <div class="row">
+    <div class="col-sm-12">
       <%if bill_followed?(id: @bill.bill_identifier)%>
         <form action="/bills/senate/<%=@bill.slug_from("bill_identifier")%>/unfollow" method="post">
-          <input type="submit" id="unfollow" value="Unfollow" class="chosen">
+          <input type="submit" id="unfollow" value="Unfollow" class="chosen custom-button">
         </form>
       <%else%>
       <form action="/bills/senate/<%=@bill.slug_from("bill_identifier")%>/follow" method="post">
-        <input type="submit" id="follow" value="Follow">
+        <input type="submit" id="follow" value="Follow" class="custom-button">
       </form>
       <%end%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
       <%if reaction = reaction_to_bill(id: @bill.bill_identifier)%>
         <%case reaction
            when "dislike" %>
             <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
-              <input type="submit" name="like" id="like" value="Like">
-              <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen">
+              <input type="submit" name="like" id="like" value="Like" class="custom-button">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="chosen custom-button">
             </form>
           <%when "like" %>
             <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
-              <input type="submit" name="like" id="like" value="Like" class="chosen">
-              <input type="submit" name="dislike" id="dislike" value="Dislike">
+              <input type="submit" name="like" id="like" value="Like" class="chosen custom-button">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
             </form>
 
         <%end%>
     <%else%>
       <form action="/bills/senate/<%=@bill.bill_identifier%>/react" method="post">
-          <input type="submit" name="like" id="like" value="Like">
-          <input type="submit" name="dislike" id="dislike" value="Dislike">
+          <input type="submit" name="like" id="like" value="Like" class="custom-button">
+          <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
       </form>
     <%end%>
-  </div>
-  <div class="reaction-stats">
-    <%likes = num_likes(@bill.reactions)%>
-    <p>Likes: <%=likes%></p>
-    <p>Dislikes: <%= @bill.reactions.length - likes%></p>
-    <p>Following: <%= @bill.following_users.length%></p>
-  </div>
-    <p><a href="<%=@bill.link%>" target="_">View Source</a></p>
-  <%if @bill.has_summary?%>
-  <h4>Summary</h4>
-    <p class="summary"><%= @bill.available_summary%></p>
-  <%end%>
-  <p>Subject: <%= @bill.subject%></p>
-  <p>Introduced: <%= parse_date(@bill.introduced)%></p>
-  <p>Sponsor: <%=@bill.sponsor_name%></p>
-  <p>Cosponsors: <%=@bill.republican_cosponsors_number%> (R), <%=@bill.democrat_cosponsors_number%> (D)</p>
-  <p>Committee: <%= @bill.committee%></p>
-  </section>
-  <section id="current-events">
-  <p>Active: <%= @bill.active?%></p>
-  <p><%= "Enacted: #{@bill.enacted}" if @bill.enacted?%></p>
-  <p>Last Vote: <%=@bill.last_vote%></p>
-  <p>Latest action: <%=@bill.latest_action%></p>
-  <%if @bill.has_actions?%>
-    <details>
-      <summary>Actions</summary>
-    <%@bill.actions.each do |action|%>
-        <p>Action:</p>
-        <p>Type: <%=action.category%></p>
-        <p><%=action.description%></p>
-    <%end%>
-  </details>
-  <%end%>
-  <%if @bill.has_votes_no_load?%>
-    <h4>Votes</h4>
-    <div class="votes-summary">
-      <p>For: <%=@bill.votes.first.ayes%></p>
-      <p>Against: <%=@bill.votes.first.nays%></p>
-      <p>Abstains: <%=@bill.votes.first.abstains%></p>
-      <p>Democrats: For: <%=@bill.votes.first.democrat["yes"]%> / Against: <%=@bill.votes.first.democrat["no"]%> / Not voting: <%=@bill.votes.first.democrat["not_voting"]%></p>
-      <p>Republians: For: <%=@bill.votes.first.republican["yes"]%> /  Against: <%=@bill.votes.first.republican["no"]%> / Not Voting: <%=@bill.votes.first.democrat["not_voting"]%></p>
     </div>
+  </div>
 </div>
-</section>
-<section id="votes-breakdown">
-  <div class="ayes">
-    <h5>Ayes</h5>
-    <%@bill.votes.first.yes_votes.each do |vote_data|%>
-      <div class="yes-vote">
-        <p>Senator <%=vote_data["name"]%> (<%=vote_data["party"]%>), of <%=vote_data["state"]%></p>
-      </div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="reaction-stats">
+      <%likes = num_likes(@bill.reactions)%>
+      <p><span>Likes: </span><%=likes%></p>
+      <p><span>Dislikes: </span><%= @bill.reactions.length - likes%></p>
+      <p><span>Following: </span><%= @bill.following_users.length%></p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p><a href="<%=@bill.link%>" target="_">--View Source--</a></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%if @bill.has_summary?%>
+    <h4>Summary</h4>
+      <p class="summary"><%= @bill.available_summary%></p>
     <%end%>
   </div>
-  <div class="nays">
-    <h5>Nays</h5>
-    <%@bill.votes.first.no_votes.each do |vote_data|%>
-      <div class="no-vote">
-        <p>Senator <%=vote_data["name"]%> (<%=vote_data["party"]%>), of <%=vote_data["state"]%></p>
-      </div>
+</div>
+
+
+<%if @bill.subject && @bill.subject.length > 0%><p><span>Subject: </span><%= @bill.subject%></p><%end%>
+
+<div class="row">
+  <div class="col-sm-12">
+    <table>
+      <tr>
+        <th>Introduced</th>
+        <th>Sponsor</th>
+        <th>Co-Sponsors</th>
+        <th>Committee</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td><%= parse_date(@bill.introduced)%></td>
+          <td><%=@bill.sponsor_name%></td>
+          <td><%=@bill.republican_cosponsors_number && @bill.republican_cosponsors_number > 0 ? @bill.republican_cosponsors_number : "0"%> (R), <%=@bill.democrat_cosponsors_number && @bill.democrat_cosponsors_number > 0 ? @bill.democrat_cosponsors_number : "0"%> (D)</td>
+          <td><%= @bill.committee%></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <table>
+      <tr>
+        <th colspan="2">Current Sttatus</th>
+      </tr>
+      <tr>
+        <th>Active Status</th>
+        <td class="<%= @bill.active? ? "active" : "inactive"%>"><%=@bill.active? ? "Active" : "Not Active"%></td>
+      </tr>
+      <tr>
+        <th>Enacted</th>
+        <td><%= @bill.enacted? ? "#{@bill.enacted}" : "Not Enacted"%></td>
+      </tr>
+      <tr>
+        <th>Last Vote</th>
+        <td><%=@bill.last_vote ? @bill.last_vote : "Not Voted"%></td>
+      </tr>
+      <tr>
+        <th>Last Action:</th>
+        <td><%=@bill.latest_action ? @bill.latest_action : "No Actions"%></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <%if @bill.has_actions?%>
+      <details>
+        <summary class="bkg-dark offwhite">View All Actions</summary>
+      <%@bill.actions.each do |action|%>
+        <table>
+          <tr>
+            <th colspan="2">Action on <%=action.time%></th>
+          </tr>
+          <tr>
+            <th>Type</th>
+            <td><%=action.category%></td>
+          </tr>
+          <tr>
+            <td colspan="2"><%=action.description%></td>
+          </tr>
+        </table>
+
+      <%end%>
+    </details>
     <%end%>
   </div>
-</section>
+</div>
+
+
+<%if @bill.has_votes_no_load?%>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="votes">
+        <tr>
+          <th colspan="6">Votes</th>
+        </tr>
+        <tr>
+          <th colspan="2">For</th>
+          <th colspan="2">Against</th>
+          <th colspan="2">Abstain</th>
+        </tr>
+        <tr>
+          <th>Democrats</th>
+          <td><%=@bill.votes.first.democrat["yes"]%></td>
+          <th>Democrats</th>
+          <td><%=@bill.votes.first.democrat["no"]%></td>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th>Republicans</th>
+          <td><%=@bill.votes.first.republican["yes"]%></td>
+          <th>Republicans</th>
+          <td><%=@bill.votes.first.republican["no"]%></td>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td><%=@bill.votes.first.ayes%></td>
+          <th>Total</th>
+          <td><%=@bill.votes.first.nays%></td>
+          <th>Both</th>
+          <td><%=@bill.votes.first.abstains%></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-4">
+      <h6 class="yes-votes">For</h6>
+      <%@bill.votes.first.yes_votes.each do |vote_data|%>
+        <div class="yes-vote border-bdark <%=vote_data["party"] == "D" ? "democrat" : "republican"%>">
+          <p>Senator <%=vote_data["name"]%> (<%=vote_data["party"]%>), of <%=vote_data["state"]%></p>
+        </div>
+      <%end%>
+    </div>
+    <div class="col-sm-4">
+      <h6 class="no-votes">Against</h6>
+      <%@bill.votes.first.no_votes.each do |vote_data|%>
+        <div class="no-vote border-bdark <%=vote_data["party"] == "D" ? "democrat" : "republican"%>">
+          <p>Senator <%=vote_data["name"]%> (<%=vote_data["party"]%>), of <%=vote_data["state"]%></p>
+        </div>
+      <%end%>
+    </div>
+    <div class="col-sm-4">
+      <h6 class="abstain-votes">Abstain</h6>
+      <%@bill.votes.first.abstain_votes.each do |vote_data|%>
+        <div class="abstain-vote border-bdark <%=vote_data["party"] == "D" ? "democrat" : "republican"%>">
+          <p>Senator <%=vote_data["name"]%> (<%=vote_data["party"]%>), of <%=vote_data["state"]%></p>
+        </div>
+      <%end%>
+    </div>
+  </div>
+
 <%else%>
-</div>
   <h4>No Vote Data</h4>
-</section>
+<%end%>
+
 <section class="posts">
   <%=yield%>
 </section>
-<%end%>

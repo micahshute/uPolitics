@@ -437,7 +437,13 @@ input.chosen{
 }
 
 .post{
+  background: #fbfbfb;
   border: 3px solid #0B3C5D;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top:10px;
 }
 
 .post .content{
@@ -460,6 +466,15 @@ input.chosen{
 
 .member-card a:hover{
   color: #eee;
+}
+
+.post .content{
+  width: 90%;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #aaa;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
 /****************************************************************************/
@@ -597,9 +612,47 @@ table th {
   text-transform: uppercase;
 }
 table td {
+
+  /*
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  */
+}
+
+
+
+/****************BILL SHOW***************************************************/
+
+span{
+  font-weight: bold;
+}
+table.votes{
+  border-top: 15px solid #328CC1;
+}
+
+.yes-vote, .no-vote, .abstain-vote{
+  color: #D9B310;
+  border: 1px solid #1D2731;
+
+}
+
+.yes-vote p, .no-vote p, .abstain-vote p{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h6.yes-votes, h6.no-votes, h6.abstain-votes{
+  background-color: #1D2731;
+  color: #fff;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.posts{
+  margin-top: 20px;
+  border-top: 10px solid #ccc;
+  padding: 5px;
 }
 
 
