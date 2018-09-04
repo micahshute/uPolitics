@@ -2,19 +2,19 @@
 
 <div class="senator-info">
   <div class="row">
-    <div class="col-sm-12 bkg-pri">
+    <div class="col-sm-12 <%= @member.party == "R" ? "republican" : "democrat" %>">
       <div class="senator-img">
         <img src="<%=@member.photo_uri%>" alt="Profile Picture" id="senator-pic-main" class="border-dark-round">
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 bkg-pri bkg-pri">
+    <div class="col-sm-12 <%= @member.party == "R" ? "republican" : "democrat" %>">
       <h4 class="title"><%="#{@member.long_title} #{@member.name} (#{@member.party})"%></h4>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 bkg-pri bottom-dark-border">
+    <div class="col-sm-12 <%= @member.party == "R" ? "republican" : "democrat" %> bottom-dark-border">
       <h5 class="title"><%=@member.state%></h5>
     </div>
   </div>
@@ -48,7 +48,7 @@
         <%else%>
           <form action="/members/senate/<%=@member.member_identifier%>/react" method="post">
               <input type="submit" name="like" id="like" value="Like" class="custom-button">
-              <input type="submit" name="dislike" id="dislike" value="Dislike">
+              <input type="submit" name="dislike" id="dislike" value="Dislike" class="custom-button">
           </form>
         <%end%>
       </div>
@@ -68,116 +68,172 @@
 
 <div class="row">
   <div class="col-sm-12">
-
+    <div class="contact-info">
+        <h5>Contact Information</h5>
+        <%if @member.contact_link && @member.contact_link.length > 0%>
+          <p>Contact: <a href="<%=@member.contact_link%>"><%=@member.contact_link%></a></p>
+        <%end%>
+        <p><span class="label">Phone: </span><%=@member.phone%></p>
+        <p><span class="label">Office: </span><%=@member.office%></p>
+        <a href="<%=@member.facebook%>" class="fa fa-facebook" target="_"></a>
+        <a href="<%=@member.twitter%>" class="fa fa-twitter" target="_"></a>
+        <p><span class="label">Official Site: </span><a href="<%=@member.official_site%>" target="_"><%=@member.official_site%></a></p>
+    </div>
   </div>
 </div>
 
-  <div class="contact-info">
-      <h5>Contact Information</h5>
-      <%if @member.contact_link && @member.contact_link.length > 0%>
-        <p>Contact: <a href="<%=@member.contact_link%>"><%=@member.contact_link%></a></p>
-      <%end%>
-      <p>Phone: <%=@member.phone%></p>
-      <p>Office: <%=@member.office%></p>
-      <a href="<%=@member.facebook%>" class="fa fa-facebook" target="_"></a>
-      <a href="<%=@member.twitter%>" class="fa fa-twitter" target="_"></a>
-      <p>Official Site: <a href="<%=@member.official_site%>" target="_"><%=@member.official_site%></a></p>
-  </div>
-  <div class="senator-stats">
 
-    <table class="centered">
-      <tr>
-        <th>Votes With Party</th>
-        <th>Total Votes</th>
-        <th>Missed Votes</th>
-        <th>Last Voted</th>
-      </tr>
-      <tr>
-        <td><%=@member.votes_with_party%>%</td>
-        <td><%=@member.total_votes%></td>
-        <td><%="#{@member.missed_votes_num} => #{@member.missed_votes}"%>%</td>
-        <td><%=@member.last_voted%></td>
-      </tr>
-    </table>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="senator-stats">
+      <table class="centered">
+        <tr>
+          <th>Votes With Party</th>
+          <th>Total Votes</th>
+          <th>Missed Votes</th>
+          <th>Last Voted</th>
+        </tr>
+        <tr class="bkg-offwhite">
+          <td><%=@member.votes_with_party%>%</td>
+          <td><%=@member.total_votes%></td>
+          <td><%="#{@member.missed_votes_num} => #{@member.missed_votes}"%>%</td>
+          <td><%=@member.last_voted%></td>
+        </tr>
+      </table>
 
-      <p>Seniority: <%=@member.seniority%></p>
-      <p>Has sponsored <%=@member.num_bills_sponsored%> bills</p>
-      <p>Has cosponsored <%= @member.num_bills_cosponsored%> bills</p>
-      <p>Leadship Roles: <%= !!@member.leadership_role ? senator.leadership_role : "None"%></p>
-      <p><%="Next Election: #{@member.next_election}" if @member.next_election%></p>
-      <p>Birthday: <%=@member.birthday%></p>
+        <p><span class="label">Seniority: </span><%=@member.seniority%></p>
+        <p>Has <span class="label">sponsored </span><%=@member.num_bills_sponsored%> bills and <span class="label"> cosponsored </span><%= @member.num_bills_cosponsored%> bills</p>
+        <%if false%><p>Leadship Roles: <%= !!@member.leadership_role ? senator.leadership_role : "None"%></p><%end%>
+        <p><%="Next Election: #{@member.next_election}" if @member.next_election%></p>
+        <p>Birthday: <%=@member.birthday%></p>
+    </div>
   </div>
-</section>
-<section class="senator-committees">
-  <div class="committees">
-    <h4>Committees:</h4>
-    <%@member.committees.each.with_index do |committee, index|%>
-      <div class="committee" id="committee-<%=index%>">
-        <h5><%=committee.name%></h5>
-        <p>Title: <%=committee.title%></p>
-        <p>Rank in party <%=committee.rank_in_party%></p>
+</div>
+
+
+<div class="committees">
+  <h4>Committees:</h4>
+
+
+  <%@member.committees.each.with_index do |committee, index|%>
+    <%if index % 2 == 0 %><div class="row"><%end%>
+      <div class="col-lg-6">
+        <div class="committee" id="committee-<%=index%>">
+          <h5><%=committee.name%></h5>
+          <p><span>Title: </span><%=committee.title%></p>
+          <p><span>Rank in party </span><%=committee.rank_in_party%></p>
+        </div>
       </div>
-    <%end%>
-  </div>
-  <div class="subcommittees">
-    <h4>Subcommittees:</h4>
-    <%@member.subcommittees.each.with_index do |committee, index|%>
-      <div class="subcommittee" id="subcommittee-<%=index%>">
-        <h5><%=committee.name%></h5>
-        <p>Title: <%=committee.title%></p>
-        <p>Rank in party <%=committee.rank_in_party%></p>
+    <%if index % 2 == 1 %></div/><%end%>
+  <%end%>
+</div>
+
+
+
+<div class="subcommittees">
+  <h4>Subcommittees:</h4>
+  <%@member.subcommittees.each.with_index do |committee, index|%>
+    <%if index % 2 == 0 %><div class="row"><%end%>
+      <div class="col-lg-6">
+        <div class="subcommittee" id="subcommittee-<%=index%>">
+          <h5><%=committee.name%></h5>
+          <p>Title: <%=committee.title%></p>
+          <p>Rank in party <%=committee.rank_in_party%></p>
+        </div>
       </div>
-    <%end%>
-  </div>
-</section>
-<section class="senator-votes">
+    <%if index % 2 == 1 %></div/><%end%>
+  <%end%>
+</div>
+
+<div class="senator-votes">
   <h5>Recent Votes</h5>
   <div class="recent-votes">
     <%@member.votes.each.with_index do |vote, index|%>
-      <div id="vote-<%=index%>" class="vote">
+      <div id="vote-<%=index%>" class="vote shadow">
+        <div class="row">
+          <div class="col-md-12">
+            <%bill_link = vote.bill_id.downcase.include?("pn") ? "#" : "/bills/senate/#{vote.bill_id}"%>
+            <p class="number"><a href="<%=bill_link%>"><%=vote.number%></a></p>
+            <p class="title"><a href="<%=bill_link%>"><%=vote.title%></a></p>
+            <p class="description"><%=vote.description%></p>
+            <p><%="<span>Latest Action:</span> #{vote.latest_action}" if !!vote.latest_action && vote.latest_action != ""%></p>
+            <p class="session"><span>Session: </span><%=vote.session%></p>
+            <p class="role-call"><span>Roll Call: </span><%=vote.roll_call%></p>
+            <p class="nomination-info"><%= "<span>Nominee: </span>#{vote.nomination["name"]} to agency #{vote.nomination["agency"]}" if !!vote.nomination && vote.nomination.length > 0%></p>
+          </div>
+        </div>
 
-        <p class="number"><a href="<%=vote.bill_id%>"><%=vote.number%></a></p>
-        <p class="title"><a href="<%=vote.bill_id%>"><%=vote.title%></a></p>
-        <p class="description"><%=vote.description%></p>
-        <p><%="Latest Action:" if !!vote.latest_action && vote.latest_action != ""%></p>
-        <p class="latest-action"><%=vote.latest_action%></p>
-        <p class="session">Session: <%=vote.session%></p>
-        <p class="role-call">Roll Call: <%=vote.roll_call%></p>
-        <p class="nomination-info"><%= "Nominee: #{vote.nomination["name"]} to agency #{vote.nomination["agency"]}" if !!vote.nomination && vote.nomination.length > 0%></p>
-        <p class="result"><%=vote.result%></p>
-        <p class="date"><%=vote.date%></p>
-        <p class="time"><%=vote.time%></p>
-        <p class="total">Yes: <%=vote.total["yes"]%>, No: <%=vote.total["no"]%>, Abstain <%=vote.total["not_voting"] || "0"%></p>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="results">
+              <p class="date"><span>On </span><%=vote.date%></p>
+              <p class="time"><span>At </span><%=vote.time%>, </p>
+              <p class="result"><%=vote.result%></p>
+            </div>
+
+          </div>
+        </div>
+
         <p class="amendment"><%= "Amendment Number: #{vote.amendment["number"]}, by #{vote.amendment["sponsor"]}(#{vote.amendment["sponsor_party"]}) of #{vote.amendment["sponsor_state"]}" if vote.amendment && vote.amendment.length > 0%></p>
-        <p class="senator-vote"> <%=@member.name%>: <%=vote.position%></p>
 
+        <div class="row">
+          <div class="col-md-12">
+            <table class="centered-halfsize">
+              <tr>
+                <th class="vote-table-data">Yes</th>
+                <th class="vote-table-data">No</th>
+                <th class="vote-table-data">Abstain</th>
+              </tr>
+              <tbody class="bkg-offwhite">
+                <tr>
+                  <td class="vote-table-data"><%=vote.total["yes"]%></td>
+                  <td class="vote-table-data"><%=vote.total["no"]%></td>
+                  <td class="vote-table-data"><%=vote.total["not_voting"] || "0"%></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <p class="senator-vote"> <%=@member.name%>: <%=vote.position%></p>
+          </div>
+
+        </div>
       </div>
     <%end%>
   </div>
-</section>
-<section class="senator-bills">
+</div>
+<div class="senator-bills">
 
-<h5>Recent sponsored bills: </h5>
-    <ul>
-        <%@member.bill_sponsorships.introduced_bills.each do |bill|%>
-        <li>
-            <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
-            <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
-            <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
-            <details>
-                <summary>Summary</summary>
-                <p><%=bill.summary || bill.short_summary%></p>
-            </details>
+<details>
+    <summary class="sponsored-bills">Recently Sponsored Bills:</summary>
+
+        <ul>
+            <%@member.bill_sponsorships.introduced_bills.each do |bill|%>
+            <div class="sponsored-bill border-pri">
+              <li>
+                  <a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a>
+                  <p>Introduced: <%=parse_date(bill.introduced_date)%></p>
+                  <%if (bill.summary.length > 0 || bill.short_summary.length > 0)%>
+                  <details>
+                      <summary>Summary</summary>
+                      <p><%=bill.summary || bill.short_summary%></p>
+                  </details>
+                  <%end%>
+              </li>
+            </div>
             <%end%>
-        </li>
+        </ul>
+</details>
 
-        <%end%>
-    </ul>
 
-</section>
-<section class="senator-explanations">
 
-</section>
-<section class="posts">
+</div>
+<div class="senator-explanations">
+
+</div>
+<div class="posts">
   <%=yield%>
-</section>
+</div>
