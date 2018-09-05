@@ -410,8 +410,8 @@ input.custom-button-light{
 }
 
 input.chosen-light{
-  border: 1px solid #D9B310;
-  background: #1D2731;
+    border: 2px solid #aaaaff;
+  background: #aaaaff;
 }
 
 input.chosen{
@@ -437,8 +437,8 @@ input.chosen{
 }
 
 .post{
-  background: #fbfbfb;
-  border: 3px solid #0B3C5D;
+  background: #fff;
+  border: 1px solid #eee;
   border-radius: 10px;
   width: 90%;
   margin: auto;
@@ -447,14 +447,50 @@ input.chosen{
 }
 
 .post .content{
-  font-size: 1.5em;
+  font-size: 1em;
   text-align: left;
   margin-left: 3em;
+  width: 70%;
+  max-width: 90%;
+  padding: 20px;
+  background-color: #f4f4f8;
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .post p.username{
-  background-color: #1D2731;
-  color: #DDD;
+  text-align: left;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-left: 5%;
+}
+
+.post .post-header p{
+  display: inline
+}
+
+.post .post-time{
+  margin-left: 2%;
+  font-size: 0.9em;
+}
+
+.post .edit-time{
+  font-size: 0.8em;
+}
+
+.post-header * {
+  display: inline;
+}
+
+/* .profile-avatar img{
+  width: 4%;
+  height: auto;
+} */
+
+.post-header{
+  text-align: left;
+  padding: 10px;
+  width: 90%;
 }
 
 
@@ -468,14 +504,79 @@ input.chosen{
   color: #eee;
 }
 
-.post .content{
-  width: 90%;
-  padding: 20px;
-  background-color: #f8f8f8;
-  border: 1px solid #aaa;
+.reaction-stats{
   margin: 0 auto;
-  border-radius: 10px;
+  margin-top: 0px;
+  width: 70%;
 }
+
+.reaction-stats .like{
+  float: left;
+}
+
+.reaction-stats .dislike{
+  float: right;
+}
+
+.reaction-stats p{
+  font-size: 0.8em;
+}
+
+.reaction{
+  width: 70%;
+  margin: 0 auto;
+}
+
+p.num-likes{
+  float: left;
+  color: green;
+}
+
+p.num-dislikes{
+  float: right;
+  color: red;
+}
+
+.reaction p{
+  font-size: 0.8em;
+  display: inline;
+  margin-left: 5px;
+}
+
+.custom-button-like{
+  border-radius: 100%;
+  border: 2px solid #fff;
+  float: left;
+}
+
+.custom-button-like:hover{
+  background-color: #55ff00;
+  border: 2px solid #55ff00;
+}
+
+.custom-button-dislike:hover{
+  background-color: #ff5522;
+  border: 2px solid #ff5522;
+}
+
+.custom-button-dislike{
+  border-radius: 100%;
+  border: 2px solid #fff;
+  float: right;
+}
+
+.user-post form{
+  float: right;
+}
+
+.user-post input{
+  border-radius: 3px;
+}
+
+.user-post input:hover{
+  background-color: #f0f0f0;
+}
+
 
 /****************************************************************************/
 

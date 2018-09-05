@@ -21,44 +21,61 @@
         <div class="col-sm-12">
 
           <div class="post">
-              <a href="#"><p class="username"><%=p.user.username%></p></a>
-              <p class="content"><%=p.content%></p>
-              <div class="reaction-stats">
-                  <%likes = num_likes(p.reactions)%>
-                  <p>Likes: <%=likes%></p>
-                  <p>Dislikes: <%=p.reactions.length - likes%></p>
+            <div class="post-header">
+              <div class="profile-avatar">
+                <img src="/assets/images/baseline-face-black-18/2x/baseline_face_black_18dp.png" alt="avatar">
               </div>
+              <a href="#"><p class="username"><%=p.user.username%></p></a>
+              <p class="post-time"><%=time_from_now(p.created_at)%></p>
+              <p class="edit-time"><%= "(Edited) #{time_from_now(p.updated_at)}" if (p.updated_at != p.created_at)%></p>
+            </div>
+              <p class="content"><%=p.content%></p>
+
+              <!--
+              <div class="reaction-stats clearfix">
+                  <%likes = num_likes(p.reactions)%>
+                  <div class="like"><a href="#"><i class="material-icons pri like-icon">thumb_up</i></a><p><%=likes%></p></div>
+                  <div class="dislike"><a href="#"><i class="material-icons dark dislike-icon">thumb_down</i></a><p><%=p.reactions.length - likes%></p></div>
+              </div>
+            -->
+
+              <%likes = num_likes(p.reactions)%>
+              <div class="reaction clearfix">
               <%case reaction_to_post(id: p.id)
                   when "like"%>
                       <form action="/posts/<%=p.id%>/react" method="post">
-                          <input type="submit" name="like" value="like" class="chosen custom-button">
-                          <input type="submit" name="dislike" value="dislike" class="custom-button">
+                          <input type="image" name="like" value="like" src="/assets/images/baseline-thumb_up-black-18/1x/baseline_thumb_up_black_18dp.png" class="chosen-light custom-button-like">
+                          <a href="#"><p class="num-likes"><%=likes%></p></a>
+                          <a href="#"><p class="num-dislikes"><%=p.reactions.length - likes%></p></a>
+                          <input type="image" name="dislike" value="dislike" src="/assets/images/baseline-thumb_down-black-18/1x/baseline_thumb_down_black_18dp.png" class="custom-button-dislike">
                       </form>
                   <%when "dislike"%>
                       <form action="/posts/<%=p.id%>/react" method="post">
-                          <input type="submit" name="like" value="like" class="custom-button">
-                          <input type="submit" name="dislike" value="dislike" class="chosen cutsom-button">
+                          <input type="image" name="like" value="like" src="/assets/images/baseline-thumb_up-black-18/1x/baseline_thumb_up_black_18dp.png" class="custom-button-like">
+                          <a href="#"><p class="num-likes"><%=likes%></p></a>
+                          <a href="#"><p class="num-dislikes"><%=p.reactions.length - likes%></p></a>
+                          <input type="image" name="dislike" value="dislike" src="/assets/images/baseline-thumb_down-black-18/1x/baseline_thumb_down_black_18dp.png" class="chosen-light custom-button-dislike">
                       </form>
                   <%else%>
                       <form action="/posts/<%=p.id%>/react" method="post">
-                          <input type="submit" name="like" value="like" class="custom-button">
-                          <input type="submit" name="dislike" value="dislike" class="custom-button">
+                        <input type="image" name="like" value="like" src="/assets/images/baseline-thumb_up-black-18/1x/baseline_thumb_up_black_18dp.png" class="custom-button-like">
+                        <a href="#"><p class="num-likes"><%=likes%></p></a>
+                        <a href="#"><p class="num-dislikes"><%=p.reactions.length - likes%></p></a>
+                        <input type="image" name="dislike" value="dislike" src="/assets/images/baseline-thumb_down-black-18/1x/baseline_thumb_down_black_18dp.png" class="custom-button-dislike">
                       </form>
                   <%end%>
-
+                </div>
               <%if p.user == current_user%>
-                  <div class="user-post">
+                  <div class="user-post clearfix">
+                    <form action="/posts/<%=p.id%>/delete" method="post">
+                        <input type="hidden" id= "hidden" name="_method" value="delete" >
+                        <input type="image" name="delete" value="Delete" src="/assets/images/baseline-delete-black-18/2x/baseline_delete_black_18dp.png">
+                    </form>
                       <form action="/posts/<%=p.id%>/edit" method="get">
-                          <input type="submit" name="edit" value="Edit" class="custom-button">
-                      </form>
-                      <form action="/posts/<%=p.id%>/delete" method="post">
-                          <input type="hidden" id= "hidden" name="_method" value="delete" >
-                          <input type="submit" name="delete" value="Delete" class="custom-button">
+                        <input type="image" name="edit" value="Edit" src="/assets/images/baseline-edit-black-18/2x/baseline_edit_black_18dp.png">
                       </form>
                   </div>
               <%end%>
-              <p id="create-timestamp"><span class="label">Posted: </span><%=time_from_now(p.created_at)%></p>
-              <p id="edit-timestamp"><%= "Edited: #{time_from_now(p.updated_at)}" if (p.updated_at != p.created_at)%></p>
           </div>
         </div>
       </div>
