@@ -410,9 +410,11 @@ input.custom-button-light{
 }
 
 input.chosen-light{
-    border: 2px solid #aaaaff;
-  background: #aaaaff;
+  border: 1px solid #D9B310;
+  background: #1D2731;
 }
+
+
 
 input.chosen{
   border: 1px solid #328CC1;
@@ -423,7 +425,7 @@ input.chosen{
 
 .custom-button-light:hover{
   background-color: #aaa;
-  color: #1D2731;
+  color: c
   border-color: #0B3C5D;
 }
 
@@ -575,6 +577,11 @@ p.num-dislikes{
 
 .user-post input:hover{
   background-color: #f0f0f0;
+}
+
+input.chosen-posts{
+  border: 2px solid #aaaaff;
+  background: #aaaaff;
 }
 
 
