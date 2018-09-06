@@ -663,9 +663,11 @@ h4.title, h5.title{
 
 div.committee, div.subcommittee{
   margin-bottom: 3px;
-  border: 2px solid #0B3C5D;
+  border: 1px solid #e0e0e0;
   border-radius: 10px;
   background: offwhite;
+  height: 99%;
+  margin-bottom: 2px;
 }
 
 div.vote{
