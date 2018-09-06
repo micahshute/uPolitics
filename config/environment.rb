@@ -4,7 +4,6 @@ Bundler.setup
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
 require 'open-uri'
-require_relative './secrets'
 require_relative '../app/models/concerns/findable'
 require_relative '../app/models/concerns/slugify'
 require_all 'app'
