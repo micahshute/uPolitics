@@ -1,23 +1,32 @@
 <h2><%=@user.user.state.name%></h2>
 
 <form action="/profile/<%="#{@user.user.state.name}_#{@user.user.state.abbreviation}"%>" method="post">
-    <input type="submit" id="verify" value="Save my state">
+    <input type="submit" id="verify" value="Save my state" class="custom-button">
+    <a id="no-save-state" href="/<%=@user.slug%>/profile/edit">Go back</a>
 </form>
-<h3>Senators</h3>
 
-<%@user.state_senators.each do |senator|%>
-    <div class="senator-profile">
-        <img src="<%=senator.photo_uri%>" alt="Profile Picture">
-        <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
-        <div class="contact-info-senate">
-            <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
-            <p>Phone: <%=senator.phone%></p>
-            <p>Office: <%=senator.office%></p>
-            <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
-            <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+<h3>Senators</h3>
+<div class="row">
+  <%@user.state_senators.each do |senator|%>
+    <div class="col-lg-6">
+      <div class="senator-profile">
+        <div class="senator-image">
+          <img class="senator-pic-verify" src="<%=senator.photo_uri%>" alt="Profile Picture">
         </div>
+
+          <h4><%="#{senator.long_title} #{senator.name} (#{senator.party})"%></h4>
+          <div class="contact-info-senate">
+              <p>Contact: <a href="<%=senator.contact_link%>"><%=senator.contact_link%></a></p>
+              <p>Phone: <%=senator.phone%></p>
+              <p>Office: <%=senator.office%></p>
+              <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
+              <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+          </div>
+      </div>
     </div>
-<%end%>
+  <%end%>
+</div>
+
 <!--
 <%if false%>
 <h3>House Representatives</h3>

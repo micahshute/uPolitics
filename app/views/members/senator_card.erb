@@ -4,7 +4,6 @@
     <div class="member-card shadow">
         <%if false %><img src="<%=member.photo_uri%>" alt="Profile Picture"><%end%>
         <h2><a href="/members/senate/<%=member.slug_from("member_identifier")%>"><%=member.introduction%></a> of <%=member.state%></h2>
-        <p>Contact Info</p>
         <div class="contact-info">
             <p><span class="label-light">Contact: </span><a href="<%=member.contact_link%>"><%=member.contact_link%></a></p>
             <p><span class="label-light">Phone: </span><%=member.phone%></p>
@@ -14,11 +13,13 @@
             <p><span class="label-light">Official Site: </span><a href="<%=member.official_site%>" target="_"><%=member.official_site%></a></p>
         </div>
         <div class="senator-stats">
+          <!--
             <p><span class="label-light">Birthday: </span><%=member.birthday%></p>
             <p><span class="label-light">Next Election: </span><%=member.next_election%></p>
             <p><span class="label-light">Total Votes: </span><%=member.total_votes%></p>
+          -->
             <p><span class="label-light">Votes With Party: </span><%=member.votes_with_party%>%</p>
-            <p><span class="label-light">Missed Votes: </span><%=member.missed_votes_num%> => <%=member.missed_votes%>%</p>
+            <p><span class="label-light">Missed Votes: </span><%=member.missed_votes%>%</p>
             <p><span class="label-light">Last voted: </span><%=member.last_voted%></p>
         </div>
         <div class="actions">
@@ -55,7 +56,7 @@
               <%likes = num_likes(member.reactions)%>
               <p><span class="label-light">Likes: </span><%=likes%></p>
               <p><span class="label-light">Dislikes: </span><%= member.reactions.length - likes%></p>
-              <p><span class="label-light">Following: </span><%= member.following_users.length%></p>
+              <p><span class="label-light">Followers: </span><%= member.following_users.length%></p>
             </div>
         </div>
     </div>

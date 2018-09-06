@@ -2,7 +2,7 @@
 
 
   <form class="form-signin" action="/signup" method="post">
-    <img src="/assets/images/logo.png" alt="Logo" class="logo mb-4" width="119" height="70">
+    <img src="/assets/images/logo.png" alt="Logo" class="logo mb-4" style="border-radius:10%" width="119" height="70">
     <h2 class="mb-3 font-weight-normal">Signup</h2>
     <input type="text" name="user[name]" id="name" placeholder="Name" class="form-control" required autofocus>
     <p><%= "Name #{@errors[:name].first}" if (!!@errors && @errors[:name] && @errors[:name].first)%></p>

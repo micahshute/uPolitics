@@ -6,25 +6,30 @@
       <h2 class="bill-title"><a href="/bills/senate/<%=bill.slug_from("bill_identifier")%>"><%=bill.title%></a></h2>
       <p><a href="<%=bill.link%>" target="_">--View Source--</a></p>
       <%if bill.has_summary?%>
-      <h4>Summary</h4>
+        <h4>Summary</h4>
         <p class="summary"><%= bill.available_summary%></p>
       <%end%>
-      <p><span class="label">Subject: </span><%= bill.subject%></p>
+      <p><span class="label">Subject: </span><%= bill.subject ? bill.subject.length > 0 ? bill.subject : "Not Listed" : "Not Listed"%></p>
       <p><span class="label">Introduced: </span><%= parse_date(bill.introduced)%></p>
       <p><span class="label">Sponsor: </span><%=bill.sponsor_name%></p>
-      <p><span class="label">Active: </span><%= bill.active?%></p>
+      <p><span class="label"><%= bill.active? ? "Active" : "Not Active"%></span></p>
       <p><%= "Enacted: #{parse_date(bill.enacted)}" if bill.enacted?%></p>
       <%if bill.has_actions?%>
-        <p><span class="label">Most Recent Action:</label></p>
-        <%action = bill.actions.first%>
-        <p><span class="label">Type: </span><%=action.category%></p>
-        <p><%=action.description%></p>
+        <div class="recent-action">
+          <p><span class="action-label">Most Recent Action</label></p>
+          <%action = bill.actions.first%>
+          <p>--<%=action.category%>--</p>
+          <p><%=action.description%></p>
+        </div>
+
       <%end%>
       <%if bill.has_votes_no_load?%>
-        <h4>Votes</h4>
-        <p><span class="label">For: </span><%=bill.votes.first.ayes%></p>
-        <p><span class="label">Against: </span><%=bill.votes.first.nays%></p>
-        <p><span class="label">Abstains: </span><%=bill.votes.first.abstains%></p>
+        <div class="card-votes">
+          <h5 class="votes-label">Votes</h5>
+          <p><span class="votes-label">For: </span><%=bill.votes.first.ayes%></p>
+          <p><span class="votes-label">Against: </span><%=bill.votes.first.nays%></p>
+          <p><span class="votes-label">Abstains: </span><%=bill.votes.first.abstains%></p>
+        </div>
       <%end%>
       <div class="actions">
           <%if bill_followed?(id: bill.bill_identifier)%>
@@ -59,7 +64,7 @@
           <%likes = num_likes(bill.reactions)%>
           <p><span class="label">Likes: </span><%=likes%></p>
           <p><span class="label">Dislikes: </span><%= bill.reactions.length - likes%></p>
-          <p><span class="label">Following: </span><%= bill.following_users.length%></p>
+          <p><span class="label">Followers: </span><%= bill.following_users.length%></p>
         </div>
       </div>
     </div>

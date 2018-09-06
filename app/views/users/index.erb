@@ -64,8 +64,8 @@
                       <p>Contact: <a href="<%=senator.contact_link%>" target="_"><%=senator.contact_link%></a></p>
                       <p>Phone: <%=senator.phone%></p>
                       <p>Office: <%=senator.office%></p>
-                      <p>Facebook: <a href="<%=senator.facebook%>" target="_"><%=senator.facebook%></a></p>
-                      <p>Twitter: <a href="<%=senator.twitter%>" target="_"><%=senator.twitter%></a></p>
+                      <a href="<%=senator.facebook%>" class="fa fa-facebook sen-fb" target="_"></a>
+                      <a href="<%=senator.twitter%>" class="fa fa-twitter sen-tw" target="_"></a>
                   </div>
               </details>
               <div class="senator-stats">
@@ -74,7 +74,7 @@
                   <p>Last voted: <%=senator.last_voted%></p>
                   <p><%="Next Election: #{senator.next_election}" if senator.next_election%></p>
                   <details>
-                  <summary>Recent sponsored bills: </summary>
+                  <summary>Recently sponsored bills: </summary>
                       <ul>
                           <%senator.bill_sponsorships.introduced_bills.each do |bill|%>
                           <li>

@@ -1,5 +1,5 @@
 class UserAPIDecorator
-    
+
     attr_reader :user, :api_manager
     def initialize(user: , api_manager: APIManager)
         @user = user
@@ -12,7 +12,11 @@ class UserAPIDecorator
         self.user.name
     end
 
-    def state 
+    def slug
+      self.user.slug
+    end
+
+    def state
         return nil if user.state.nil?
         self.user.state.abbreviation
     end

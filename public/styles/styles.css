@@ -589,8 +589,51 @@ input.chosen-posts{
 
 .label{
   font-weight: bold;
-  font-style: oblique;
 }
+
+.senator-image{
+  width: 30%;
+  height: auto;
+  margin: 0 auto;
+}
+.senator-pic-verify{
+  max-width: 100%;
+  widht: 100%
+  height: 100%;
+}
+
+#skip-state-selection{
+  font-size: 1.5em;
+  font-weight: bold;
+  color: purple;
+}
+
+#no-save-state{
+  border: 1px solid #D9B310;
+  border-type: solid;
+  /*border-radius: 10px;*/
+  border-width: 1px;
+  border-color: #328CC1;
+  background-color: #FFF;
+  shadow-box: 0px 3px 15px #888;
+  border-color: #0B3C5D;
+  color:  #0B3C5D;
+  width: 25%;
+  margin: 2px auto;
+  font-weight: bold;
+  display: block;
+  height: auto;
+}
+
+#no-save-state:hover{
+  background: #0B3C5D;
+  color: #eee;
+}
+
+#skip-state-selection:hover{
+  color: green;
+}
+
 
 /**************SENATOR PAGE**********************************************/
 
@@ -687,6 +730,14 @@ p.number a{
   font-weight: bold;
 }
 
+a.sen-fb{
+  margin-right: 10px;
+}
+
+a.sen-tw{
+  margin-left: 10px;
+}
+
 /**********************TABLES******************************/
 
 table {
@@ -727,6 +778,50 @@ table td {
   text-overflow: ellipsis;
   */
 }
+
+
+/*********************BILL CARD*********************************************************/
+
+h2.bill-title{
+  font-size: 2em;
+}
+
+.bill-card .recent-action{
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.bill-card .recent-action .action-label{
+  font-style: normal;
+  font-weight: 100;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.recent-action *{
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.card-votes{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card-votes .votes-label{
+  font-style: normal;
+  font-weight:300;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.card-votes p{
+  display: inline;
+}
+
 
 
 
