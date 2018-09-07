@@ -13,7 +13,7 @@ class PostController < ApplicationController
                 end
             end
             if not undo
-                reaction = Reaction.new(react_category_id: category)
+                reaction = Reaction.new(react_category_id: category || 1)
                 reaction.user = user
                 reaction.reactable = post
                 reaction.save
