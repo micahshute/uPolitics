@@ -13,10 +13,10 @@ class PostController < ApplicationController
                 end
             end
             if not undo
-                reaction = Reaction.new(react_category_id: 1)
+                reaction = Reaction.new(react_category_id: category)
                 reaction.user = user
                 reaction.reactable = post
-                reaction.saves
+                reaction.save
             end
             obj = post.postable
             redirect "#{obj.klass}s/senate/#{obj.slug_from("#{obj.klass}_identifier")}"
