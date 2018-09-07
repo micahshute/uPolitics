@@ -918,3 +918,10 @@ h6.yes-votes, h6.no-votes, h6.abstain-votes{
   background: #0B3C5D;
   color: white;
 }
+
+
+input.custom-button-light:hover{
+  background-color: #ddd;
+  border-color: #0B3C5D;
+  color: #0B3C5D;
+}
