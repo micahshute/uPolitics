@@ -174,6 +174,16 @@ class ApplicationController < Sinatra::Base
             !!current_user.followed_bills.find{|bill| bill.bill_identifier.downcase == id.downcase}
         end
 
+        def create_user_if_authorized(user_params)
+            user = User.new(user_params)
+            if user.save
+                session[:user_id] = user.id
+                redirect '/signup/info'
+            else
+                @errors = user.errors.messages
+                erb :"/authenticate/signup"
+            end
+        end
 
     end
 

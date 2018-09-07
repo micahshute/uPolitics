@@ -44,14 +44,7 @@ class AuthenticationController < ApplicationController
 
     post '/signup' do
         redirect '/' if authorized?
-        user = User.new(params[:user])
-        if user.save
-          session[:user_id] = user.id
-          redirect '/signup/info'
-        else
-          @errors = user.errors.messages
-          erb :"/authenticate/signup"
-        end
+        create_user_if_authorized(params[:user])
     end
 
     post '/profile/:state' do
