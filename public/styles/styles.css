@@ -420,8 +420,9 @@ input.chosen{
 }
 
 .custom-button-light:hover{
-  background-color: #ccc;
+  background-color: #ddd;
   border-color: #0B3C5D;
+  color: #0B3C5D;
 }
 
 /*************************POSTS************************************/
