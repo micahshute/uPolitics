@@ -419,7 +419,7 @@ input.chosen{
   font-weight: normal;
 }
 
-.custom-button-light:hover{
+input.custom-button-light:hover{
   background-color: #ddd;
   border-color: #0B3C5D;
   color: #0B3C5D;
