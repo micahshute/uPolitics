@@ -28,11 +28,7 @@ class AuthenticationController < ApplicationController
         user = current_user
         user.state = state
         @user = UserAPIDecorator.new(user: user)
-        # begin
-            erb :"authenticate/verify_setup"
-        # rescue
-            # erb :errors/site_down"
-        # end
+        erb :"authenticate/verify_setup"
     end
 
     post '/login' do

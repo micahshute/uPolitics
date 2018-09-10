@@ -32,6 +32,10 @@ class ApplicationController < Sinatra::Base
         redirect '/'
     end
 
+    errors do 
+        erb: "errors/site_down"
+    end
+
     helpers do
 
         def logged_in?
