@@ -32,7 +32,7 @@ class ApplicationController < Sinatra::Base
         redirect '/'
     end
 
-    errors do 
+    error do 
         erb: "errors/site_down"
     end
 
