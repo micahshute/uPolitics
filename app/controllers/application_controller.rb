@@ -112,10 +112,10 @@ class ApplicationController < Sinatra::Base
         end
 
         def reaction(params:)
-            if params.keys.include?("like")
+            if params.keys.include?("like") || params.keys.include?("like.x")
                 return 1
             elsif
-                params.keys.include?("dislike")
+                params.keys.include?("dislike") || params.keys.include?("dislike.x")
                 return 0
             else
                 return nil
