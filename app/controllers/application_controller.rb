@@ -33,7 +33,7 @@ class ApplicationController < Sinatra::Base
     end
 
     error do 
-        erb: "errors/site_down"
+        erb :"errors/site_down"
     end
 
     helpers do
