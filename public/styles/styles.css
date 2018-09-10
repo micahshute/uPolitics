@@ -419,7 +419,7 @@ input.chosen{
   font-weight: normal;
 }
 
-.custom-button-light:hover{
+input.custom-button-light:hover{
   background-color: #ddd;
   border-color: #0B3C5D;
   color: #0B3C5D;
@@ -917,4 +917,11 @@ h6.yes-votes, h6.no-votes, h6.abstain-votes{
   border: 1px solid #0B3C5D;
   background: #0B3C5D;
   color: white;
+}
+
+
+input.custom-button-light:hover{
+  background-color: #ddd;
+  border-color: #0B3C5D;
+  color: #0B3C5D;
 }
