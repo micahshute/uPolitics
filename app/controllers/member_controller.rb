@@ -74,6 +74,7 @@ class MemberController < ApplicationController
         authorize
         member = Member.find_or_create_by(member_identifier: params[:member_slug])
         user = current_user
+        params[:post][:content] = Sanitize.fragment(params[:post][:content])
         post = Post.new(params[:post])
         post.user = user
         post.postable = member

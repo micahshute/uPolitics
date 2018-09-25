@@ -39,6 +39,7 @@ class PostController < ApplicationController
         authorize
         if post = Post.find_by(id: params[:id])
             redirect '/logout' if !current_user.posts.include?(post)
+            params[:post][:content] = Sanitize.fragment(params[:post][:content])
             post.update(params[:post])
             obj = post.postable
             redirect "#{obj.klass}s/senate/#{obj.slug_from("#{obj.klass}_identifier")}"

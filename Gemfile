@@ -21,3 +21,5 @@ end
 group :production do
   gem 'pg'
 end
+
+gem "sanitize", "~> 4.6"

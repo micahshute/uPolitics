@@ -112,6 +112,7 @@ class BillController < ApplicationController
         authorize
         bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
         user = current_user
+        params[:post][:content] = Sanitize.fragment(params[:post][:content])
         post = Post.new(params[:post])
         post.user = user
         post.postable = bill
