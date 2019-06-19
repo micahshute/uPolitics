@@ -1,12 +1,18 @@
 class APIManager
 
     BASE_URI = "https://api.propublica.org/congress/v1/"
-    CONGRESS = 115
+    
     HEADERS = {
         headers: {
             "X-API-Key" => ENV['X-API-KEY']
         }
     }
+
+
+    def self.congress
+        d = DateTime.now
+        (d.year - 1787) / 2
+    end
 
     def self.transform_recent_bills_data(type: , chamber:)
         data = nil
@@ -34,7 +40,7 @@ class APIManager
     end
 
     def self.all_senators
-        uri = BASE_URI + "#{CONGRESS}/#{Chamber.senate}/members.json"
+        uri = BASE_URI + "#{self.congress}/#{Chamber.senate}/members.json"
         json = get_and_parse(uri)
         results = json["results"][0]["members"]
         senators = results.select do |senator|
@@ -98,7 +104,7 @@ class APIManager
 
     def self.votes_by_type(chamber, type)
         #check type = missed, party, loneno, perfect
-        uri = BASE_URI + "#{CONGRESS}/#{chamber}/votes/#{type}.json"
+        uri = BASE_URI + "#{self.congress}/#{chamber}/votes/#{type}.json"
         json = get_and_parse(uri)
         json["results"][0]["members"]
     end
@@ -121,44 +127,44 @@ class APIManager
     end
 
     def self.recent_personal_explanations
-        uri = BASE_URI + "#{CONGRESS}.explanations.json"
+        uri = BASE_URI + "#{self.congress}.explanations.json"
         json = get_and_parse(uri)
         json["results"]
     end
 
     def self.recent_personal_explanation_votes
-        uri = BASE_URI + "#{CONGRESS}/explanations/votes.json"
+        uri = BASE_URI + "#{self.congress}/explanations/votes.json"
         json = get_and_parse(uri)
         json["results"]
     end
 
     def self.votes(chamber, session, role_call)
-        uri = BASE_URI + "#{CONGRESS}/#{chamber}/sessions/#{session}/votes/#{role_call}.json"
+        uri = BASE_URI + "#{self.congress}/#{chamber}/sessions/#{session}/votes/#{role_call}.json"
         get_and_parse(uri)["results"]["votes"]
     end
 
     def self.personal_explanations_by_member(id)
-        uri = BASE_URI + "members/#{id}/explanations/#{CONGRESS}.json"
+        uri = BASE_URI + "members/#{id}/explanations/#{self.congress}.json"
         get_and_parse(uri)["results"]
     end
 
     def self.personal_explanation_votes_by_member(id)
-        uri = BASE_URI + "members/#{id}/explanations/#{CONGRESS}/votes.json"
+        uri = BASE_URI + "members/#{id}/explanations/#{self.congress}/votes.json"
         get_and_parse(uri)["results"]
     end
 
     def self.bill_statements(id)
-        uri = BASE_URI + "#{CONGRESS}/bills/#{id}/statements.json"
+        uri = BASE_URI + "#{self.congress}/bills/#{id}/statements.json"
     end
 
     def self.member_statements(id)
-        uri = BASE_URI + "members/#{id}/statements/#{CONGRESS}.json"
+        uri = BASE_URI + "members/#{id}/statements/#{self.congress}.json"
         get_and_parse(uri)["results"]
     end
 
     def self.committee(id, chamber)
         #TODO add exception for bad chamber
-        uri = BASE_URI + "#{CONGRESS}/#{chamber}/committees/#{id}.json"
+        uri = BASE_URI + "#{self.congress}/#{chamber}/committees/#{id}.json"
         get_and_parse(uri)["results"]
     end
 
@@ -202,7 +208,7 @@ class APIManager
         if ((split = id.split("-")) && split.length > 1)
             id = split.first
         end
-        uri = BASE_URI + "#{CONGRESS}/bills/#{id}.json"
+        uri = BASE_URI + "#{self.congress}/bills/#{id}.json"
         json = get_and_parse(uri)
         return nil if !json["results"]
         json["results"][0]
@@ -215,7 +221,7 @@ class APIManager
     end
 
     def self.related_bills(id)
-        uri = BASE_URI + "#{CONGRESS}/bills/#{id}/related.json"
+        uri = BASE_URI + "#{self.congress}/bills/#{id}/related.json"
         json = get_and_parse(uri)
         json["results"]
     end
@@ -240,7 +246,7 @@ class APIManager
     end
 
     def self.bill_amendments(id)
-        uri = BASE_URI + "#{CONGRESS}/bills/#{id}/amendments.json"
+        uri = BASE_URI + "#{self.congress}/bills/#{id}/amendments.json"
         json = get_and_parse(uri)
         json["results"]
     end
@@ -259,7 +265,7 @@ class APIManager
     end
 
     def self.recent_bills(type, chamber)
-        uri = BASE_URI + "#{CONGRESS}/#{chamber}/bills/#{type}.json"
+        uri = BASE_URI + "#{self.congress}/#{chamber}/bills/#{type}.json"
         json = get_and_parse(uri)
         json["results"]
     end
