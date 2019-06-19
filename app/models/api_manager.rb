@@ -1,7 +1,6 @@
 class APIManager
 
     BASE_URI = "https://api.propublica.org/congress/v1/"
-    self.congress = 115
     HEADERS = {
         headers: {
             "X-API-Key" => ENV['X-API-KEY']
