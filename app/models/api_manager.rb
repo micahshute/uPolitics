@@ -10,7 +10,7 @@ class APIManager
 
     def self.congress
         d = DateTime.now
-        return (d.year - 1781) / 2
+        return (d.year - 1787) / 2
     end
 
     def self.transform_recent_bills_data(type: , chamber:)
