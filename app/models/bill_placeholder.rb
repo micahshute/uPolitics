@@ -2,7 +2,7 @@ class BillPlaceholder
 
     attr_accessor :congress, :bill_identifier
 
-    def initialize(congress: 115, bill_identifier:)
+    def initialize(congress: Congress.number, bill_identifier:)
         @congress = congress
         @bill_identifier = bill_identifier.downcase
     end

@@ -3,7 +3,7 @@ class CommitteePlaceholder
 
     attr_reader :committee_identifier, :congress, :chamber
 
-    def initialize(committee_identifier: , congress: 115, chamber:)
+    def initialize(committee_identifier: , congress: Congress.number, chamber:)
         @committee_identifier = committee_identifier.downcase
         @congress = congress
         @chamber = chamber
