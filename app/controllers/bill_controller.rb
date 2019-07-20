@@ -67,7 +67,7 @@ class BillController < ApplicationController
 
     post '/bills/senate/:bill_slug/follow' do
         authorize
-        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: Congress.number)
         user = current_user
         user.followed_bills << bill
         user.save
@@ -76,7 +76,7 @@ class BillController < ApplicationController
 
     post '/bills/senate/:bill_slug/unfollow' do
         authorize
-        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: Congress.number)
         user = current_user
         user.followed_bills = user.followed_bills.reject{|b| b.bill_identifier == bill.bill_identifier}
         user.save
@@ -85,7 +85,7 @@ class BillController < ApplicationController
 
     post '/bills/senate/:bill_slug/react' do
       authorize
-      if bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+      if bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: Congress.number)
           undo = false
           user = current_user
           category = reaction(params: params)
@@ -110,7 +110,7 @@ class BillController < ApplicationController
 
     post '/bills/senate/:bill_slug/posts/new' do
         authorize
-        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: 115)
+        bill = Bill.find_or_create_by(bill_identifier: params[:bill_slug], congress: Congress.number)
         user = current_user
         params[:post][:content] = Sanitize.fragment(params[:post][:content])
         post = Post.new(params[:post])
